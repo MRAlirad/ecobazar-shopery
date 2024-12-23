@@ -1,53 +1,43 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const Joi = require('joi');
 
 const router = express.Router();
 
-const products = [
-	{
-		id: 1,
-		title: 'کلم بروکلی',
-		price: 48,
-		discount: 64,
-		count: 10,
+const productSchema = new mongoose.Schema({
+	title: {
+		type: String,
+		required: true,
+		minlength: 3,
+		maxlength: 255,
 	},
-	{
-		id: 2,
-		title: 'قارچ',
-		price: 48,
-		discount: 64,
-		count: 10,
+	price: {
+		type: Number,
+		required: true,
+		min: 0,
 	},
-	{
-		id: 3,
-		title: 'خیار',
-		price: 48,
-		discount: 64,
-		count: 10,
+	discount: {
+		type: Number,
+		min: 0,
+		max: 100,
 	},
-	{
-		id: 4,
-		title: 'گوجه فرنگی',
-		price: 48,
-		discount: 64,
-		count: 10,
+	count: {
+		type: Number,
+		required: true,
+		min: 0,
 	},
-	{
-		id: 5,
-		title: 'سیب زمینی',
-		price: 48,
-		discount: 64,
-		count: 10,
-	},
-];
+});
 
-router.get('/', (_, res) => {
+const Product = mongoose.model('Product', productSchema);
+
+router.get('/', async (_, res) => {
+	const products = await Product.find().sort('name');
 	res.send(products);
 });
 
-router.get('/:id', (req, res) => {
-	// find the product
-	const product = products.find(p => p.id === +req.params.id);
+router.get('/:id', async (req, res) => {
+	const product = await Product.findById(req.params.id);
+
 	if (!product)
 		return res.status(404).send({
 			status: false,
@@ -57,56 +47,46 @@ router.get('/:id', (req, res) => {
 	res.send(product);
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
 	// validate request
 	const { error } = validateProduct(req.body);
 	if (error) return res.status(400).send(error.details);
 
-	const product = {
-		id: products.length + 1,
+	let product = new Product({
 		title: req.body.title,
 		price: req.body.price,
 		discount: req.body.discount || 0,
 		count: req.body.count,
-	};
+	});
 
-	products.push(product);
+	product = await product.save();
 	res.send(product);
 });
 
-router.patch('/:id', (req, res) => {
-	// find the product
-	let product = products.find(p => p.id === +req.params.id);
-	if (!product)
-		return res.status(404).send({
-			status: false,
-			message: 'product with the given id was not found',
-		});
-
+router.patch('/:id', async (req, res) => {
 	// validate request
 	const { error } = validateProduct(req.body);
 	if (error) return res.status(400).send(error.details);
 
-	product.title = req.body.title;
-	product.price = req.body.price;
-	product.discount = req.body.discount || 0;
-	product.count = req.body.count;
+	const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-	res.send(product);
-});
-
-router.delete('/:id', (req, res) => {
-	// find the product
-	const product = products.find(p => p.id === +req.params.id);
 	if (!product)
 		return res.status(404).send({
 			status: false,
 			message: 'product with the given id was not found',
 		});
 
-	// delete the product from the products array
-	const index = products.indexOf(product);
-	products.splice(index, 1);
+	res.send(product);
+});
+
+router.delete('/:id', async (req, res) => {
+	const product = await Product.findByIdAndDelete(req.params.id);
+
+	if (!product)
+		return res.status(404).send({
+			status: false,
+			message: 'product with the given id was not found',
+		});
 
 	res.send(product);
 });
