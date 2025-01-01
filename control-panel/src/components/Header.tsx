@@ -4,8 +4,8 @@ import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 const Header = () => {
 	return (
-		<header className="col-span-2 bg-white dark:bg-gray-900 sticky w-full z-20 top-0 border-b border-gray-200 dark:border-gray-600">
-			<div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+		<header className="col-span-2 bg-white dark:bg-gray-900 sticky w-full h-20 z-20 top-0 border-b border-gray-200 dark:border-gray-600">
+			<div className="max-desktop-width flex items-center justify-between h-full">
 				<Link
 					to="/"
 					className="flex items-center justify-center"

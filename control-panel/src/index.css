@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer components {
+	.max-desktop-width {
+		@apply w-full max-w-screen-xl mx-auto px-4 md:px-10;
+	}
+
+	/*! Button !*/
 	.btn {
 		@apply flex items-center justify-center gap-2 focus:ring-4 font-medium outline-none rounded-lg;
 	}
@@ -35,5 +40,13 @@
 	}
 	.btn.large {
 		@apply px-5 py-3 text-base;
+	}
+
+	/*! Image !*/
+	.img-box {
+		@apply flex items-center justify-center overflow-hidden;
+	}
+	img {
+		@apply w-full h-full object-contain;
 	}
 }
