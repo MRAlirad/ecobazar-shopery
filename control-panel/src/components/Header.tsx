@@ -1,6 +1,6 @@
-import LogoImg from '../../public/pics/Logo.png';
 import { Link } from 'react-router';
 import Button from './Button';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
 
 const Header = () => {
 	return (
@@ -11,11 +11,42 @@ const Header = () => {
 					className="flex items-center justify-center"
 				>
 					<img
-						src={LogoImg}
+						src="/pics/Logo.png"
 						alt="logo"
 					/>
 				</Link>
-				<Button color='red' text='log out' />
+				<Button
+					color="default"
+					size="medium"
+					text="theme mode"
+					icon={
+						<>
+							<MdDarkMode className="hidden dark:block" />
+							<MdLightMode className="block dark:hidden" />
+						</>
+					}
+					onClick={() => {
+						// if set via local storage previously
+						if (localStorage.getItem('color-theme')) {
+							if (localStorage.getItem('color-theme') === 'light') {
+								document.documentElement.classList.add('dark');
+								localStorage.setItem('color-theme', 'dark');
+							} else {
+								document.documentElement.classList.remove('dark');
+								localStorage.setItem('color-theme', 'light');
+							}
+							// if NOT set via local storage previously
+						} else {
+							if (document.documentElement.classList.contains('dark')) {
+								document.documentElement.classList.remove('dark');
+								localStorage.setItem('color-theme', 'light');
+							} else {
+								document.documentElement.classList.add('dark');
+								localStorage.setItem('color-theme', 'dark');
+							}
+						}
+					}}
+				/>
 			</div>
 		</header>
 	);
