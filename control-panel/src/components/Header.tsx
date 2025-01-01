@@ -17,7 +17,6 @@ const Header = () => {
 				</Link>
 				<Button
 					color="default"
-					size="medium"
 					text="theme mode"
 					icon={
 						<>
