@@ -3,11 +3,11 @@ import Loader from './Loader';
 import Icon from './Icon';
 import classnames from 'classnames';
 
-interface Props {
+export interface Props {
 	color?: 'default' | 'blue' | 'green' | 'red' | 'blue-outline' | 'green-outline' | 'red-outline';
 	text?: string;
 	icon?: ReactNode;
-	size?: 'small' | 'medium' | 'large';
+	size?: 'small' | 'medium' | 'large' | 'icon';
 	type?: 'submit' | 'button';
 	fluid?: boolean;
 	disabled?: boolean;

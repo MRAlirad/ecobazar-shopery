@@ -7,6 +7,18 @@
 		@apply w-full max-w-screen-xl mx-auto px-4 md:px-10;
 	}
 
+	.page {
+		@apply space-y-4 w-full max-w-screen-xl mx-auto p-4  md:px-10;
+	}
+
+	.page h1 {
+		@apply text-3xl text-gray-900 dark:text-white;
+	}
+
+	.card {
+		@apply grid gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max;
+	}
+
 	/*! Button !*/
 	.btn {
 		@apply flex items-center justify-center gap-2 focus:ring-4 font-medium outline-none rounded-lg;
@@ -40,6 +52,9 @@
 	}
 	.btn.large {
 		@apply px-5 py-3 text-base;
+	}
+	.btn.icon {
+		@apply p-2.5;
 	}
 
 	/*! Image !*/

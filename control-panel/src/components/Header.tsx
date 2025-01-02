@@ -17,7 +17,7 @@ const Header = () => {
 				</Link>
 				<Button
 					color="default"
-					text="theme mode"
+					size='icon'
 					icon={
 						<>
 							<MdDarkMode className="hidden dark:block" />
