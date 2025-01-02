@@ -24,7 +24,7 @@ const Modal = ({ title, children, className = '', actions = [], onClose = () => 
 		>
 			<div
 				className={classNames({
-					'relative grid rounded-lg overflow-hidden w-full h-max max-w-[90vw] max-h-[90vh] bg-white shadow dark:bg-gray-700': true,
+					'relative grid rounded-lg overflow-hidden w-full h-max max-w-[90vw] max-h-[90vh] bg-white shadow dark:bg-gray-800': true,
 					'grid-rows-[max-content_1fr_max-content]': !!actions.length,
 					'grid-rows-[max-content_1fr]': actions.length === 0,
 					[className]: className,

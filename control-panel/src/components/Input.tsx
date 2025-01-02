@@ -1,5 +1,6 @@
 import { useController, useFormContext } from 'react-hook-form';
 import classNames from 'classnames';
+import { ChangeEvent } from 'react';
 
 interface Props {
 	label: string;
@@ -8,7 +9,7 @@ interface Props {
 	name: string;
 	placeholder?: string;
 	type?: string;
-	onChange?: (value: string) => void;
+	onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({ label, className, defaultValue, name, placeholder, type, onChange = () => {} }: Props) => {
@@ -42,7 +43,7 @@ const Input = ({ label, className, defaultValue, name, placeholder, type, onChan
 				})}
 				placeholder={placeholder}
 				onChange={e => {
-					onChange(e.target.value);
+					onChange(e.target.value, e);
 					if (field) return field.onChange(e);
 				}}
 			/>
