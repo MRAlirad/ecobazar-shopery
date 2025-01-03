@@ -19,6 +19,34 @@
 		@apply grid gap-4 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-max;
 	}
 
+	.actions-box {
+		@apply col-span-2 flex items-center flex-row-reverse gap-3 p-6;
+	}
+
+	/*! Table !*/
+	.table-wrapper {
+		@apply relative overflow-x-auto shadow-md rounded-lg;
+	}
+	.table-wrapper table {
+		@apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+	}
+	.table-wrapper table thead {
+		@apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
+	}
+	.table-wrapper table thead th {
+		@apply px-6 py-3;
+	}
+	.table-wrapper table tbody tr {
+		@apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 last:border-none;
+	}
+	.table-wrapper table tbody tr td {
+		@apply px-6 py-4;
+	}
+	.table-wrapper table tbody tr td.row,
+	.table-wrapper table tbody tr td.action {
+		@apply w-1/12;
+	}
+
 	/*! Button !*/
 	.btn {
 		@apply flex items-center justify-center gap-2 focus:ring-4 font-medium outline-none rounded-lg;
