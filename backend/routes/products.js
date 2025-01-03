@@ -22,8 +22,13 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	// validate request
-	const { error } = validateProduct(req.body);
-	if (error) return res.status(400).send(error.details);
+	// const { error } = validateProduct(req.body);
+	// if (error)
+	// 	return res.status(400).send({
+	// 		status: false,
+	// 		errors: (() => error.details.map(detail => detail.message))(),
+	// 	});
+	// return;
 
 	let product = new Product({
 		title: req.body.title,
