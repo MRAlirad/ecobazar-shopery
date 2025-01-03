@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,62 +7,28 @@ import Modal from '../Modal';
 import Input from '../Input';
 import Textarea from '../Textarea';
 import Select from '../Select';
-import Icon from '../Icon';
-import { FiUploadCloud } from 'react-icons/fi';
-import { useState } from 'react';
 import Button from '../Button';
-import { FaTrash } from "react-icons/fa";
+import Icon from '../Icon';
+import FormSchema from '../../schemas/FormSchema';
+import ProductSchema from '../../schemas/ProductSchema';
+import { statuses } from '../../values';
+import { FiUploadCloud } from 'react-icons/fi';
+import { FaTrash } from 'react-icons/fa';
 
-interface ImageModalProps {
-	onClose: () => void;
-	onAdd: (value: string) => void;
-}
-
-type ProductFormInputs = {
-	title: string;
-	description: string;
-	images: string[];
-	price: string;
-	discount: string;
-	count: string;
-	status: string;
-	category: string;
-	tag: string;
-};
-
-type ImageModalInputs = {
-	img: string;
-};
-
-const ProductForm = () => {
-	const statuses: { value: number; label: string }[] = [
-		{
-			value: 1,
-			label: 'Active',
-		},
-		{
-			value: 2,
-			label: 'Deactive',
-		},
-		{
-			value: 3,
-			label: 'Archived',
-		},
-	];
-
+const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
-	const formMethods = useForm<ProductFormInputs>({
+	const formMethods = useForm<ProductSchema>({
 		defaultValues: {
-			title: '',
-			description: '',
-			images: [],
-			price: '',
-			discount: '',
-			count: '',
-			status: '',
-			category: '',
-			tag: '',
+			title: data?.title ?? '',
+			description: data?.description ?? '',
+			images: data?.images ?? [],
+			price: data?.price ?? 0,
+			discount: data?.discount ?? 0,
+			count: data?.count ?? 0,
+			status: data?.status ?? statuses[0].value,
+			// category: data?.category ?? 0,
+			// tag: data?.tag ?? '',
 		},
 	});
 	const { handleSubmit, getValues, setValue, watch } = formMethods;
@@ -70,7 +37,10 @@ const ProductForm = () => {
 		<FormProvider {...formMethods}>
 			<form
 				className="grid grid-cols-[2fr_1fr] gap-6"
-				onSubmit={handleSubmit(data => console.log(data))}
+				onSubmit={handleSubmit(data => {
+					if (mode === 'ADD') onAdd(data);
+					else if (mode === 'EDIT') onEdit(data);
+				})}
 			>
 				<div className="space-y-6">
 					<div className="card">
@@ -95,8 +65,8 @@ const ProductForm = () => {
 								/>
 								<Button
 									color="red-outline"
-									size='icon'
-									icon={<FaTrash size='16' />}
+									size="icon"
+									icon={<FaTrash size="16" />}
 									className="absolute top-2 start-2 z-10"
 								/>
 							</div>
@@ -142,7 +112,7 @@ const ProductForm = () => {
 							options={statuses}
 						/>
 					</div>
-					<div className="card">
+					{/* <div className="card">
 						<Select
 							name="category"
 							label="Cateogry"
@@ -152,9 +122,20 @@ const ProductForm = () => {
 							name="tag"
 							label="Tags"
 						/>
-					</div>
+					</div> */}
 				</div>
-				<div className="actions-box"></div>
+				<div className="actions-box">
+					<Button
+						color="blue"
+						text="Save"
+						type="submit"
+						loading={isAdding}
+					/>
+					<Button
+						color="red-outline"
+						text="Cancel"
+					/>
+				</div>
 			</form>
 			{imageModalDisplay && (
 				<ImageModal
@@ -164,6 +145,15 @@ const ProductForm = () => {
 			)}
 		</FormProvider>
 	);
+};
+
+interface ImageModalProps {
+	onClose: () => void;
+	onAdd: (value: string) => void;
+}
+
+type ImageModalInputs = {
+	img: string;
 };
 
 const ImageModal = ({ onAdd, onClose }: ImageModalProps) => {
