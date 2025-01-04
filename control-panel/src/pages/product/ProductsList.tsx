@@ -1,4 +1,4 @@
-import { useGetProductsList } from '../../hooks/api';
+import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { Link } from 'react-router';
 import Button from '../../components/Button';
 import { statuses } from '../../values';
@@ -6,6 +6,9 @@ import { FaTrash, FaPen } from 'react-icons/fa';
 
 const ProductsList = () => {
 	const { data: products } = useGetProductsList();
+
+	const deleteProduct = useDeleteProduct({});
+
 	return (
 		<div className="page">
 			<div className="flex items-center justify-between">
@@ -22,33 +25,47 @@ const ProductsList = () => {
 				<table>
 					<thead>
 						<tr>
-							<th>Row</th>
+							<th className="row">Row</th>
 							<th>Product name</th>
 							<th>Price</th>
 							<th>Discount</th>
 							<th>Status</th>
-							<th>Actions</th>
+							<th className="action">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
 						{products?.map((product, index) => (
-							<tr key={product.id}>
+							<tr key={product._id}>
 								<td>{index + 1}</td>
-								<td className="font-bold">{product.title}</td>
+								<td>
+									<div className="flex items-center gap-2">
+										<div className="img-box size-14 aspect-square rounded">
+											<img
+												src={product.images[0]}
+												alt={product.title}
+												className="object-cover"
+											/>
+										</div>
+										<span className="font-bold">{product.title}</span>
+									</div>
+								</td>
 								<td>{product.price}</td>
 								<td>{product.discount}</td>
 								<td>{statuses.find(s => s.value === product.status)?.label}</td>
-								<td className="action">
+								<td>
 									<div className="flex items-center gap-2">
 										<Button
 											color="green"
 											size="icon"
 											icon={<FaPen size="15" />}
+											to={`/product/edit/${product._id}`}
 										/>
 										<Button
 											color="red"
 											size="icon"
 											icon={<FaTrash size="15" />}
+											loading={deleteProduct.isPending}
+											onClick={() => product?._id && deleteProduct.mutate(product._id)}
 										/>
 									</div>
 								</td>

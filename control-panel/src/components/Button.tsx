@@ -2,10 +2,12 @@ import { ReactNode } from 'react';
 import Loader from './Loader';
 import Icon from './Icon';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 
 export interface Props {
 	color?: 'default' | 'blue' | 'green' | 'red' | 'blue-outline' | 'green-outline' | 'red-outline';
 	text?: string;
+	to?: string;
 	icon?: ReactNode;
 	size?: 'small' | 'medium' | 'large' | 'icon';
 	type?: 'submit' | 'button';
@@ -16,9 +18,10 @@ export interface Props {
 	onClick?: () => void;
 }
 
-const Button = ({ color = 'blue', text = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'button', className = '', onClick = () => {} }: Props) => {
+const Button = ({ color = 'blue', text = '', to = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'button', className = '', onClick = () => {} }: Props) => {
+	const Tag = to ? Link : 'button';
 	return (
-		<button
+		<Tag
 			className={classnames({
 				btn: true,
 				[color]: true,
@@ -27,6 +30,7 @@ const Button = ({ color = 'blue', text = '', icon, size = 'medium', fluid = fals
 				'w-full': fluid,
 				[className]: className,
 			})}
+			to={to}
 			disabled={disabled || loading}
 			onClick={onClick}
 			type={type}
@@ -39,7 +43,7 @@ const Button = ({ color = 'blue', text = '', icon, size = 'medium', fluid = fals
 					{text && <span>{text}</span>}
 				</>
 			)}
-		</button>
+		</Tag>
 	);
 };
 

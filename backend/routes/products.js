@@ -14,8 +14,8 @@ router.get('/:id', async (req, res) => {
 	if (!product)
 		return res.status(404).send({
 			status: false,
-			message: 'product with the given id was not found',
-		});t6
+			error: 'product with the given id was not found',
+		});
 
 	res.send(product);
 });
@@ -67,7 +67,7 @@ router.delete('/:id', async (req, res) => {
 	if (!product)
 		return res.status(404).send({
 			status: false,
-			message: 'product with the given id was not found',
+			error: 'product with the given id was not found',
 		});
 
 	res.send(product);

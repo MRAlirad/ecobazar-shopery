@@ -36,15 +36,15 @@
 	.table-wrapper table thead th {
 		@apply px-6 py-3;
 	}
+	.table-wrapper table thead th.row,
+	.table-wrapper table thead th.action {
+		@apply w-1/12;
+	}
 	.table-wrapper table tbody tr {
 		@apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 last:border-none;
 	}
 	.table-wrapper table tbody tr td {
 		@apply px-6 py-4;
-	}
-	.table-wrapper table tbody tr td.row,
-	.table-wrapper table tbody tr td.action {
-		@apply w-1/12;
 	}
 
 	/*! Button !*/
