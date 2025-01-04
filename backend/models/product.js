@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
+const { z } = require('zod');
 
 const productSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true,
-		minlength: 3,
-		maxlength: 255,
+	},
+	description: {
+		type: String,
+		required: true,
+	},
+	images: {
+		type: [String],
+		required: true,
 	},
 	price: {
 		type: Number,
@@ -23,24 +29,30 @@ const productSchema = new mongoose.Schema({
 		required: true,
 		min: 0,
 	},
+	status: {
+		type: Number,
+		required: true,
+		enum: [1, 2, 3], // 1: active, 2: inactive, 3: archived
+	},
 });
 
 const Product = mongoose.model('Product', productSchema);
 
 const validateProduct = product => {
-	const schema = Joi.object({
-		title: Joi.string().required().min(3).max(255),
-		description: Joi.string().required().min(10),
-		images: Joi.array().length(1).items(Joi.string()),
-		price: Joi.number().required().min(0),
-		discount: Joi.number().min(0).max(100),
-		count: Joi.number().required().min(0),
-		status: Joi.number().required().only(1, 2, 3),
-		// category: Joi.number().required(),
-		// tag: Joi.string(),
+	// console.log(product);
+	const schema = z.object({
+		title: z.string().trim().nonempty('Title is a required field.'),
+		description: z.string().trim().nonempty('Description is a required field.'),
+		images: z.array(z.string()).nonempty('Choose at least one image.'),
+		price: z.number().gte(0, 'Price must be grater than 0'),
+		discount: z.number().gte(0, 'Discount must be greater than or equal to 0').lte(100, 'Discount must be less than or equal to 100'),
+		count: z.number().gte(0, 'Count must be grater than or equal to 0'),
+		status: z.number().gte(1).lte(3),
 	});
 
-	return schema.validate(product);
+	const validatonResult = schema.safeParse(product);
+
+	if (!validatonResult.success) return validatonResult.error.issues.map(issue => issue.message);
 };
 
 module.exports = {

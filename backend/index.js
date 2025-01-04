@@ -12,11 +12,7 @@ mongoose
 	.catch(err => console.error('Could not connect to MongoDB...'));
 
 app.use(express.json());
-app.use(
-	cors({
-		origin: ['http://localhost:5173'],
-	})
-);
+app.use(cors());
 app.use('/api/products', products);
 app.use('/api/customers', customers);
 

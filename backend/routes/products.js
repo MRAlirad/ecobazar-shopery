@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (_, res) => {
-	const products = await Product.find().sort('name');
+	const products = await Product.find().sort('title');
 	res.send(products);
 });
 
@@ -15,29 +15,33 @@ router.get('/:id', async (req, res) => {
 		return res.status(404).send({
 			status: false,
 			message: 'product with the given id was not found',
-		});
+		});t6
 
 	res.send(product);
 });
 
 router.post('/', async (req, res) => {
 	// validate request
-	// const { error } = validateProduct(req.body);
-	// if (error)
-	// 	return res.status(400).send({
-	// 		status: false,
-	// 		errors: (() => error.details.map(detail => detail.message))(),
-	// 	});
-	// return;
+	const error = validateProduct(req.body);
+
+	if (error)
+		return res.status(400).send({
+			status: false,
+			errors: error,
+		});
 
 	let product = new Product({
 		title: req.body.title,
+		description: req.body.description,
+		images: req.body.images,
 		price: req.body.price,
-		discount: req.body.discount || 0,
+		discount: req.body.discount,
 		count: req.body.count,
+		status: req.body.status,
 	});
 
 	product = await product.save();
+
 	res.send(product);
 });
 
