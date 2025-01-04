@@ -39,7 +39,7 @@ const Input = ({ label, className, defaultValue, name, placeholder, type, onChan
 					'bg-gray-50 text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500': true,
 					'dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500': true,
 					'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500': fieldState.error,
-					'dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': fieldState.error,
+					'dark:text-red-500 dark:placeholder-red-500 dark:border-red-500 dark:focus:border-red-500': fieldState.error,
 				})}
 				placeholder={placeholder}
 				onChange={e => {

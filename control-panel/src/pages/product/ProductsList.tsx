@@ -1,5 +1,8 @@
 import { useGetProductsList } from '../../hooks/api';
 import { Link } from 'react-router';
+import Button from '../../components/Button';
+import { statuses } from '../../values';
+import { FaTrash, FaPen } from 'react-icons/fa';
 
 const ProductsList = () => {
 	const { data: products } = useGetProductsList();
@@ -34,8 +37,21 @@ const ProductsList = () => {
 								<td className="font-bold">{product.title}</td>
 								<td>{product.price}</td>
 								<td>{product.discount}</td>
-								<td>{product.status}</td>
-								<td className="action">{}</td>
+								<td>{statuses.find(s => s.value === product.status)?.label}</td>
+								<td className="action">
+									<div className="flex items-center gap-2">
+										<Button
+											color="green"
+											size="icon"
+											icon={<FaPen size="15" />}
+										/>
+										<Button
+											color="red"
+											size="icon"
+											icon={<FaTrash size="15" />}
+										/>
+									</div>
+								</td>
 							</tr>
 						))}
 					</tbody>

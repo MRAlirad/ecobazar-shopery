@@ -16,7 +16,7 @@ export interface Props {
 	onClick?: () => void;
 }
 
-const Button = ({ color = 'blue', text = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'submit', className = '', onClick = () => {} }: Props) => {
+const Button = ({ color = 'blue', text = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'button', className = '', onClick = () => {} }: Props) => {
 	return (
 		<button
 			className={classnames({

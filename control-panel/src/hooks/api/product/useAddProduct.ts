@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { AxiosError } from 'axios';
 import apiClient from '../apiClient';
 import apiConfig from '../apiConfig';
 import ProductSchema from '../../../schemas/ProductSchema';
-import { toast } from 'react-toastify';
+import ErrorValidation from '../../../components/ErrorValidation';
 
 interface Props {
-	onAdd?: () => void;
+	onAdd?: (data: ProductSchema) => void;
 	onError?: () => void;
 	successToast?: string;
 }
@@ -17,12 +19,13 @@ const useAddProduct = ({ onAdd = () => {}, onError = () => {} }: Props) => {
 	return useMutation({
 		mutationFn: (data: ProductSchema) => apiClient.post(path, data).then(res => res.data),
 		onSuccess: (data: ProductSchema) => {
-			console.log(data);
+			toast.success('Product added successfully');
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
-			onAdd();
+			onAdd(data);
 		},
-		onError: (error: Error) => {
-			toast.error(error.message);
+		onError: ({ response }: AxiosError) => {
+			const output = response!.data as { status: boolean; errors: string[] };
+			toast.error(ErrorValidation(output.errors));
 			onError();
 		},
 	});

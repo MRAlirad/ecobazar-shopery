@@ -15,10 +15,21 @@ import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
 
-const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema>) => {
+const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {} }: FormSchema<ProductSchema>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
 	const formMethods = useForm<ProductSchema>({
+		resolver: yupResolver(
+			yup.object().shape({
+				title: yup.string().required('Title is a required field'),
+				description: yup.string().required('Title is a required field'),
+				images: yup.array().of(yup.string().required()).min(1).required('Images is a required field'),
+				price: yup.number().typeError('Price is a required field').required('Price is a required field'),
+				discount: yup.number().typeError('Discount is a required field').required('Discount is required field').min(0).max(100),
+				count: yup.number().typeError('Count is required field').required('Count is required field'),
+				status: yup.number().typeError('Status is required field').required('Status is required field'),
+			})
+		),
 		defaultValues: {
 			title: data?.title ?? '',
 			description: data?.description ?? '',
@@ -31,22 +42,41 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 			// tag: data?.tag ?? '',
 		},
 	});
-	const { handleSubmit, getValues, setValue, watch } = formMethods;
+	const {
+		handleSubmit,
+		getValues,
+		setValue,
+		watch,
+		formState: { errors },
+	} = formMethods;
+
+	const onSubmit = (formData: ProductSchema) => {
+		const output = {
+			title: formData.title,
+			description: formData.description,
+			images: formData.images,
+			price: +formData.price,
+			discount: +formData.discount,
+			count: +formData.count,
+			status: formData.status,
+		};
+
+		if (mode === 'ADD') onAdd(output);
+		else if (mode === 'EDIT') onEdit(output);
+	};
 
 	return (
 		<FormProvider {...formMethods}>
 			<form
 				className="grid grid-cols-[2fr_1fr] gap-6"
-				onSubmit={handleSubmit(data => {
-					if (mode === 'ADD') onAdd(data);
-					else if (mode === 'EDIT') onEdit(data);
-				})}
+				onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className="space-y-6">
 					<div className="card">
 						<Input
 							name="title"
 							label="Title"
+							placeholder="enter the title"
 						/>
 						<Textarea
 							name="description"
@@ -77,6 +107,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 									true,
 								'h-64 col-span-4': watch('images').length === 0,
 								'aspect-square': watch('images').length > 0,
+								'!border-red-700': errors?.images && watch('images').length === 0,
 							})}
 							onClick={() => setImageModalDisplay(true)}
 						>
@@ -88,19 +119,23 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 								<p className="text-xs text-center">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
 							</div>
 						</div>
+						{errors?.images && watch('images').length === 0 && <span className="col-span-4 text-sm text-red-600 dark:text-red-500">{errors?.images.message}</span>}
 					</div>
 					<div className="card grid-cols-2">
 						<Input
 							name="price"
 							label="Price"
+							type="number"
 						/>
 						<Input
 							name="discount"
 							label="Discount"
+							type="number"
 						/>
 						<Input
 							name="count"
 							label="Count"
+							type="number"
 						/>
 					</div>
 				</div>
