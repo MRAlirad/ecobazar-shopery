@@ -1,6 +1,7 @@
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { Link } from 'react-router';
 import Button from '../../components/Button';
+import Badge from '../../components/Badge';
 import { statuses } from '../../values';
 import { FaTrash, FaPen } from 'react-icons/fa';
 
@@ -50,8 +51,13 @@ const ProductsList = () => {
 									</div>
 								</td>
 								<td>{product.price}</td>
-								<td>{product.discount}</td>
-								<td>{statuses.find(s => s.value === product.status)?.label}</td>
+								<td>%{product.discount}</td>
+								<td>
+									<Badge
+										color={product.status === 1 ? 'green' : product.status === 2 ? 'red' : 'gray'}
+										text={statuses.find(s => s.value === product.status)?.label ?? ''}
+									/>
+								</td>
 								<td>
 									<div className="flex items-center gap-2">
 										<Button
