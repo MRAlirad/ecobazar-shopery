@@ -1,8 +1,12 @@
-import { ReactNode } from 'react';
+import { useEffect, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import classNames from 'classnames';
+import { useLockBodyScroll, useToggle } from 'react-use';
 import Button from './Button';
+import Icon from './Icon';
 import { Props as ButtonProps } from './Button';
 import { IoCloseOutline } from 'react-icons/io5';
+import { PiWarningCircle } from 'react-icons/pi';
 
 interface Props {
 	title: string;
@@ -13,7 +17,15 @@ interface Props {
 }
 
 const Modal = ({ title, children, className = '', actions = [], onClose = () => {} }: Props) => {
-	return (
+	const [locked, toggleLocked] = useToggle(false);
+	useLockBodyScroll(locked);
+
+	useEffect(() => {
+		toggleLocked();
+		return () => toggleLocked();
+	}, [toggleLocked]);
+
+	return createPortal(
 		<div
 			className={classNames({
 				'fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm': true,
@@ -49,7 +61,66 @@ const Modal = ({ title, children, className = '', actions = [], onClose = () => 
 					))}
 				</div>
 			</div>
-		</div>
+		</div>,
+		document.body
+	);
+};
+
+interface DeleteModalProps {
+	title: string;
+	onClose: () => void;
+	onDelete: () => void;
+}
+
+export const DeleteModal = ({ title, onClose, onDelete }: DeleteModalProps) => {
+	const [locked, toggleLocked] = useToggle(false);
+	useLockBodyScroll(locked);
+
+	useEffect(() => {
+		toggleLocked();
+		return () => toggleLocked();
+	}, [toggleLocked]);
+
+	return createPortal(
+		<div
+			className={classNames({
+				'fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm': true,
+			})}
+			onClick={e => {
+				if (e.target === e.currentTarget) onClose();
+			}}
+		>
+			<div className="relative bg-white dark:bg-gray-800 p-4 w-full h-max max-w-md max-h-full rounded-lg overflow-hidden shadow">
+				<Button
+					color="default"
+					size="icon"
+					icon={<IoCloseOutline />}
+					onClick={onClose}
+				/>
+				<div className="flex flex-col items-center gap-4 p-5 text-center">
+					<Icon
+						size="50"
+						className="text-gray-400 dark:text-gray-200"
+					>
+						<PiWarningCircle />
+					</Icon>
+					<h3 className="text-lg font-normal text-gray-500 dark:text-gray-400">{title}</h3>
+					<div className="flex items-center justify-center gap-4">
+						<Button
+							color="red"
+							text="Yes, I'm sure"
+							onClick={onDelete}
+						/>
+						<Button
+							color="default"
+							text="No, Cancel"
+							onClick={onClose}
+						/>
+					</div>
+				</div>
+			</div>
+		</div>,
+		document.body
 	);
 };
 
