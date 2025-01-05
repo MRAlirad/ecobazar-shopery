@@ -1,19 +1,24 @@
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { Link } from 'react-router';
+import { TableListSkeleton } from '../../components/Skeletons';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
 import { statuses } from '../../values';
 import { FaTrash, FaPen } from 'react-icons/fa';
+import { DeleteModal } from '../../components/Modal';
 
 const ProductsList = () => {
-	const { data: products } = useGetProductsList();
+	const { data: products, isLoading } = useGetProductsList();
 
 	const deleteProduct = useDeleteProduct({
 		successToast: 'Product deleted successfully',
 	});
 
+	if (isLoading) return <TableListSkeleton />;
+
 	return (
 		<div className="page">
+			<DeleteModal title="Are you sure you want to delete this product?" />
 			<div className="flex items-center justify-between">
 				<h1>Products List</h1>
 				<Link

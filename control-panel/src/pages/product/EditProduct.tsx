@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
 import { useGetProduct, useEditProduct, useDeleteProduct } from '../../hooks/api';
+import { FormSkeleton } from '../../components/Skeletons';
 import ProductForm from '../../components/product/ProductForm';
 
 const EditProduct = () => {
@@ -19,7 +20,7 @@ const EditProduct = () => {
 		onDelete: () => navigate('/product/list'),
 	});
 
-	if (isLoading) return <div>Loading...</div>;
+	if (isLoading) return <FormSkeleton />;
 
 	if (error) {
 		const output = error.response!.data as { status: boolean; errors: string[] };

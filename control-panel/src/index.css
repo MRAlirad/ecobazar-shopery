@@ -92,4 +92,32 @@
 	img {
 		@apply w-full h-full object-contain;
 	}
+
+	/*! Skeleton !*/
+	.skeleton {
+		@apply relative overflow-hidden bg-gray-200 dark:bg-gray-700 rounded after:absolute after:top-0 after:right-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 dark:after:from-gray-700 dark:after:via-gray-600 dark:after:to-gray-700 after:animate-progress;
+	}
+}
+
+@layer base {
+	/* width */
+	::-webkit-scrollbar {
+		width: 7px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #bababa;
+		border-radius: 5px;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
 }
