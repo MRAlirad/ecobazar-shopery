@@ -1,14 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import apiClient from '../apiClient';
+import useGetList from '../useGetList';
 import apiConfig from '../apiConfig';
 import ProductSchema from '../../../schemas/ProductSchema';
 
 const useGetProductsList = () => {
 	const { path, queryKey } = apiConfig.product;
-	return useQuery({
-		queryKey: [queryKey],
-		queryFn: () => apiClient.get<ProductSchema[]>(path).then(res => res.data),
-	});
+	return useGetList<ProductSchema>({ path, queryKey });
 };
 
 export default useGetProductsList;

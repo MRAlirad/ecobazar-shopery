@@ -10,19 +10,21 @@ const EditProduct = () => {
 	const { data: product, isLoading, error } = useGetProduct(productId || '');
 
 	const editProduct = useEditProduct({
-		id: productId || '',
+		id: productId,
+		successToast: 'Product updated successfully',
 		onEdit: () => navigate('/product/list'),
 	});
 	const deleteProduct = useDeleteProduct({
+		successToast: 'Product deleted successfully',
 		onDelete: () => navigate('/product/list'),
 	});
 
 	if (isLoading) return <div>Loading...</div>;
 
 	if (error) {
-		const output = error.response!.data as { status: boolean; error: string };
+		const output = error.response!.data as { status: boolean; errors: string[] };
 		if (output.status === false) {
-			return <div>{output.error}</div>;
+			return <div>{output.errors}</div>;
 		} else return <div>{error.message}</div>;
 	}
 
@@ -36,8 +38,6 @@ const EditProduct = () => {
 				isEditing={editProduct.isPending}
 				onDelete={() => deleteProduct.mutate(productId || '')}
 				isDeleting={deleteProduct.isPending}
-				// onAdd={data => addProduct.mutate(data)}
-				// isAdding={addProduct.isPending}
 			/>
 		</main>
 	);

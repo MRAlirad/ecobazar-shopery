@@ -8,7 +8,9 @@ import { FaTrash, FaPen } from 'react-icons/fa';
 const ProductsList = () => {
 	const { data: products } = useGetProductsList();
 
-	const deleteProduct = useDeleteProduct({});
+	const deleteProduct = useDeleteProduct({
+		successToast: 'Product deleted successfully',
+	});
 
 	return (
 		<div className="page">

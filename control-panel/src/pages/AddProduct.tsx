@@ -5,6 +5,7 @@ import ProductForm from '../components/product/ProductForm';
 const AddProduct = () => {
 	const navigate = useNavigate();
 	const addProduct = useAddProduct({
+		successToast: 'Product added successfully',
 		onAdd: () => navigate('/product/list'),
 	});
 
