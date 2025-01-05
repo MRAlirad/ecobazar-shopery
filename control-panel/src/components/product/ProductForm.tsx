@@ -9,13 +9,14 @@ import Textarea from '../Textarea';
 import Select from '../Select';
 import Button from '../Button';
 import Icon from '../Icon';
+import PageActionsBox from '../PageActionsBox';
 import FormSchema from '../../schemas/FormSchema';
 import ProductSchema from '../../schemas/ProductSchema';
 import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
 
-const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {} }: FormSchema<ProductSchema>) => {
+const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false }: FormSchema<ProductSchema>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
 	const formMethods = useForm<ProductSchema>({
@@ -159,18 +160,13 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 						/>
 					</div> */}
 				</div>
-				<div className="actions-box">
-					<Button
-						color="blue"
-						text="Save"
-						type="submit"
-						loading={isAdding}
-					/>
-					<Button
-						color="red-outline"
-						text="Cancel"
-					/>
-				</div>
+				<PageActionsBox
+					mode={mode}
+					onAdd={handleSubmit(onSubmit)}
+					onEdit={handleSubmit(onSubmit)}
+					isAdding={isAdding}
+					isEditing={isEditing}
+				/>
 			</form>
 			{imageModalDisplay && (
 				<ImageModal

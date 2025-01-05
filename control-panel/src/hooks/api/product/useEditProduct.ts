@@ -7,19 +7,20 @@ import ProductSchema from '../../../schemas/ProductSchema';
 import ErrorValidation from '../../../components/ErrorValidation';
 
 interface Props {
+	id: string;
 	onAdd?: (data: ProductSchema) => void;
 	onError?: () => void;
 	successToast?: string;
 }
 
-const useAddProduct = ({ onAdd = () => {}, onError = () => {} }: Props) => {
+const useEditProduct = ({ id, onAdd = () => {}, onError = () => {} }: Props) => {
 	const { path, queryKey } = apiConfig.product;
 	const queryClient = useQueryClient();
 
 	return useMutation<ProductSchema, AxiosError, ProductSchema>({
-		mutationFn: (data: ProductSchema) => apiClient.post(path, data).then(res => res.data),
+		mutationFn: (data: ProductSchema) => apiClient.patch(`${path}/${id}`, data).then(res => res.data),
 		onSuccess: (data: ProductSchema) => {
-			toast.success('Product added successfully');
+			toast.success('Product edited successfully');
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
 			onAdd(data);
 		},
@@ -31,4 +32,4 @@ const useAddProduct = ({ onAdd = () => {}, onError = () => {} }: Props) => {
 	});
 };
 
-export default useAddProduct;
+export default useEditProduct;

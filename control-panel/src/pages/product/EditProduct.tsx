@@ -9,6 +9,10 @@ const EditProduct = () => {
 	const { productId } = useParams<{ productId: string }>();
 	const { data: product, isLoading, error } = useGetProduct(productId || '');
 
+	const editProduct = useEditProduct({
+		id: productId || '',
+		onAdd: () => navigate('/product/list'),
+	});
 
 	if (isLoading) return <div>Loading...</div>;
 
@@ -25,6 +29,10 @@ const EditProduct = () => {
 			<ProductForm
 				mode="EDIT"
 				data={product}
+				onEdit={data => editProduct.mutate(data)}
+				isEditing={editProduct.isPending}
+				// onAdd={data => addProduct.mutate(data)}
+				// isAdding={addProduct.isPending}
 			/>
 		</main>
 	);

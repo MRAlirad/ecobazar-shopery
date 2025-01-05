@@ -23,7 +23,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	// validate request
 	const error = validateProduct(req.body);
-
 	if (error)
 		return res.status(400).send({
 			status: false,
@@ -47,15 +46,19 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
 	// validate request
-	const { error } = validateProduct(req.body);
-	if (error) return res.status(400).send(error.details);
+	const error = validateProduct(req.body);
+	if (error)
+		return res.status(400).send({
+			status: false,
+			errors: error,
+		});
 
 	const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
 	if (!product)
 		return res.status(404).send({
 			status: false,
-			message: 'product with the given id was not found',
+			errors: ['product with the given id was not found'],
 		});
 
 	res.send(product);
