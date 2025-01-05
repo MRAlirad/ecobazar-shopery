@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router';
-import { useGetProduct, useEditProduct } from '../../hooks/api';
+import { useGetProduct, useEditProduct, useDeleteProduct } from '../../hooks/api';
 import ProductForm from '../../components/product/ProductForm';
 
 const EditProduct = () => {
@@ -11,7 +11,10 @@ const EditProduct = () => {
 
 	const editProduct = useEditProduct({
 		id: productId || '',
-		onAdd: () => navigate('/product/list'),
+		onEdit: () => navigate('/product/list'),
+	});
+	const deleteProduct = useDeleteProduct({
+		onDelete: () => navigate('/product/list'),
 	});
 
 	if (isLoading) return <div>Loading...</div>;
@@ -31,6 +34,8 @@ const EditProduct = () => {
 				data={product}
 				onEdit={data => editProduct.mutate(data)}
 				isEditing={editProduct.isPending}
+				onDelete={() => deleteProduct.mutate(productId || '')}
+				isDeleting={deleteProduct.isPending}
 				// onAdd={data => addProduct.mutate(data)}
 				// isAdding={addProduct.isPending}
 			/>

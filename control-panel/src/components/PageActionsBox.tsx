@@ -2,12 +2,12 @@ import Button from './Button.tsx';
 
 interface Props {
 	mode: 'ADD' | 'EDIT';
-	onAdd?: () => void;
-	isAdding?: boolean;
-	onEdit?: () => void;
-	isEditing?: boolean;
-	onDelete?: () => void;
-	isDeleting?: boolean;
+	onAdd: () => void;
+	isAdding: boolean;
+	onEdit: () => void;
+	isEditing: boolean;
+	onDelete: () => void;
+	isDeleting: boolean;
 }
 
 const PageActionsBox = ({ mode, onAdd = () => {}, isAdding, onEdit = () => {}, isEditing, onDelete = () => {}, isDeleting }: Props) => {

@@ -16,7 +16,7 @@ import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
 
-const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false }: FormSchema<ProductSchema>) => {
+const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
 	const formMethods = useForm<ProductSchema>({
@@ -161,11 +161,9 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 					</div> */}
 				</div>
 				<PageActionsBox
-					mode={mode}
+					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}
 					onAdd={handleSubmit(onSubmit)}
 					onEdit={handleSubmit(onSubmit)}
-					isAdding={isAdding}
-					isEditing={isEditing}
 				/>
 			</form>
 			{imageModalDisplay && (

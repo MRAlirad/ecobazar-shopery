@@ -8,12 +8,12 @@ import ErrorValidation from '../../../components/ErrorValidation';
 
 interface Props {
 	id: string;
-	onAdd?: (data: ProductSchema) => void;
+	onEdit?: (data: ProductSchema) => void;
 	onError?: () => void;
 	successToast?: string;
 }
 
-const useEditProduct = ({ id, onAdd = () => {}, onError = () => {} }: Props) => {
+const useEditProduct = ({ id, onEdit = () => {}, onError = () => {} }: Props) => {
 	const { path, queryKey } = apiConfig.product;
 	const queryClient = useQueryClient();
 
@@ -22,7 +22,7 @@ const useEditProduct = ({ id, onAdd = () => {}, onError = () => {} }: Props) => 
 		onSuccess: (data: ProductSchema) => {
 			toast.success('Product edited successfully');
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
-			onAdd(data);
+			onEdit(data);
 		},
 		onError: ({ response }: AxiosError) => {
 			const output = response!.data as { status: boolean; errors: string[] };

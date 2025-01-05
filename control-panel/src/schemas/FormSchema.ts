@@ -5,6 +5,6 @@ export default interface FormSchema<T> {
 	isAdding?: boolean;
 	onEdit?: (data: T) => void;
 	isEditing?: boolean;
-	onDelete?: (data: T) => void;
+	onDelete?: () => void;
 	isDeleting?: boolean;
 }
