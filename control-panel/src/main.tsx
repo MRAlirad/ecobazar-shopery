@@ -7,6 +7,7 @@ import App from './App.tsx';
 import './index.css';
 import ProductsList from './pages/product/ProductsList.tsx';
 import AddProduct from './pages/AddProduct.tsx';
+import EditProduct from './pages/product/EditProduct.tsx';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,10 @@ createRoot(document.getElementById('root')!).render(
 						<Route
 							path="/product/add"
 							element={<AddProduct />}
+						/>
+						<Route
+							path="/product/edit/:productId"
+							element={<EditProduct />}
 						/>
 					</Route>
 				</Routes>
