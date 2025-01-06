@@ -27,9 +27,7 @@ const Modal = ({ title, children, className = '', actions = [], onClose = () => 
 
 	return createPortal(
 		<div
-			className={classNames({
-				'fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm': true,
-			})}
+			className="fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm"
 			onClick={e => {
 				if (e.target === e.currentTarget) onClose();
 			}}
@@ -70,9 +68,10 @@ interface DeleteModalProps {
 	title: string;
 	onClose: () => void;
 	onDelete: () => void;
+	isDeleting: boolean;
 }
 
-export const DeleteModal = ({ title, onClose, onDelete }: DeleteModalProps) => {
+export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModalProps) => {
 	const [locked, toggleLocked] = useToggle(false);
 	useLockBodyScroll(locked);
 
@@ -83,9 +82,7 @@ export const DeleteModal = ({ title, onClose, onDelete }: DeleteModalProps) => {
 
 	return createPortal(
 		<div
-			className={classNames({
-				'fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm': true,
-			})}
+			className="fixed inset-0 flex items-center justify-center bg-black/50 z-[1000] backdrop-blur-sm"
 			onClick={e => {
 				if (e.target === e.currentTarget) onClose();
 			}}
@@ -99,7 +96,7 @@ export const DeleteModal = ({ title, onClose, onDelete }: DeleteModalProps) => {
 				/>
 				<div className="flex flex-col items-center gap-4 p-5 text-center">
 					<Icon
-						size="50"
+						size="80"
 						className="text-gray-400 dark:text-gray-200"
 					>
 						<PiWarningCircle />
@@ -110,6 +107,7 @@ export const DeleteModal = ({ title, onClose, onDelete }: DeleteModalProps) => {
 							color="red"
 							text="Yes, I'm sure"
 							onClick={onDelete}
+							loading={isDeleting}
 						/>
 						<Button
 							color="default"

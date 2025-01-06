@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { Link } from 'react-router';
 import { TableListSkeleton } from '../../components/Skeletons';
@@ -6,19 +7,15 @@ import Badge from '../../components/Badge';
 import { statuses } from '../../values';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import { DeleteModal } from '../../components/Modal';
+import ProductSchema from '../../schemas/ProductSchema';
 
 const ProductsList = () => {
 	const { data: products, isLoading } = useGetProductsList();
-
-	const deleteProduct = useDeleteProduct({
-		successToast: 'Product deleted successfully',
-	});
 
 	if (isLoading) return <TableListSkeleton />;
 
 	return (
 		<div className="page">
-			<DeleteModal title="Are you sure you want to delete this product?" />
 			<div className="flex items-center justify-between">
 				<h1>Products List</h1>
 				<Link
@@ -43,51 +40,76 @@ const ProductsList = () => {
 					</thead>
 					<tbody>
 						{products?.map((product, index) => (
-							<tr key={product._id}>
-								<td>{index + 1}</td>
-								<td>
-									<div className="flex items-center gap-2">
-										<div className="img-box size-14 aspect-square rounded">
-											<img
-												src={product.images[0]}
-												alt={product.title}
-												className="object-cover"
-											/>
-										</div>
-										<span className="font-bold">{product.title}</span>
-									</div>
-								</td>
-								<td>{product.price}</td>
-								<td>%{product.discount}</td>
-								<td>
-									<Badge
-										color={product.status === 1 ? 'green' : product.status === 2 ? 'red' : 'gray'}
-										text={statuses.find(s => s.value === product.status)?.label ?? ''}
-									/>
-								</td>
-								<td>
-									<div className="flex items-center gap-2">
-										<Button
-											color="green"
-											size="icon"
-											icon={<FaPen size="15" />}
-											to={`/product/edit/${product._id}`}
-										/>
-										<Button
-											color="red"
-											size="icon"
-											icon={<FaTrash size="15" />}
-											loading={deleteProduct.isPending}
-											onClick={() => product?._id && deleteProduct.mutate(product._id)}
-										/>
-									</div>
-								</td>
-							</tr>
+							<RowItem
+								key={product._id}
+								row={index + 1}
+								{...product}
+							/>
 						))}
 					</tbody>
 				</table>
 			</div>
 		</div>
+	);
+};
+
+const RowItem = ({ row, _id, title, status, price, discount, images }: ProductSchema & { row: number }) => {
+	const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
+	const deleteProduct = useDeleteProduct({
+		successToast: 'Product deleted successfully',
+	});
+
+	return (
+		<>
+			<tr key={_id}>
+				<td>{row}</td>
+				<td>
+					<div className="flex items-center gap-2">
+						<div className="img-box size-14 aspect-square rounded">
+							<img
+								src={images[0]}
+								alt={title}
+								className="object-cover"
+							/>
+						</div>
+						<span className="font-bold">{title}</span>
+					</div>
+				</td>
+				<td>{price}</td>
+				<td>%{discount}</td>
+				<td>
+					<Badge
+						color={status === 1 ? 'green' : status === 2 ? 'red' : 'gray'}
+						text={statuses.find(s => s.value === status)?.label ?? ''}
+					/>
+				</td>
+				<td>
+					<div className="flex items-center gap-2">
+						<Button
+							color="green"
+							size="icon"
+							icon={<FaPen size="15" />}
+							to={`/product/edit/${_id}`}
+						/>
+						<Button
+							color="red"
+							size="icon"
+							icon={<FaTrash size="15" />}
+							loading={deleteProduct.isPending}
+							onClick={() => setDeleteModalDisplay(true)}
+						/>
+					</div>
+				</td>
+			</tr>
+			{deleteModalDisplay && (
+				<DeleteModal
+					title="Are you sure you want to delete this product?"
+					onClose={() => setDeleteModalDisplay(false)}
+					onDelete={() => _id && deleteProduct.mutate(_id)}
+					isDeleting={deleteProduct.isPending}
+				/>
+			)}
+		</>
 	);
 };
 

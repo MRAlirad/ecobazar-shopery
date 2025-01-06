@@ -1,11 +1,13 @@
-import { useNavigate } from 'react-router';
-import { useParams } from 'react-router';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import { useGetProduct, useEditProduct, useDeleteProduct } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
 import ProductForm from '../../components/product/ProductForm';
+import { DeleteModal } from '../../components/Modal';
 
 const EditProduct = () => {
 	const navigate = useNavigate();
+	const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
 
 	const { productId } = useParams<{ productId: string }>();
 	const { data: product, isLoading, error } = useGetProduct(productId || '');
@@ -37,9 +39,17 @@ const EditProduct = () => {
 				data={product}
 				onEdit={data => editProduct.mutate(data)}
 				isEditing={editProduct.isPending}
-				onDelete={() => deleteProduct.mutate(productId || '')}
+				onDelete={() => setDeleteModalDisplay(true)}
 				isDeleting={deleteProduct.isPending}
 			/>
+			{deleteModalDisplay && (
+				<DeleteModal
+					title="Are you sure you want to delete this product?"
+					onClose={() => setDeleteModalDisplay(false)}
+					onDelete={() => deleteProduct.mutate(productId || '')}
+					isDeleting={deleteProduct.isPending}
+				/>
+			)}
 		</main>
 	);
 };
