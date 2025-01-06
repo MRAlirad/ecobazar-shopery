@@ -99,6 +99,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 									size="icon"
 									icon={<FaTrash size="16" />}
 									className="absolute top-2 start-2 z-10"
+									onClick={()=> setValue('images', getValues('images').filter((_, i) => i !== index))}
 								/>
 							</div>
 						))}
@@ -117,7 +118,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 									<FiUploadCloud />
 								</Icon>
 								<p className="text-sm font-semibold">Click to upload</p>
-								<p className="text-xs text-center">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+								<p className="text-xs text-center">SVG, PNG, JPG or GIF</p>
 							</div>
 						</div>
 						{errors?.images && watch('images').length === 0 && <span className="col-span-4 text-sm text-red-600 dark:text-red-500">{errors?.images.message}</span>}

@@ -23,20 +23,22 @@ const PageActionsBox = ({ mode, onAdd = () => {}, isAdding, onEdit = () => {}, i
 				/>
 			)}
 			{mode === 'EDIT' && (
-				<Button
-					color="green"
-					text="Edit"
-					type="submit"
-					loading={isEditing}
-					onClick={onEdit}
-				/>
+				<>
+					<Button
+						color="green"
+						text="Edit"
+						type="submit"
+						loading={isEditing}
+						onClick={onEdit}
+					/>
+					<Button
+						color="red-outline"
+						text="Delete"
+						loading={isDeleting}
+						onClick={onDelete}
+					/>
+				</>
 			)}
-			<Button
-				color="red-outline"
-				text="Delete"
-				loading={isDeleting}
-				onClick={onDelete}
-			/>
 		</div>
 	);
 };
