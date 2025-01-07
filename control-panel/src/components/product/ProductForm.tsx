@@ -23,7 +23,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 		resolver: yupResolver(
 			yup.object().shape({
 				title: yup.string().required('Title is a required field'),
-				description: yup.string().required('Title is a required field'),
+				description: yup.string().required('Description is a required field'),
 				images: yup.array().of(yup.string().required()).min(1).required('Images is a required field'),
 				price: yup.number().typeError('Price is a required field').required('Price is a required field'),
 				discount: yup.number().typeError('Discount is a required field').required('Discount is required field').min(0).max(100),

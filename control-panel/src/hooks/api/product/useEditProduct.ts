@@ -5,13 +5,7 @@ import ProductSchema from '../../../schemas/ProductSchema';
 
 const useEditProduct = ({ id, successToast, onEdit = () => {} }: EditProps<ProductSchema>) => {
 	const { path, queryKey } = apiConfig.product;
-	return useEdit<ProductSchema>({
-		id,
-		path,
-		queryKey,
-		successToast,
-		onEdit,
-	});
+	return useEdit<ProductSchema>({ id, path, queryKey, successToast, onEdit });
 };
 
 export default useEditProduct;

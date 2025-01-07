@@ -12,7 +12,7 @@ interface Props {
 
 const PageActionsBox = ({ mode, onAdd = () => {}, isAdding, onEdit = () => {}, isEditing, onDelete = () => {}, isDeleting }: Props) => {
 	return (
-		<div className="actions-box">
+		<div className="col-span-2 flex items-center flex-row-reverse gap-3 p-6">
 			{mode === 'ADD' && (
 				<Button
 					color="blue"

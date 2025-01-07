@@ -8,6 +8,9 @@ import './index.css';
 import ProductsList from './pages/product/ProductsList.tsx';
 import AddProduct from './pages/product/AddProduct.tsx';
 import EditProduct from './pages/product/EditProduct.tsx';
+import CategoriesList from './pages/category/CategoriesList.tsx';
+import AddCategory from './pages/category/AddCategory.tsx';
+import EditCategory from './pages/category/EditCategory.tsx';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,18 @@ createRoot(document.getElementById('root')!).render(
 						<Route
 							path="/product/edit/:productId"
 							element={<EditProduct />}
+						/>
+						<Route
+							path="/category/list"
+							element={<CategoriesList />}
+						/>
+						<Route
+							path="/category/add"
+							element={<AddCategory />}
+						/>
+						<Route
+							path="/category/edit/:categoryId"
+							element={<EditCategory />}
 						/>
 					</Route>
 				</Routes>
