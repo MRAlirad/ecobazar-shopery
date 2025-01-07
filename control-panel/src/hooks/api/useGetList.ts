@@ -6,7 +6,7 @@ import { GetListProps } from '../../schemas/apiHookSchema';
 const useGetList = <T>({ path, queryKey }: GetListProps) => {
 	return useQuery<T[], AxiosError>({
 		queryKey: [queryKey],
-		queryFn: () => apiClient.get<T[]>(`${path}`).then(res => res.data),
+		queryFn: () => apiClient.get<T[]>(path).then(res => res.data),
 	});
 };
 

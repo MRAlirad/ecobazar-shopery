@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
-import { DeleteProps } from '../../schemas/apiHookSchema';
+import { DeleteHookProps } from '../../schemas/apiHookSchema';
 
-const useDelete = <T>({ path, queryKey, successToast, onDelete = () => {}, onError = () => {} }: DeleteProps<T>) => {
+const useDelete = <T>({ path, queryKey, successToast, onDelete = () => {}, onError = () => {} }: DeleteHookProps<T>) => {
 	const queryClient = useQueryClient();
 	return useMutation<T, AxiosError, string>({
 		mutationFn: (id: string) => apiClient.delete(`${path}/${id}`).then(res => res.data),

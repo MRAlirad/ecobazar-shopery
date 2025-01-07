@@ -5,6 +5,7 @@ import Icon from './Icon';
 import { RiDashboardFill } from 'react-icons/ri';
 import { FaCartShopping } from 'react-icons/fa6';
 import { IoIosArrowDown } from 'react-icons/io';
+import { BiSolidCategoryAlt } from 'react-icons/bi';
 
 interface SidebarItemProps {
 	icon: ReactNode;
@@ -32,6 +33,21 @@ const Sidebar = () => {
 				{
 					href: '/product/add',
 					label: 'Add Product',
+				},
+			],
+		},
+		{
+			href: '/category',
+			label: 'Category',
+			icon: <BiSolidCategoryAlt />,
+			submenu: [
+				{
+					href: '/category/list',
+					label: 'Categry List',
+				},
+				{
+					href: '/category/add',
+					label: 'Add Categry',
 				},
 			],
 		},

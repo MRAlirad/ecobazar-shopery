@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import App from './App.tsx';
 import './index.css';
 import ProductsList from './pages/product/ProductsList.tsx';
-import AddProduct from './pages/AddProduct.tsx';
+import AddProduct from './pages/product/AddProduct.tsx';
 import EditProduct from './pages/product/EditProduct.tsx';
 
 const queryClient = new QueryClient();

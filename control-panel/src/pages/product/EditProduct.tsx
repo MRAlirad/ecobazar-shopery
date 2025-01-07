@@ -10,10 +10,10 @@ const EditProduct = () => {
 	const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
 
 	const { productId } = useParams<{ productId: string }>();
-	const { data: product, isLoading, error } = useGetProduct(productId || '');
+	const { data: product, isLoading, error } = useGetProduct(productId!);
 
 	const editProduct = useEditProduct({
-		id: productId,
+		id: productId!,
 		successToast: 'Product updated successfully',
 		onEdit: () => navigate('/product/list'),
 	});
@@ -44,9 +44,9 @@ const EditProduct = () => {
 			/>
 			{deleteModalDisplay && (
 				<DeleteModal
-					title="Are you sure you want to delete this product?"
+				title={`Are you sure you want to delete the "${product?.title}" product?`}
 					onClose={() => setDeleteModalDisplay(false)}
-					onDelete={() => deleteProduct.mutate(productId || '')}
+					onDelete={() => deleteProduct.mutate(productId!)}
 					isDeleting={deleteProduct.isPending}
 				/>
 			)}

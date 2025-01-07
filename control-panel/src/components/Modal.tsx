@@ -93,6 +93,7 @@ export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModa
 					size="icon"
 					icon={<IoCloseOutline />}
 					onClick={onClose}
+					className='absolute top-4 start-4'
 				/>
 				<div className="flex flex-col items-center gap-4 p-5 text-center">
 					<Icon
@@ -101,7 +102,8 @@ export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModa
 					>
 						<PiWarningCircle />
 					</Icon>
-					<h3 className="text-lg font-normal text-gray-500 dark:text-gray-400">{title}</h3>
+					<h3 className="text-xl font-normal text-gray-700 dark:text-gray-400">{title}</h3>
+					<p className="text-gray-500 dark:text-gray-400">this process can not be undone!</p>
 					<div className="flex items-center justify-center gap-4">
 						<Button
 							color="red"

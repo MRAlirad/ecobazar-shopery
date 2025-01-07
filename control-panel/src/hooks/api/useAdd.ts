@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
-import { AddProps } from '../../schemas/apiHookSchema';
+import { AddHookProps } from '../../schemas/apiHookSchema';
 
-const useAdd = <T>({ path, queryKey, successToast, onAdd = () => {}, onError = () => {} }: AddProps<T>) => {
+const useAdd = <T>({ path, queryKey, successToast, onAdd = () => {}, onError = () => {} }: AddHookProps<T>) => {
 	const queryClient = useQueryClient();
 	return useMutation<T, AxiosError, T>({
-		mutationFn: (data: T) => apiClient.post(`${path}`, data).then(res => res.data),
+		mutationFn: (data: T) => apiClient.post(path!, data).then(res => res.data),
 		onSuccess: (data: T) => {
 			toast.success(successToast);
 			queryClient.invalidateQueries({ queryKey: [queryKey] });

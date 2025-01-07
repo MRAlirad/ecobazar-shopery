@@ -103,7 +103,7 @@ const RowItem = ({ row, _id, title, status, price, discount, images }: ProductSc
 			</tr>
 			{deleteModalDisplay && (
 				<DeleteModal
-					title="Are you sure you want to delete this product?"
+					title={`Are you sure you want to delete the "${title}" product?`}
 					onClose={() => setDeleteModalDisplay(false)}
 					onDelete={() => _id && deleteProduct.mutate(_id)}
 					isDeleting={deleteProduct.isPending}

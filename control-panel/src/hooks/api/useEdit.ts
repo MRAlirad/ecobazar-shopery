@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
-import { EditProps } from '../../schemas/apiHookSchema';
+import { EditHookProps } from '../../schemas/apiHookSchema';
 
-const useEdit = <T>({ id, path, queryKey, successToast, onEdit = () => {}, onError = () => {} }: EditProps<T>) => {
+const useEdit = <T>({ id, path, queryKey, successToast, onEdit = () => {}, onError = () => {} }: EditHookProps<T>) => {
 	const queryClient = useQueryClient();
 	return useMutation<T, AxiosError, T>({
 		mutationFn: (data: T) => apiClient.patch(`${path}/${id}`, data).then(res => res.data),

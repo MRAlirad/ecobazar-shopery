@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
-import { useAddProduct } from '../hooks/api';
-import ProductForm from '../components/product/ProductForm';
+import { useAddProduct } from '../../hooks/api';
+import ProductForm from '../../components/product/ProductForm';
 
 const AddProduct = () => {
 	const navigate = useNavigate();
