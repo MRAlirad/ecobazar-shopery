@@ -1,5 +1,6 @@
+import CategorySchema from "./categorySchema";
 export default interface ProductSchema {
-	_id?: string;
+	_id: string;
 	title: string;
 	description: string;
 	images: string[];
@@ -7,6 +8,6 @@ export default interface ProductSchema {
 	discount: number;
 	count: number;
 	status: number;
-	// category: number;
+	category: CategorySchema;
 	// tag: string;
 }

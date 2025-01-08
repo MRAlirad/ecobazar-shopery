@@ -4,12 +4,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (_, res) => {
-	const products = await Product.find().sort('title');
+	const products = await Product.find().populate('category').sort('title');
 	res.send(products);
 });
 
 router.get('/:id', async (req, res) => {
-	const product = await Product.findById(req.params.id);
+	const product = await Product.findById(req.params.id).populate('category');
 
 	if (!product)
 		return res.status(404).send({
@@ -29,15 +29,7 @@ router.post('/', async (req, res) => {
 			errors: error,
 		});
 
-	let product = new Product({
-		title: req.body.title,
-		description: req.body.description,
-		images: req.body.images,
-		price: req.body.price,
-		discount: req.body.discount,
-		count: req.body.count,
-		status: req.body.status,
-	});
+	let product = new Product(req.body);
 
 	product = await product.save();
 

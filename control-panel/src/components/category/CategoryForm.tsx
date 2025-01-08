@@ -7,8 +7,13 @@ import PageActionsBox from '../PageActionsBox';
 import FormSchema from '../../schemas/FormSchema';
 import CategorySchema from '../../schemas/categorySchema';
 
-const CategoryForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<CategorySchema>) => {
-	const formMethods = useForm<CategorySchema>({
+type CategoryFormInputs = {
+	title: string;
+	description: string;
+};
+
+const CategoryForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<CategorySchema, CategoryFormInputs>) => {
+	const formMethods = useForm<CategoryFormInputs>({
 		resolver: yupResolver(
 			yup.object().shape({
 				title: yup.string().required('Title is a required field'),
@@ -22,7 +27,7 @@ const CategoryForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit =
 	});
 	const { handleSubmit } = formMethods;
 
-	const onSubmit = (formData: CategorySchema) => {
+	const onSubmit = (formData: CategoryFormInputs) => {
 		if (mode === 'ADD') onAdd(formData);
 		else if (mode === 'EDIT') onEdit(formData);
 	};

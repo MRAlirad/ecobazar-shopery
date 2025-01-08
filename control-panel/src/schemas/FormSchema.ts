@@ -1,9 +1,9 @@
-export default interface FormSchema<T> {
+export default interface FormSchema<dataSchema, formType> {
 	mode: 'ADD' | 'EDIT';
-	data?: T;
-	onAdd?: (data: T) => void;
+	data?: dataSchema;
+	onAdd?: (data: formType) => void;
 	isAdding?: boolean;
-	onEdit?: (data: T) => void;
+	onEdit?: (data: formType) => void;
 	isEditing?: boolean;
 	onDelete?: () => void;
 	isDeleting?: boolean;

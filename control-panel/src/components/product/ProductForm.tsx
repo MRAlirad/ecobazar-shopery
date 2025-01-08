@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useGetCategoriesList } from '../../hooks/api';
+import { InputSkeleton } from '../Skeletons';
 import Modal from '../Modal';
 import Input from '../Input';
 import Textarea from '../Textarea';
@@ -16,10 +18,21 @@ import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
 
-const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema>) => {
+type ProductFormInputs = {
+	title: string;
+	description: string;
+	images: string[];
+	price: number;
+	discount: number;
+	count: number;
+	status: number;
+	category: string;
+};
+
+const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema, ProductFormInputs>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
-	const formMethods = useForm<ProductSchema>({
+	const formMethods = useForm<ProductFormInputs>({
 		resolver: yupResolver(
 			yup.object().shape({
 				title: yup.string().required('Title is a required field'),
@@ -29,6 +42,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 				discount: yup.number().typeError('Discount is a required field').required('Discount is required field').min(0).max(100),
 				count: yup.number().typeError('Count is required field').required('Count is required field'),
 				status: yup.number().typeError('Status is required field').required('Status is required field'),
+				category: yup.string().required('Category is required field'),
 			})
 		),
 		defaultValues: {
@@ -39,7 +53,7 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 			discount: data?.discount ?? 0,
 			count: data?.count ?? 0,
 			status: data?.status ?? statuses[0].value,
-			// category: data?.category ?? 0,
+			category: data?.category._id ?? '',
 			// tag: data?.tag ?? '',
 		},
 	});
@@ -51,26 +65,18 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 		formState: { errors },
 	} = formMethods;
 
-	const onSubmit = (formData: ProductSchema) => {
-		const output = {
-			title: formData.title,
-			description: formData.description,
-			images: formData.images,
-			price: +formData.price,
-			discount: +formData.discount,
-			count: +formData.count,
-			status: formData.status,
-		};
-
-		if (mode === 'ADD') onAdd(output);
-		else if (mode === 'EDIT') onEdit(output);
+	const onSubmit = (formData: ProductFormInputs) => {
+		if (mode === 'ADD') onAdd(formData);
+		else if (mode === 'EDIT') onEdit(formData);
 	};
+
+	const { data: categories, isLoading } = useGetCategoriesList();
 
 	return (
 		<FormProvider {...formMethods}>
 			<form
 				className="grid grid-cols-[2fr_1fr] gap-6"
-				onSubmit={handleSubmit(onSubmit)}
+				// onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className="space-y-6">
 					<div className="card">
@@ -99,7 +105,12 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 									size="icon"
 									icon={<FaTrash size="16" />}
 									className="absolute top-2 start-2 z-10"
-									onClick={()=> setValue('images', getValues('images').filter((_, i) => i !== index))}
+									onClick={() =>
+										setValue(
+											'images',
+											getValues('images').filter((_, i) => i !== index)
+										)
+									}
 								/>
 							</div>
 						))}
@@ -149,17 +160,21 @@ const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = 
 							options={statuses}
 						/>
 					</div>
-					{/* <div className="card">
-						<Select
-							name="category"
-							label="Cateogry"
-							options={[]}
-						/>
-						<Input
+					<div className="card">
+						{isLoading ? (
+							<InputSkeleton />
+						) : (
+							<Select
+								name="category"
+								label="Cateogry"
+								options={categories ? categories.map(category => ({ label: category.title, value: category._id || '' })) : []}
+							/>
+						)}
+						{/* <Input
 							name="tag"
 							label="Tags"
-						/>
-					</div> */}
+						/> */}
+					</div>
 				</div>
 				<PageActionsBox
 					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}

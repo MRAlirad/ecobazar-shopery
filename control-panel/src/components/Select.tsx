@@ -11,7 +11,7 @@ interface Props {
 	onChange?: (value: string) => void;
 }
 
-const Select = ({ label, className, defaultValue, name, placeholder = 'select one item', options, onChange = () => {} }: Props) => {
+const Select = ({ label, className, defaultValue, name, placeholder = 'select one item', options = [], onChange = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
@@ -47,7 +47,7 @@ const Select = ({ label, className, defaultValue, name, placeholder = 'select on
 			>
 				{options.length > 0 ? (
 					<>
-						<option value="">{placeholder}</option>
+						<option value="" className='text-gray-400'>{placeholder}</option>
 						{options.length > 0 &&
 							options.map((option, index) => (
 								<option

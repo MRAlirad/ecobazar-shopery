@@ -34,6 +34,11 @@ const productSchema = new mongoose.Schema({
 		required: true,
 		enum: [1, 2, 3], // 1: active, 2: inactive, 3: archived
 	},
+	category: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Category',
+		required: true,
+	},
 });
 
 const Product = mongoose.model('Product', productSchema);
@@ -48,6 +53,7 @@ const validateProduct = product => {
 		discount: z.number().gte(0, 'Discount must be greater than or equal to 0').lte(100, 'Discount must be less than or equal to 100'),
 		count: z.number().gte(0, 'Count must be grater than or equal to 0'),
 		status: z.number().gte(1).lte(3),
+		category: z.string().nonempty('Category is a required field.'),
 	});
 
 	const validatonResult = schema.safeParse(product);
