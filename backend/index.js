@@ -1,12 +1,19 @@
+const config = require('config');
 const mongoose = require('mongoose');
 const express = require('express');
 const products = require('./routes/products');
 const categories = require('./routes/categories');
 const customers = require('./routes/customers');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 const cors = require('cors');
 
 const app = express();
+
+if (!config.get('jwtPrivateKey')) {
+	console.error('FATAL ERROR: jwtPrivateKey is not defined.');
+	process.exit(1);
+}
 
 mongoose
 	.connect('mongodb://localhost/shopery')
@@ -18,6 +25,7 @@ app.use(cors());
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 app.use('/api/customers', customers);
 
 const port = process.env.PORT || 8000;
