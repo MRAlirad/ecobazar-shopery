@@ -14,6 +14,10 @@ const error = require('./middleware/error');
 
 const app = express();
 
+process.on('uncaughtException', ex => {
+	winston.error(error.message, error);
+});
+
 winston.add(new winston.transports.File({ filename: 'logfile.log' }));
 winston.add(new winston.transports.MongoDB({ db: 'mongodb://localhost/shopery' }));
 
@@ -21,6 +25,9 @@ if (!config.get('jwtPrivateKey')) {
 	console.error('FATAL ERROR: jwtPrivateKey is not defined.');
 	process.exit(1);
 }
+
+throw new Error("as;dfkj");
+
 
 mongoose
 	.connect('mongodb://localhost/shopery')
