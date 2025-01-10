@@ -11,6 +11,8 @@ import EditProduct from './pages/product/EditProduct.tsx';
 import CategoriesList from './pages/category/CategoriesList.tsx';
 import AddCategory from './pages/category/AddCategory.tsx';
 import EditCategory from './pages/category/EditCategory.tsx';
+import Auth from './pages/auth/Auth.tsx';
+import Signup from './pages/auth/Signup.tsx';
 
 const queryClient = new QueryClient();
 
@@ -51,6 +53,15 @@ createRoot(document.getElementById('root')!).render(
 							path="/category/edit/:categoryId"
 							element={<EditCategory />}
 						/>
+						<Route
+							path="/auth"
+							element={<Auth />}
+						>
+							<Route
+								path="/auth/signup"
+								element={<Signup />}
+							/>
+						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>

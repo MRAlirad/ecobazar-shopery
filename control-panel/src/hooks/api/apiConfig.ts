@@ -7,6 +7,12 @@ const apiConfig = {
 		queryKey: 'category',
 		path: '/categories',
 	},
+	user: {
+		signup: {
+			queryKey: 'user-signup',
+			path: '/users/signup',
+		},
+	},
 };
 
 export default apiConfig;

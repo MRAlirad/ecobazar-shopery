@@ -1,13 +1,24 @@
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import { ToastContainer } from 'react-toastify';
+import classNames from 'classnames';
 
 function App() {
+	const { pathname } = useLocation();
 	return (
-		<div className="grid grid-cols-[256px_1fr] grid-rows-[max-content_1fr] bg-white dark:bg-gray-900 min-h-screen">
-			<Header />
-			<Sidebar />
+		<div
+			className={classNames({
+				'min-h-screen': true,
+				'grid grid-cols-[256px_1fr] grid-rows-[max-content_1fr] bg-white dark:bg-gray-900': !pathname.includes('auth'),
+			})}
+		>
+			{!pathname.includes('auth') && (
+				<>
+					<Header />
+					<Sidebar />
+				</>
+			)}
 			<Outlet />
 			<ToastContainer
 				position="bottom-center"

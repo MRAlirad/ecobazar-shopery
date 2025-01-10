@@ -1,3 +1,17 @@
+export interface PostHookProps<T> {
+	path: string;
+	queryKey: string;
+	successToast: string;
+	onSuccess: (data: T) => void;
+	onError?: () => void;
+}
+
+export interface PostProps<T> {
+	successToast: string;
+	onSuccess: (data: T) => void;
+	onError?: () => void;
+}
+
 export interface AddHookProps<T> {
 	path: string;
 	queryKey: string;
