@@ -7,6 +7,7 @@ const customers = require('./routes/customers');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const cors = require('cors');
+const error = require('./middleware/error');
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use('/api/categories', categories);
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/customers', customers);
+
+app.use(error);
 
 const port = process.env.PORT || 8000;
 
