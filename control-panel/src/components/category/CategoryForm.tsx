@@ -5,14 +5,18 @@ import Input from '../Input';
 import Textarea from '../Textarea';
 import PageActionsBox from '../PageActionsBox';
 import FormSchema from '../../schemas/FormSchema';
-import CategorySchema from '../../schemas/categorySchema';
+import CategorySchema, { CategoryFormInputs } from '../../schemas/categorySchema';
 
-type CategoryFormInputs = {
-	title: string;
-	description: string;
-};
-
-const CategoryForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<CategorySchema, CategoryFormInputs>) => {
+const CategoryForm = ({
+	mode,
+	data,
+	onAdd = () => {},
+	isAdding = false,
+	onEdit = () => {},
+	isEditing = false,
+	onDelete = () => {},
+	isDeleting = false,
+}: FormSchema<CategorySchema, CategoryFormInputs>) => {
 	const formMethods = useForm<CategoryFormInputs>({
 		resolver: yupResolver(
 			yup.object().shape({

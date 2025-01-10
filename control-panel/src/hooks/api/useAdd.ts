@@ -5,18 +5,17 @@ import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
 import { AddHookProps } from '../../schemas/apiHookSchema';
 
-const useAdd = <T>({ path, queryKey, successToast, onAdd = () => {}, onError = () => {} }: AddHookProps<T>) => {
+const useAdd = <sendDataSchema, receivedDataSchema>({ path, queryKey, successToast, onAdd = () => {}, onError = () => {} }: AddHookProps<receivedDataSchema>) => {
 	const queryClient = useQueryClient();
-	return useMutation<T, AxiosError, T>({
-		mutationFn: (data: T) => apiClient.post(path!, data).then(res => res.data),
-		onSuccess: (data: T) => {
+	return useMutation<receivedDataSchema, AxiosError, sendDataSchema>({
+		mutationFn: (data: sendDataSchema) => apiClient.post(path, data).then(res => res.data),
+		onSuccess: (data: receivedDataSchema) => {
 			toast.success(successToast);
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
 			onAdd(data);
 		},
 		onError: ({ response }: AxiosError) => {
-			const output = response!.data as { status: boolean; errors: string[] };
-			toast.error(ErrorValidation(output.errors));
+			toast.error(ErrorValidation(response!.data as string[]));
 			onError();
 		},
 	});

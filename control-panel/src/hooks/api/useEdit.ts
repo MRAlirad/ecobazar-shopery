@@ -5,18 +5,17 @@ import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
 import { EditHookProps } from '../../schemas/apiHookSchema';
 
-const useEdit = <T>({ id, path, queryKey, successToast, onEdit = () => {}, onError = () => {} }: EditHookProps<T>) => {
+const useEdit = <sendDataSchema, receivedDataSchema>({ id, path, queryKey, successToast, onEdit = () => {}, onError = () => {} }: EditHookProps<receivedDataSchema>) => {
 	const queryClient = useQueryClient();
-	return useMutation<T, AxiosError, T>({
-		mutationFn: (data: T) => apiClient.patch(`${path}/${id}`, data).then(res => res.data),
-		onSuccess: (data: T) => {
+	return useMutation<receivedDataSchema, AxiosError, sendDataSchema>({
+		mutationFn: (data: sendDataSchema) => apiClient.patch(`${path}/${id}`, data).then(res => res.data),
+		onSuccess: (data: receivedDataSchema) => {
 			toast.success(successToast);
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
 			onEdit(data);
 		},
 		onError: ({ response }: AxiosError) => {
-			const output = response!.data as { status: boolean; errors: string[] };
-			toast.error(ErrorValidation(output.errors));
+			toast.error(ErrorValidation(response!.data as string[]));
 			onError();
 		},
 	});

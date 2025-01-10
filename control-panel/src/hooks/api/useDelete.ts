@@ -5,18 +5,17 @@ import apiClient from './apiClient';
 import ErrorValidation from './../../components/ErrorValidation';
 import { DeleteHookProps } from '../../schemas/apiHookSchema';
 
-const useDelete = <T>({ path, queryKey, successToast, onDelete = () => {}, onError = () => {} }: DeleteHookProps<T>) => {
+const useDelete = <receivedDataSchema>({ path, queryKey, successToast, onDelete = () => {}, onError = () => {} }: DeleteHookProps<receivedDataSchema>) => {
 	const queryClient = useQueryClient();
-	return useMutation<T, AxiosError, string>({
+	return useMutation<receivedDataSchema, AxiosError, string>({
 		mutationFn: (id: string) => apiClient.delete(`${path}/${id}`).then(res => res.data),
-		onSuccess: (data: T) => {
+		onSuccess: (data: receivedDataSchema) => {
 			toast.success(successToast);
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
 			onDelete(data);
 		},
 		onError: ({ response }: AxiosError) => {
-			const output = response!.data as { status: boolean; errors: string[] };
-			toast.error(ErrorValidation(output.errors));
+			toast.error(ErrorValidation(response!.data as string[]));
 			onError();
 		},
 	});

@@ -9,5 +9,15 @@ export default interface ProductSchema {
 	count: number;
 	status: number;
 	category: CategorySchema;
-	// tag: string;
 }
+
+export type ProductFormInputs = {
+	title: string;
+	description: string;
+	images: string[];
+	price: number;
+	discount: number;
+	count: number;
+	status: number;
+	category: string;
+};

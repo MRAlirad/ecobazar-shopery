@@ -24,12 +24,7 @@ const EditCategory = () => {
 
 	if (isLoading) return <FormSkeleton />;
 
-	if (error) {
-		const output = error.response!.data as { status: boolean; errors: string[] };
-		if (output.status === false) {
-			return <div>{output.errors}</div>;
-		} else return <div>{error.message}</div>;
-	}
+	if (error) return <div>{error.response!.data as string[]}</div>;
 
 	return (
 		<main className="page">
@@ -44,7 +39,7 @@ const EditCategory = () => {
 			/>
 			{deleteModalDisplay && (
 				<DeleteModal
-				title={`Are you sure you want to delete the "${category?.title}" category?`}
+					title={`Are you sure you want to delete the "${category?.title}" category?`}
 					onClose={() => setDeleteModalDisplay(false)}
 					onDelete={() => deleteCategory.mutate(categoryId!)}
 					isDeleting={deleteCategory.isPending}

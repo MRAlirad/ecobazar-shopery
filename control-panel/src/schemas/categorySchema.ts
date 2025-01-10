@@ -3,3 +3,8 @@ export default interface CategorySchema {
 	title: string;
 	description: string;
 }
+
+export type CategoryFormInputs = {
+	title: string;
+	description: string;
+};

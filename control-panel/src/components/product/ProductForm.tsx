@@ -13,23 +13,21 @@ import Button from '../Button';
 import Icon from '../Icon';
 import PageActionsBox from '../PageActionsBox';
 import FormSchema from '../../schemas/FormSchema';
-import ProductSchema from '../../schemas/ProductSchema';
+import ProductSchema, { ProductFormInputs } from '../../schemas/ProductSchema';
 import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
 
-type ProductFormInputs = {
-	title: string;
-	description: string;
-	images: string[];
-	price: number;
-	discount: number;
-	count: number;
-	status: number;
-	category: string;
-};
-
-const ProductForm = ({ mode, data, onAdd = () => {}, isAdding = false, onEdit = () => {}, isEditing = false, onDelete = () => {}, isDeleting = false }: FormSchema<ProductSchema, ProductFormInputs>) => {
+const ProductForm = ({
+	mode,
+	data,
+	onAdd = () => {},
+	isAdding = false,
+	onEdit = () => {},
+	isEditing = false,
+	onDelete = () => {},
+	isDeleting = false,
+}: FormSchema<ProductSchema, ProductFormInputs>) => {
 	const [imageModalDisplay, setImageModalDisplay] = useState(false);
 
 	const formMethods = useForm<ProductFormInputs>({

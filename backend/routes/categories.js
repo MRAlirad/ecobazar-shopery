@@ -1,4 +1,4 @@
-const { Category, validateCategory } = require('../models/category.js');
+const { Category, validateCategory } = require('../models/category');
 const express = require('express');
 
 const router = express.Router();
@@ -11,11 +11,7 @@ router.get('/', async (_, res) => {
 router.get('/:id', async (req, res) => {
 	const category = await Category.findById(req.params.id);
 
-	if (!category)
-		return res.status(404).send({
-			status: false,
-			errors: ['category with the given id was not found'],
-		});
+	if (!category) return res.status(404).send(['category with the given id was not found']);
 
 	res.send(category);
 });
@@ -23,16 +19,9 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	// validate request
 	const error = validateCategory(req.body);
-	if (error)
-		return res.status(400).send({
-			status: false,
-			errors: error,
-		});
+	if (error) return res.status(400).send(error);
 
-	let category = new Category({
-		title: req.body.title,
-		description: req.body.description,
-	});
+	let category = new Category(req.body);
 
 	category = await category.save();
 
@@ -42,19 +31,11 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
 	// validate request
 	const error = validateCategory(req.body);
-	if (error)
-		return res.status(400).send({
-			status: false,
-			errors: error,
-		});
+	if (error) return res.status(400).send(error);
 
 	const category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
-	if (!category)
-		return res.status(404).send({
-			status: false,
-			errors: ['category with the given id was not found'],
-		});
+	if (!category) return res.status(404).send(['category with the given id was not found']);
 
 	res.send(category);
 });
@@ -62,11 +43,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 	const category = await Category.findByIdAndDelete(req.params.id);
 
-	if (!category)
-		return res.status(404).send({
-			status: false,
-			errors: ['category with the given id was not found'],
-		});
+	if (!category) return res.status(404).send(['category with the given id was not found']);
 
 	res.send(category);
 });
