@@ -1,25 +1,18 @@
-const asyncMiddleware = require('../middleware/async');
 const { Product, validateProduct } = require('../models/product');
 const express = require('express');
 
 const router = express.Router();
 
-router.get(
-	'/',
-	asyncMiddleware(async (_, res) => {
-		const products = await Product.find().populate('category').sort('title');
-		res.send(products);
-	})
-);
+router.get('/', async (_, res) => {
+	const products = await Product.find().populate('category').sort('title');
+	res.send(products);
+});
 
-router.get(
-	'/:id',
-	asyncMiddleware(async (req, res) => {
-		const product = await Product.findById(req.params.id).populate('category');
-		if (!product) return res.status(404).send(['product with the given id was not found']);
-		res.send(product);
-	})
-);
+router.get('/:id', async (req, res) => {
+	const product = await Product.findById(req.params.id).populate('category');
+	if (!product) return res.status(404).send(['product with the given id was not found']);
+	res.send(product);
+});
 
 router.post('/', async (req, res) => {
 	// validate request
