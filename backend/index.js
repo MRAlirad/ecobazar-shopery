@@ -26,9 +26,6 @@ if (!config.get('jwtPrivateKey')) {
 	process.exit(1);
 }
 
-throw new Error("as;dfkj");
-
-
 mongoose
 	.connect('mongodb://localhost/shopery')
 	.then(() => console.log('Connected to MongoDB...'))
