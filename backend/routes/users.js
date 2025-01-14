@@ -28,10 +28,11 @@ router.post('/signup', async (req, res) => {
 
 	const token = user.generateAuthToken();
 
-	res.header('x-auth-token', token).send({
+	res.send({
 		_id: user._id,
 		name: user.name,
 		email: user.email,
+		token: token,
 	});
 });
 

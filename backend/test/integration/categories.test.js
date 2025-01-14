@@ -33,18 +33,24 @@ describe('/api/categories', () => {
 		it('should return a category if valid id is passed', async () => {
 			const category = new Category({ title: 'category1', description: 'description1' });
 			await category.save();
-			
+
 			const res = await request(server).get(`/api/categories/${category._id}`);
-			
+
 			expect(res.status).toBe(200);
 			expect(res.body).toHaveProperty('title', category.title);
 			expect(res.body).toHaveProperty('description', category.description);
 		});
+
 		it('should return a category if valid id is passed', async () => {
-			
 			const res = await request(server).get(`/api/categories/1`);
-			
 			expect(res.status).toBe(404);
+		});
+	});
+
+	describe('POST /', () => {
+		it('should return 4.1 if client is not logged in', async () => {
+			const res = await request(server).post('/api/categories').send({ title: 'category1', description: 'description1' }).expect(401);
+			expect(res.status).toBe(401);
 		});
 	});
 });

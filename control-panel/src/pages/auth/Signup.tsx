@@ -4,7 +4,8 @@ import * as yup from 'yup';
 import { useUserSignup } from '../../hooks/api';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { EcobazarShoperyToken } from '../../helpers/Token';
 
 type SignupInputs = {
 	name: string;
@@ -13,6 +14,7 @@ type SignupInputs = {
 };
 
 const Signup = () => {
+	const navigate = useNavigate();
 	const formMethods = useForm<SignupInputs>({
 		resolver: yupResolver(
 			yup.object().shape({
@@ -30,7 +32,11 @@ const Signup = () => {
 
 	const signup = useUserSignup({
 		successToast: 'User signed up successfully',
-		onSuccess: data => console.log(data),
+		onSuccess: ({ token }) => {
+			EcobazarShoperyToken('set', token);
+			navigate('/');
+			location.reload();
+		},
 	});
 
 	return (

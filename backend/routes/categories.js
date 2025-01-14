@@ -1,4 +1,5 @@
 const validateObjectId = require('../middleware/validateObjectId');
+const auth = require('../middleware/auth');
 const { Category, validateCategory } = require('../models/category');
 const express = require('express');
 
@@ -17,7 +18,7 @@ router.get('/:id', validateObjectId, async (req, res) => {
 	res.send(category);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
 	// validate request
 	const error = validateCategory(req.body);
 	if (error) return res.status(400).send(error);
