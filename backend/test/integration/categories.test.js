@@ -9,7 +9,7 @@ describe('/api/categories', () => {
 		server = require('../../index');
 	});
 	afterEach(async () => {
-		server.close();
+		await server.close();
 		await Category.deleteMany({});
 	});
 
@@ -26,7 +26,6 @@ describe('/api/categories', () => {
 			expect(res.body.length).toBe(2);
 			expect(res.body.some(c => c.title === 'category1')).toBeTruthy();
 			expect(res.body.some(c => c.title === 'category2')).toBeTruthy();
-			console.log(res.body.length);
 		});
 	});
 
