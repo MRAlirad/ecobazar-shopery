@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { Category } = require('../../models/category');
+const { User } = require('../../models/user');
 
 let server;
 
@@ -48,9 +49,29 @@ describe('/api/categories', () => {
 	});
 
 	describe('POST /', () => {
-		it('should return 4.1 if client is not logged in', async () => {
+		it('should return 401 if client is not logged in', async () => {
 			const res = await request(server).post('/api/categories').send({ title: 'category1', description: 'description1' }).expect(401);
 			expect(res.status).toBe(401);
+		});
+
+		it('should return 400 if category title is not provided', async () => {
+			const token = new User().generateAuthToken();
+			const res = await request(server)
+				.post('/api/categories')
+				.set('x-auth-token', token)
+				.send({ description: 'description1' });
+			;
+			expect(res.status).toBe(400);
+		});
+
+		it('should return 400 if category description is not provided', async () => {
+			const token = new User().generateAuthToken();
+			const res = await request(server)
+				.post('/api/categories')
+				.set('x-auth-token', token)
+				.send({ title: 'title1' });
+			;
+			expect(res.status).toBe(400);
 		});
 	});
 });
