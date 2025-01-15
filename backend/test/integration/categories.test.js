@@ -73,5 +73,32 @@ describe('/api/categories', () => {
 			;
 			expect(res.status).toBe(400);
 		});
+
+		it('should save the category if it is valid', async () => {
+			const token = new User().generateAuthToken();
+
+			await request(server)
+				.post('/api/categories')
+				.set('x-auth-token', token)
+				.send({ title: 'title1', description: 'description1' });
+			;
+
+			const category = await Category.find({ title: 'title1' });
+			expect(category).not.toBeNull();
+		});
+
+		it('should return the category if it is valid', async () => {
+			const token = new User().generateAuthToken();
+
+			const res = await request(server)
+				.post('/api/categories')
+				.set('x-auth-token', token)
+				.send({ title: 'title1', description: 'description1' });
+			;
+
+			expect(res.body).toHaveProperty('_id');
+			expect(res.body).toHaveProperty('title', 'title1');
+			expect(res.body).toHaveProperty('description', 'description1');
+		});
 	});
 });
