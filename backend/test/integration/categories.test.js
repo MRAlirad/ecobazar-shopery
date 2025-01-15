@@ -49,53 +49,46 @@ describe('/api/categories', () => {
 	});
 
 	describe('POST /', () => {
+		//! Define the happy path, and then in each test, we change 1 parameter that clearly aligns with the name of the test!
+
+		let token, title, description;
+
+		const execute = async () => {
+			return await request(server).post('/api/categories').set('x-auth-token', token).send({ title, description });
+		};
+
+		beforeEach(async () => {
+			token = new User().generateAuthToken();
+			title = 'title1';
+			description = 'description1';
+		});
+
 		it('should return 401 if client is not logged in', async () => {
-			const res = await request(server).post('/api/categories').send({ title: 'category1', description: 'description1' }).expect(401);
+			token = '';
+			const res = await execute();
 			expect(res.status).toBe(401);
 		});
 
 		it('should return 400 if category title is not provided', async () => {
-			const token = new User().generateAuthToken();
-			const res = await request(server)
-				.post('/api/categories')
-				.set('x-auth-token', token)
-				.send({ description: 'description1' });
-			;
+			title = '';
+			const res = await execute();
 			expect(res.status).toBe(400);
 		});
 
 		it('should return 400 if category description is not provided', async () => {
-			const token = new User().generateAuthToken();
-			const res = await request(server)
-				.post('/api/categories')
-				.set('x-auth-token', token)
-				.send({ title: 'title1' });
-			;
+			description = '';
+			const res = await execute();
 			expect(res.status).toBe(400);
 		});
 
 		it('should save the category if it is valid', async () => {
-			const token = new User().generateAuthToken();
-
-			await request(server)
-				.post('/api/categories')
-				.set('x-auth-token', token)
-				.send({ title: 'title1', description: 'description1' });
-			;
-
+			await execute();
 			const category = await Category.find({ title: 'title1' });
 			expect(category).not.toBeNull();
 		});
 
 		it('should return the category if it is valid', async () => {
-			const token = new User().generateAuthToken();
-
-			const res = await request(server)
-				.post('/api/categories')
-				.set('x-auth-token', token)
-				.send({ title: 'title1', description: 'description1' });
-			;
-
+			const res = await execute();
 			expect(res.body).toHaveProperty('_id');
 			expect(res.body).toHaveProperty('title', 'title1');
 			expect(res.body).toHaveProperty('description', 'description1');
