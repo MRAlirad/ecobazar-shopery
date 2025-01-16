@@ -100,4 +100,59 @@ describe('/api/categories', () => {
 			expect(res.body).toHaveProperty('description', 'description1');
 		});
 	});
+
+	describe('PATCH /:id', () => {
+		let token, id, title, description;
+
+		const execute = async () => {
+			return await request(server).patch(`/api/categories/${id}`).set('x-auth-token', token).send({ title, description });
+		};
+
+		beforeEach(async () => {
+			const category = new Category({ title: 'title1', description: 'description1' });
+			await category.save();
+
+			token = new User().generateAuthToken();
+			title = 'newTitle';
+			description = 'newDescription';
+			id = category._id;
+		});
+
+		it('shuld return 401 if client is not logged in', async () => {
+			token = '';
+			const res = await execute();
+			expect(res.status).toBe(401);
+		});
+
+		it('should return 400 if category title is not provided', async () => {
+			title = '';
+			const res = await execute();
+			expect(res.status).toBe(400);
+		});
+
+		it('should return 400 if category description is not provided', async () => {
+			description = '';
+			const res = await execute();
+			expect(res.status).toBe(400);
+		});
+
+		it('should return 404 if 404 if invalid id is passed', async () => {
+			id = '1';
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+
+		it('should return 404 if category with the given id does not exist', async () => {
+			id = new mongoose.Types.ObjectId();
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+
+		it('should return the updated category if valid id is passed', async () => {
+			const res = await execute();
+			expect(res.body).toHaveProperty('_id');
+			expect(res.body).toHaveProperty('title', 'newTitle');
+			expect(res.body).toHaveProperty('description', 'newDescription');
+		});
+	});
 });
