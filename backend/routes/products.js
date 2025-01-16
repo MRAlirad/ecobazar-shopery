@@ -1,5 +1,7 @@
-const { Product, validateProduct } = require('../models/product');
 const express = require('express');
+const validateObjectId = require('../middleware/validateObjectId');
+const auth = require('../middleware/auth');
+const { Product, validateProduct } = require('../models/product');
 
 const router = express.Router();
 
@@ -8,13 +10,13 @@ router.get('/', async (_, res) => {
 	res.send(products);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', validateObjectId, async (req, res) => {
 	const product = await Product.findById(req.params.id).populate('category');
 	if (!product) return res.status(404).send(['product with the given id was not found']);
 	res.send(product);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
 	// validate request
 	const error = validateProduct(req.body);
 	if (error) return res.status(400).send(error);
@@ -26,7 +28,7 @@ router.post('/', async (req, res) => {
 	res.send(product);
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', [auth, validateObjectId], async (req, res) => {
 	// validate request
 	const error = validateProduct(req.body);
 	if (error) return res.status(400).send(error);
@@ -38,7 +40,7 @@ router.patch('/:id', async (req, res) => {
 	res.send(product);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', [auth, validateObjectId], async (req, res) => {
 	const product = await Product.findByIdAndDelete(req.params.id);
 
 	if (!product) return res.status(404).send(['product with the given id was not found']);
