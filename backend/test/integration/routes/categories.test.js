@@ -155,4 +155,43 @@ describe('/api/categories', () => {
 			expect(res.body).toHaveProperty('description', 'newDescription');
 		});
 	});
+
+	describe('DELETE /:id', () => {
+		let token, id;
+		const execute = async () => {
+			return await request(server).delete(`/api/categories/${id}`).set('x-auth-token', token);
+		};
+
+		beforeEach(async () => {
+			const category = new Category({ title: 'title1', description: 'description1' });
+			await category.save();
+			token = new User().generateAuthToken();
+			id = category._id;
+		});
+
+		it('should return 401 if client is not logged in', async () => {
+			token = '';
+			const res = await execute();
+			expect(res.status).toBe(401);
+		});
+
+		it('should return 404 if invalid id is passed', async () => {
+			id = '1';
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+
+		it('should return 404 if category with the given id does not exist', async () => {
+			id = new mongoose.Types.ObjectId();
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+		
+		it('should return the deleted category if valid id is passed', async () => {
+			const res = await execute();
+			expect(res.body).toHaveProperty('_id');
+			expect(res.body).toHaveProperty('title', 'title1');
+			expect(res.body).toHaveProperty('description', 'description1');
+		});
+	});
 });
