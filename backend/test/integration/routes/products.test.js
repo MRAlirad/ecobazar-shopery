@@ -76,4 +76,67 @@ describe('/api/products', () => {
 			expect(res.body).toHaveProperty('description', 'description1');
 		});
 	});
+
+	describe('Post /', () => {
+		let token, title, description, images, price, count, discount, status, category;
+
+		const execute = async () => {
+			return await request(server).post('/api/products').set('x-auth-token', token).send({
+				title,
+				description,
+				images,
+				price,
+				count,
+				status,
+				category,
+				discount,
+			});
+		};
+
+		beforeEach(async () => {
+			token = new User().generateAuthToken();
+			title = 'product1';
+			description = 'description1';
+			images = ['https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'];
+			price = 100;
+			count = 4;
+			discount = 5;
+			status = 1;
+			category = new mongoose.Types.ObjectId().toHexString();
+		});
+
+		it('should return 401 if client is not logged in', async () => {
+			token = '';
+			const res = await execute();
+			expect(res.status).toBe(401);
+		});
+
+		test.each(['title', 'description', 'images', 'price', 'count', 'discount', 'status', 'category'])('should return 400 if %s is not provided', async value => {
+			if (value === 'title') title = '';
+			else if (value === 'description') description = '';
+			else if (value === 'images') images = [];
+			else if (value === 'price') price = '';
+			else if (value === 'count') count = '';
+			else if (value === 'discount') discount = '';
+			else if (value === 'status') status = '';
+			else if (value === 'category') category = '';
+
+			const res = await execute();
+			expect(res.status).toBe(400);
+		});
+
+		it('should save the product if it is valid', async () => {
+			await execute();
+			const product = await Product.find({ title: 'product1' });
+			expect(product).not.toBeNull();
+		});
+
+		it('should return the product if it is valid', async () => {
+			const res = await execute();
+			expect(res.status).toBe(200);
+			expect(res.body).toHaveProperty('_id');
+			expect(res.body).toHaveProperty('title', 'product1');
+			expect(res.body).toHaveProperty('description', 'description1');
+		});
+	});
 });
