@@ -30,7 +30,7 @@ describe('/api/categories', () => {
 		});
 	});
 
-	describe('GET /:id', () => {
+	describe('GET /:categoryId', () => {
 		it('should return a category if valid id is passed', async () => {
 			const category = new Category({ title: 'category1', description: 'description1' });
 			await category.save();
@@ -101,7 +101,7 @@ describe('/api/categories', () => {
 		});
 	});
 
-	describe('PATCH /:id', () => {
+	describe('PATCH /:categoryId', () => {
 		let token, id, title, description;
 
 		const execute = async () => {
@@ -156,7 +156,7 @@ describe('/api/categories', () => {
 		});
 	});
 
-	describe('DELETE /:id', () => {
+	describe('DELETE /:categoryId', () => {
 		let token, id;
 		const execute = async () => {
 			return await request(server).delete(`/api/categories/${id}`).set('x-auth-token', token);
