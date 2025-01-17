@@ -222,4 +222,54 @@ describe('/api/products', () => {
 			expect(res.body).toHaveProperty('description', 'newDescription');
 		});
 	});
+
+	describe('DELETE /:productId', () => {
+		let token, id;
+		const execute = async () => {
+			return await request(server).delete(`/api/products/${id}`).set('x-auth-token', token);
+		};
+
+		beforeEach(async () => {
+			const product = new Product({
+				title: 'product1',
+				description: 'description1',
+				images: ['https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'],
+				price: 100,
+				count: 4,
+				status: 1,
+				discount: 5,
+				category: new mongoose.Types.ObjectId().toHexString(),
+			});
+			await product.save();
+
+			token = new User().generateAuthToken();
+			id = product._id;
+		});
+
+		it('should return 401 if client is not logged in', async () => {
+			token = '';
+			const res = await execute();
+			expect(res.status).toBe(401);
+		});
+
+		it('should return 404 if invalid id is passed', async () => {
+			id = '1';
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+
+		it('should return 404 if no product with the given id exists', async () => {
+			id = new mongoose.Types.ObjectId();
+			const res = await execute();
+			expect(res.status).toBe(404);
+		});
+
+		it('should return the deleted category if valid id is passed', async () => {
+			const res = await execute();
+			expect(res.status).toBe(200);
+			expect(res.body).toHaveProperty('_id');
+			expect(res.body).toHaveProperty('title', 'product1');
+			expect(res.body).toHaveProperty('description', 'description1');
+		});
+	});
 });
