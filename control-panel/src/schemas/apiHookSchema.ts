@@ -56,8 +56,12 @@ export interface DeleteProps<T> {
 	onError?: () => void;
 }
 
-export interface GetHookProps {
+export interface GetDetailsHookProps {
 	id: string;
+	path: string;
+	queryKey: string;
+}
+export interface GetHookProps {
 	path: string;
 	queryKey: string;
 }

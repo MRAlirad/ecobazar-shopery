@@ -13,6 +13,7 @@ import AddCategory from './pages/category/AddCategory.tsx';
 import EditCategory from './pages/category/EditCategory.tsx';
 import Auth from './pages/auth/Auth.tsx';
 import Signup from './pages/auth/Signup.tsx';
+import Login from './pages/auth/Login.tsx';
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,10 @@ createRoot(document.getElementById('root')!).render(
 							<Route
 								path="/auth/signup"
 								element={<Signup />}
+							/>
+							<Route
+								path="/auth/login"
+								element={<Login />}
 							/>
 						</Route>
 					</Route>

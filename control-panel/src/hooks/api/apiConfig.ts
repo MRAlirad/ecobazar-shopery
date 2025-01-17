@@ -12,6 +12,14 @@ const apiConfig = {
 			queryKey: 'user-signup',
 			path: '/users/signup',
 		},
+		login: {
+			queryKey: 'user-login',
+			path: '/auth/login',
+		},
+		info: {
+			queryKey: 'user-info',
+			path : '/users/me',
+		}
 	},
 };
 

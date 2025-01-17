@@ -14,3 +14,5 @@ export { default as useDeleteCategory } from './category/useDeleteCategory';
 
 //! User
 export { default as useUserSignup } from './auth/useUserSignup';
+export { default as useGetUserInfo } from './user/useGetUserInfo';
+export { default as useUserLogin } from './user/useUserLogin';

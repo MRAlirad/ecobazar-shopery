@@ -1,10 +1,10 @@
 import axios from 'axios';
+import { EcobazarShoperyToken } from '../../helpers/Token';
 
 const apiClient = axios.create({
 	baseURL: 'http://localhost:8000/api',
 	headers: {
-		'Access-Control-Allow-Origin': '*',
-		'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+		'x-auth-token': EcobazarShoperyToken('get'),
 	},
 });
 

@@ -51,7 +51,7 @@ const ProductForm = ({
 			discount: data?.discount ?? 0,
 			count: data?.count ?? 0,
 			status: data?.status ?? statuses[0].value,
-			category: data?.category._id ?? '',
+			category: data?.category?._id ?? '',
 			// tag: data?.tag ?? '',
 		},
 	});

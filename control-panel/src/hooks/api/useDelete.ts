@@ -10,7 +10,7 @@ const useDelete = <receivedDataSchema>({ path, queryKey, successToast, onDelete 
 	return useMutation<receivedDataSchema, AxiosError, string>({
 		mutationFn: (id: string) => apiClient.delete(`${path}/${id}`).then(res => res.data),
 		onSuccess: (data: receivedDataSchema) => {
-			toast.success(successToast);
+			toast.success(successToast, { theme: 'light' });
 			queryClient.invalidateQueries({ queryKey: [queryKey] });
 			onDelete(data);
 		},

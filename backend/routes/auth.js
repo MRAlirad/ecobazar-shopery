@@ -5,7 +5,7 @@ const { z } = require('zod');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/login', async (req, res) => {
 	// validate request
 	const errors = validateUser(req.body);
 	if (errors) return res.status(400).send(errors);
@@ -18,7 +18,12 @@ router.post('/', async (req, res) => {
 
 	const token = user.generateAuthToken();
 
-	res.send(token);
+	res.send({
+		_id: user._id,
+		name: user.name,
+		email: user.email,
+		token: token,
+	});
 });
 
 const validateUser = req => {
