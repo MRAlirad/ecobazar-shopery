@@ -5,9 +5,20 @@ const { Product, validateProduct } = require('../models/product');
 
 const router = express.Router();
 
-router.get('/', async (_, res) => {
-	const products = await Product.find().populate('category').sort('title');
-	res.send(products);
+router.get('/', async (req, res) => {
+	const totalSize = 10;
+	const currentPage = req.query.page ? +req.query.page : 1;
+	const totalPages = Math.ceil((await Product.find().countDocuments()) / totalSize);
+
+	const data = await Product
+		.find()
+		.populate('category')
+		.skip((currentPage - 1) * totalSize)
+		.limit(totalSize)
+		.sort('-_id')
+	;
+
+	res.send({ data, totalPages, currentPage });
 });
 
 router.get('/:id', validateObjectId, async (req, res) => {

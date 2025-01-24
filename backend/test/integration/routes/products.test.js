@@ -24,9 +24,10 @@ describe('/api/products', () => {
 			const res = await request(server).get('/api/products');
 
 			expect(res.status).toBe(200);
-			expect(res.body.length).toBe(2);
-			expect(res.body.some(c => c.title === 'product1')).toBeTruthy();
-			expect(res.body.some(c => c.title === 'product2')).toBeTruthy();
+			expect(res.body).toHaveProperty('data');
+			expect(res.body.data.length).toBe(2);
+			expect(res.body.data.some(c => c.title === 'product1')).toBeTruthy();
+			expect(res.body.data.some(c => c.title === 'product2')).toBeTruthy();
 		});
 	});
 

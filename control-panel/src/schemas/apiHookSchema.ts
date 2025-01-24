@@ -69,4 +69,5 @@ export interface GetHookProps {
 export interface GetListProps {
 	path: string;
 	queryKey: string;
+	params?: object | string;
 }

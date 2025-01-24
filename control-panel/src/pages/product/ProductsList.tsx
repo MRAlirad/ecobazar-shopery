@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router';
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
-import { Link } from 'react-router';
 import { TableListSkeleton } from '../../components/Skeletons';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
@@ -8,22 +8,25 @@ import { statuses } from '../../values';
 import { FaTrash, FaPen } from 'react-icons/fa';
 import { DeleteModal } from '../../components/Modal';
 import ProductSchema from '../../schemas/ProductSchema';
+import Pagination from '../../components/Pagination';
 
 const ProductsList = () => {
-	const { data: products, isLoading } = useGetProductsList();
+	const [searchParams] = useSearchParams();
+
+	const { data: products, isLoading } = useGetProductsList({ params: searchParams.toString() });
 
 	if (isLoading) return <TableListSkeleton />;
+
+	console.log(products);
 
 	return (
 		<div className="page">
 			<div className="flex items-center justify-between">
 				<h1>Products List</h1>
-				<Link
+				<Button
 					to="/product/add"
-					className="btn blue medium"
-				>
-					Add Product
-				</Link>
+					text="Add Product"
+				/>
 			</div>
 
 			<div className="table-wrapper">
@@ -39,7 +42,7 @@ const ProductsList = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{products?.map((product, index) => (
+						{products?.data?.map((product, index) => (
 							<RowItem
 								key={product._id}
 								row={index + 1}
@@ -49,6 +52,13 @@ const ProductsList = () => {
 					</tbody>
 				</table>
 			</div>
+
+			{products && products?.totalPages > 1 && (
+				<Pagination
+					currentPage={products?.currentPage}
+					totalPages={products?.totalPages}
+				/>
+			)}
 		</div>
 	);
 };
