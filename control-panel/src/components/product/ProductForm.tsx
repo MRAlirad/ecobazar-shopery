@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useGetCategoriesList } from '../../hooks/api';
+import { useGetCategoriesDropdownList } from '../../hooks/api';
 import { InputSkeleton } from '../Skeletons';
 import Modal from '../Modal';
 import Input from '../Input';
@@ -68,7 +68,7 @@ const ProductForm = ({
 		else if (mode === 'EDIT') onEdit(formData);
 	};
 
-	const { data: categories, isLoading } = useGetCategoriesList();
+	const { data: categories, isLoading } = useGetCategoriesDropdownList();
 
 	return (
 		<FormProvider {...formMethods}>

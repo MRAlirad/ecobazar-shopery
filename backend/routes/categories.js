@@ -5,8 +5,23 @@ const { Category, validateCategory } = require('../models/category');
 
 const router = express.Router();
 
-router.get('/', async (_, res) => {
-	const categories = await Category.find().sort('title');
+router.get('/', async (req, res) => {
+	const totalSize = 10;
+	const currentPage = req.query.page ? +req.query.page : 1;
+	const totalPages = Math.ceil((await Category.find().countDocuments()) / totalSize);
+
+	const data = await Category
+		.find()
+		.skip((currentPage - 1) * totalSize)
+		.limit(totalSize)
+		.sort('-_id')
+	;
+
+	res.send({ data, totalPages, currentPage });
+});
+
+router.get('/dropdown', async (_, res) => {
+	const categories = await Category.find().sort('-_id');
 	res.send(categories);
 });
 

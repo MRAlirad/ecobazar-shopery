@@ -2,9 +2,9 @@ import useGetList from '../useGetList';
 import apiConfig from '../apiConfig';
 import CategorySchema from '../../../schemas/categorySchema';
 
-const useGetCategoriesList = () => {
+const useGetCategoriesList = ({ params }: { params: string }) => {
 	const { path, queryKey } = apiConfig.category;
-	return useGetList<CategorySchema>({ path, queryKey });
+	return useGetList<CategorySchema>({ path, queryKey, params });
 };
 
 export default useGetCategoriesList;

@@ -21,6 +21,12 @@ router.get('/', async (req, res) => {
 	res.send({ data, totalPages, currentPage });
 });
 
+router.get('/dropdown', async (req, res) => {
+	const products = await Product.find().populate('category').sort('-_id');
+
+	res.send(products)
+})
+
 router.get('/:id', validateObjectId, async (req, res) => {
 	const product = await Product.findById(req.params.id).populate('category');
 	if (!product) return res.status(404).send(['product with the given id was not found']);

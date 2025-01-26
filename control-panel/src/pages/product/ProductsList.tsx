@@ -5,10 +5,10 @@ import { TableListSkeleton } from '../../components/Skeletons';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
 import { statuses } from '../../values';
-import { FaTrash, FaPen } from 'react-icons/fa';
 import { DeleteModal } from '../../components/Modal';
-import ProductSchema from '../../schemas/ProductSchema';
 import Pagination from '../../components/Pagination';
+import ProductSchema from '../../schemas/ProductSchema';
+import { FaTrash, FaPen } from 'react-icons/fa';
 
 const ProductsList = () => {
 	const [searchParams] = useSearchParams();

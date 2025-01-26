@@ -1,14 +1,16 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router';
 import { useGetCategoriesList, useDeleteCategory } from '../../hooks/api';
-import { Link } from 'react-router';
 import { TableListSkeleton } from '../../components/Skeletons';
 import Button from '../../components/Button';
-import { FaTrash, FaPen } from 'react-icons/fa';
 import { DeleteModal } from '../../components/Modal';
+import Pagination from '../../components/Pagination';
 import CategorySchema from '../../schemas/categorySchema';
+import { FaTrash, FaPen } from 'react-icons/fa';
 
 const CategoriesList = () => {
-	const { data: categories, isLoading } = useGetCategoriesList();
+	const [searchParams] = useSearchParams();
+	const { data: categories, isLoading } = useGetCategoriesList({ params: searchParams.toString() });
 
 	if (isLoading) return <TableListSkeleton />;
 
@@ -16,12 +18,10 @@ const CategoriesList = () => {
 		<div className="page">
 			<div className="flex items-center justify-between">
 				<h1>Categories List</h1>
-				<Link
+				<Button
 					to="/category/add"
-					className="btn blue medium"
-				>
-					Add Category
-				</Link>
+					text="Add Category"
+				/>
 			</div>
 
 			<div className="table-wrapper">
@@ -34,7 +34,7 @@ const CategoriesList = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{categories?.map((category, index) => (
+						{categories?.data?.map((category, index) => (
 							<RowItem
 								key={category._id}
 								row={index + 1}
@@ -44,6 +44,13 @@ const CategoriesList = () => {
 					</tbody>
 				</table>
 			</div>
+
+			{categories && categories?.totalPages > 1 && (
+				<Pagination
+					currentPage={categories?.currentPage}
+					totalPages={categories?.totalPages}
+				/>
+			)}
 		</div>
 	);
 };
