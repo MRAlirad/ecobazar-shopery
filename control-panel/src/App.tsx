@@ -10,7 +10,7 @@ function App() {
 		<div
 			className={classNames({
 				'min-h-screen': true,
-				'grid grid-cols-[256px_1fr] grid-rows-[max-content_1fr] bg-white dark:bg-gray-900': !pathname.includes('auth'),
+				'grid grid-cols-[256px_1fr] grid-rows-[max-content_1fr] bg-white dark:bg-[#0e1624]': !pathname.includes('auth'),
 			})}
 		>
 			{!pathname.includes('auth') && (

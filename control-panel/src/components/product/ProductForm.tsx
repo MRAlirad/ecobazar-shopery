@@ -36,9 +36,9 @@ const ProductForm = ({
 				title: yup.string().required('Title is a required field'),
 				description: yup.string().required('Description is a required field'),
 				images: yup.array().of(yup.string().required()).min(1).required('Images is a required field'),
-				price: yup.number().typeError('Price is a required field').required('Price is a required field'),
+				price: yup.number().typeError('Price is a required field').required('Price is a required field').min(0),
 				discount: yup.number().typeError('Discount is a required field').required('Discount is required field').min(0).max(100),
-				count: yup.number().typeError('Count is required field').required('Count is required field'),
+				count: yup.number().typeError('Count is required field').required('Count is required field').min(0),
 				status: yup.number().typeError('Status is required field').required('Status is required field'),
 				category: yup.string().required('Category is required field'),
 			})
@@ -114,7 +114,7 @@ const ProductForm = ({
 						))}
 						<div
 							className={classNames({
-								'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 dark:hover:border-gray-500':
+								'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 dark:border-gray-600 dark:hover:border-gray-500':
 									true,
 								'h-64 col-span-4': watch('images').length === 0,
 								'aspect-square': watch('images').length > 0,

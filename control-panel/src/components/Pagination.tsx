@@ -4,14 +4,19 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import classNames from 'classnames';
 import { numListArray } from '../helpers/Array';
 
-const Pagination = ({ currentPage, totalPages }) => {
+interface Props {
+	currentPage : number;
+	totalPages : number;
+}
+
+const Pagination = ({ currentPage, totalPages }: Props) => {
 	console.log(totalPages);
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const changePage = (page: number) => {
 		const params = {};
 
-		for (let [key, value] of searchParams.entries()) {
+		for (const [key, value] of searchParams.entries()) {
 			params[key] = value;
 		}
 		setSearchParams({ ...params, page });

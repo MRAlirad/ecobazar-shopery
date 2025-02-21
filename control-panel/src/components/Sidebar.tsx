@@ -55,7 +55,7 @@ const Sidebar = () => {
 
 	return (
 		<aside className="sticky top-20 h-[calc(100vh-80px)]">
-			<div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+			<div className="h-full px-3 py-4 overflow-y-auto border-e-2 border-gray-200 dark:border-white/20">
 				<ul className="space-y-2 font-medium">
 					{sidebarItems.map((item, index) => (
 						<SidearItem

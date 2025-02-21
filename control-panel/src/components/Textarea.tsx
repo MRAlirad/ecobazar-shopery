@@ -10,7 +10,7 @@ interface Props {
 	onChange?: (value: string) => void;
 }
 
-const Textarea = ({ label, className, defaultValue, name, placeholder,  onChange = () => {} }: Props) => {
+const Textarea = ({ label, className = '', defaultValue, name, placeholder, onChange = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
@@ -19,25 +19,17 @@ const Textarea = ({ label, className, defaultValue, name, placeholder,  onChange
 	});
 
 	return (
-		<div className={`grid gap-2 h-max ${className}`}>
-			<label
-				className={classNames({
-					'block text-sm font-medium': true,
-					'text-gray-900 dark:text-white': !fieldState.error,
-					'text-red-700 dark:text-red-500': fieldState.error,
-				})}
-			>
-				{label}
-			</label>
+		<div
+			className={classNames({
+				'form-input': true,
+				error: fieldState.error,
+				[className]: className,
+			})}
+		>
+			<label>{label}</label>
 			<textarea
 				{...field}
-				className={classNames({
-					'border text-sm rounded-lg w-full p-2.5 min-h-64 outline-none': true,
-					'bg-gray-50 text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500': true,
-					'dark:bg-gray-700 dark:text-white dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500': true,
-					'bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500': fieldState.error,
-					'dark:text-red-500 dark:placeholder-red-500 dark:border-red-500': fieldState.error,
-				})}
+				className='min-h-64'
 				placeholder={placeholder}
 				onChange={e => {
 					onChange(e.target.value);

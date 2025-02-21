@@ -15,7 +15,7 @@ const PageActionsBox = ({ mode, onAdd = () => {}, isAdding, onEdit = () => {}, i
 		<div className="col-span-2 flex items-center flex-row-reverse gap-3 p-6">
 			{mode === 'ADD' && (
 				<Button
-					color="blue"
+					color="indigo"
 					text="Save"
 					type="submit"
 					loading={isAdding}
