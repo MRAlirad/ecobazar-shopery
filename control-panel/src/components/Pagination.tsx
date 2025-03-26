@@ -14,12 +14,12 @@ const Pagination = ({ currentPage, totalPages }: Props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const changePage = (page: number) => {
-		const params = {};
+		const params: Record<string, string> = {};
 
 		for (const [key, value] of searchParams.entries()) {
 			params[key] = value;
 		}
-		setSearchParams({ ...params, page });
+		setSearchParams({ ...params, page: page.toString() });
 	};
 	return (
 		<div className="flex items-center justify-center -space-x-px h-8 text-sm">
