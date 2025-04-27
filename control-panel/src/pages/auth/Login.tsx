@@ -44,7 +44,7 @@ const Login = () => {
 					className="grid gap-4"
 					onSubmit={formMethods.handleSubmit(data => signup.mutate(data))}
 				>
-					<h5 className="text-xl font-medium text-gray-900 dark:text-white">Log in to our platform</h5>
+					<h5 className="text-xl font-medium text-gray-900">Log in to our platform</h5>
 					<Input
 						name="email"
 						label="Your Email"
@@ -62,11 +62,11 @@ const Login = () => {
 						fluid
 						loading={signup.isPending}
 					/>
-					<div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+					<div className="text-sm font-medium text-gray-500">
 						Not registered?{' '}
 						<Link
 							to="/auth/signup"
-							className="text-blue-700 hover:underline dark:text-blue-500"
+							className="text-blue-700 hover:underline"
 						>
 							create to your account
 						</Link>

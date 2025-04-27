@@ -43,7 +43,10 @@ const Signup = () => {
 	return (
 		<FormProvider {...formMethods}>
 			<Card className="w-full max-w-sm z-10">
-				<form className='grid gap-4' onSubmit={formMethods.handleSubmit(data => signup.mutate(data))}>
+				<form
+					className="grid gap-4"
+					onSubmit={formMethods.handleSubmit(data => signup.mutate(data))}
+				>
 					<h5 className="text-xl font-medium">Sign up to our platform</h5>
 					<Input
 						name="name"
@@ -67,11 +70,11 @@ const Signup = () => {
 						fluid
 						loading={signup.isPending}
 					/>
-					<div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+					<div className="text-sm font-medium text-gray-500">
 						Already registered?{' '}
 						<Link
 							to="/auth/login"
-							className="text-blue-700 hover:underline dark:text-blue-500"
+							className="text-blue-700 hover:underline"
 						>
 							Login to your account
 						</Link>

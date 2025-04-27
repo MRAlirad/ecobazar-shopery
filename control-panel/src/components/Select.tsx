@@ -1,22 +1,26 @@
 import { useController, useFormContext } from 'react-hook-form';
 import classNames from 'classnames';
+import ErrorMessage from './ErrorMessage';
 
 interface Props {
 	label: string;
+	name: string;
+	disabled?: boolean;
+	readOnly?: boolean;
 	className?: string;
 	defaultValue?: string;
-	name: string;
 	placeholder?: string;
 	options: { value: string | number; label: string }[];
 	onChange?: (value: string) => void;
 }
 
-const Select = ({ label, className = '', defaultValue, name, placeholder = 'select one item', options = [], onChange = () => {} }: Props) => {
+const Select = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder = 'select one item', options = [], onChange = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
 		name,
 		defaultValue,
+		disabled,
 	});
 
 	return (
@@ -24,6 +28,8 @@ const Select = ({ label, className = '', defaultValue, name, placeholder = 'sele
 			className={classNames({
 				'form-input': true,
 				error: fieldState.error,
+				disabled: disabled,
+				readonly: readOnly,
 				[className]: className,
 			})}
 		>
@@ -31,6 +37,7 @@ const Select = ({ label, className = '', defaultValue, name, placeholder = 'sele
 			<select
 				{...field}
 				defaultValue={defaultValue}
+				disabled={disabled || readOnly}
 				onChange={e => {
 					onChange(e.target.value);
 					if (field) return field.onChange(e);
@@ -64,7 +71,7 @@ const Select = ({ label, className = '', defaultValue, name, placeholder = 'sele
 					</option>
 				)}
 			</select>
-			{fieldState.error && <span className="text-sm text-red-600 dark:text-red-500">{fieldState?.error?.message}</span>}
+			{fieldState?.error?.message && <ErrorMessage error={fieldState?.error?.message} />}
 		</div>
 	);
 };

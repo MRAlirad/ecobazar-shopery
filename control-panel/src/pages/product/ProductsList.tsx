@@ -96,7 +96,7 @@ const RowItem = ({ row, _id, title, status, price, discount, images }: ProductSc
 							color="green"
 							size="icon"
 							icon={<FaPen size="15" />}
-							to={`/product/edit/${_id}`}
+							to={`/product/${_id}`}
 						/>
 						<Button
 							color="red"

@@ -61,8 +61,8 @@ const Button = ({ text, icon, isActive = false, disabled = false, className = ''
 		<button
 			className={classNames({
 				'flex items-center justify-center px-3 h-8 leading-tight border': true,
-				'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white': isActive,
-				'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white':
+				'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700': isActive,
+				'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700':
 					!isActive,
 				'opacity-70': disabled,
 				[className]: className,

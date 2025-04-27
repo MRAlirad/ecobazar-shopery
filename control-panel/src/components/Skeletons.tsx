@@ -1,9 +1,10 @@
+import Page from './Page';
 import Card from './Card';
 import { numListArray } from '../helpers/Array';
 
 export const TableListSkeleton = () => {
 	return (
-		<div className="page">
+		<Page type="list">
 			<div className="flex items-center justify-between">
 				<div className="skeleton h-10 w-40"></div>
 				<div className="skeleton h-8 w-32"></div>
@@ -38,13 +39,13 @@ export const TableListSkeleton = () => {
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</Page>
 	);
 };
 
 export const FormSkeleton = () => {
 	return (
-		<div className="page">
+		<Page type="form">
 			<div className="skeleton h-10 w-40"></div>
 			<div className="grid grid-cols-[2fr_1fr] gap-y-6 gap-x-4">
 				<div className="grid gap-y-4 h-max">
@@ -68,7 +69,7 @@ export const FormSkeleton = () => {
 					</Card>
 				</div>
 			</div>
-		</div>
+		</Page>
 	);
 };
 

@@ -5,16 +5,10 @@
 @layer components {
 	/*! GENERAL !*/
 	body {
-		@apply text-gray-900;
+		@apply text-gray-900 bg-gray-100;
 	}
 	.max-desktop-width {
 		@apply w-full max-w-screen-xl mx-auto px-4 md:px-10;
-	}
-	.page {
-		@apply space-y-4 w-full max-w-screen-xl mx-auto p-4 md:px-10;
-	}
-	.page h1 {
-		@apply text-3xl text-gray-900 dark:text-white;
 	}
 	.card {
 		@apply rounded-lg shadow-[0px_2px_10px_0px_rgba(0,0,0,0.1),0px_0px_2px_0px_rgba(0,0,0,0.2)] bg-white overflow-hidden;
@@ -25,10 +19,10 @@
 		@apply relative overflow-x-auto shadow-md rounded-lg;
 	}
 	.table-wrapper table {
-		@apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+		@apply w-full text-sm text-left text-gray-500;
 	}
 	.table-wrapper table thead {
-		@apply text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400;
+		@apply text-xs text-gray-700 uppercase bg-gray-50;
 	}
 	.table-wrapper table thead th {
 		@apply px-6 py-3;
@@ -38,40 +32,52 @@
 		@apply w-1/12;
 	}
 	.table-wrapper table tbody tr {
-		@apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 last:border-none;
+		@apply bg-white border-b last:border-none;
 	}
 	.table-wrapper table tbody tr td {
 		@apply px-6 py-4;
 	}
 
-	/*! Input, Textarea, Select !*/
+	/*! INPUT, SELECT, TEXTAREA !*/
 	.form-input {
 		@apply grid gap-2 h-max;
 	}
 	.form-input label {
-		@apply block text-sm/6 font-semibold;
-	}
-	.form-input.error label {
-		@apply text-red-700 dark:text-red-500;
-	}
-	.form-input:not(error) label {
-		@apply text-gray-900 dark:text-white;
+		@apply text-sm text-gray-900;
 	}
 	.form-input input,
 	.form-input textarea,
 	.form-input select {
-		@apply text-base rounded-md w-full px-3 py-1.5 outline outline-1 -outline-offset-1;
+		@apply text-gray-900 w-full py-1.5 px-2.5 text-sm bg-white border border-gray-500 rounded-md focus:ring-blue-500 focus:border-blue-500;
 	}
-	.form-input:not(error) input,
-	.form-input:not(error) textarea,
-	.form-input:not(error) select {
-		@apply bg-white text-gray-900 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 dark:bg-white/5 dark:text-white dark:outline-white/10 focus:dark:outline-indigo-600 dark:placeholder-gray-500;
+
+	/** error **/
+	.form-input.error label {
+		@apply text-red-700;
 	}
 	.form-input.error input,
 	.form-input.error textarea,
 	.form-input.error select {
-		@apply bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500;
+		@apply bg-red-50 border-red-500 text-red-900 placeholder-red-700 focus:border-red-500 ring-red-500 outline-none;
 	}
+
+	/** disabled **/
+	.form-input.disabled {
+		@apply opacity-50 cursor-not-allowed;
+	}
+	.form-input.disabled input,
+	.form-input.disabled textarea,
+	.form-input.disabled select {
+		@apply cursor-not-allowed;
+	}
+
+	/** readonly **/
+	.form-input.readonly input,
+	.form-input.readonly textarea,
+	.form-input.readonly select {
+		@apply !outline-none;
+	}
+
 
 	/*! BUTTON !*/
 	.btn {
@@ -163,7 +169,7 @@
 
 	/*! Skeleton !*/
 	.skeleton {
-		@apply relative overflow-hidden bg-gray-200 dark:bg-gray-700 rounded after:absolute after:top-0 after:right-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 dark:after:from-gray-700 dark:after:via-gray-600 dark:after:to-gray-700 after:animate-progress;
+		@apply relative overflow-hidden bg-gray-200 rounded after:absolute after:top-0 after:right-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 after:animate-progress;
 	}
 }
 

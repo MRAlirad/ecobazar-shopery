@@ -18,6 +18,7 @@ import ProductSchema, { ProductFormInputs } from '../../schemas/ProductSchema';
 import { statuses } from '../../values';
 import { FiUploadCloud } from 'react-icons/fi';
 import { FaTrash } from 'react-icons/fa';
+import ErrorMessage from '../ErrorMessage';
 
 const ProductForm = ({
 	mode,
@@ -73,10 +74,7 @@ const ProductForm = ({
 
 	return (
 		<FormProvider {...formMethods}>
-			<form
-				className="grid grid-cols-[2fr_1fr] gap-6"
-				// onSubmit={handleSubmit(onSubmit)}
-			>
+			<form className="grid grid-cols-[2fr_1fr] gap-6">
 				<div className="space-y-6">
 					<Card>
 						<Input
@@ -94,7 +92,7 @@ const ProductForm = ({
 							{watch('images').map((image, index) => (
 								<div
 									key={index}
-									className="img-box relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 aspect-square"
+									className="img-box relative bg-white border border-gray-200 rounded-lg shadow aspect-square"
 								>
 									<img
 										src={image}
@@ -116,15 +114,14 @@ const ProductForm = ({
 							))}
 							<div
 								className={classNames({
-									'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 dark:border-gray-600 dark:hover:border-gray-500':
-										true,
+									'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100': true,
 									'h-64 col-span-4': watch('images').length === 0,
 									'aspect-square': watch('images').length > 0,
 									'!border-red-700': errors?.images && watch('images').length === 0,
 								})}
 								onClick={() => setImageModalDisplay(true)}
 							>
-								<div className="flex flex-col items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
+								<div className="flex flex-col items-center justify-center gap-2 text-gray-500">
 									<Icon size="36">
 										<FiUploadCloud />
 									</Icon>
@@ -132,8 +129,8 @@ const ProductForm = ({
 									<p className="text-xs text-center">SVG, PNG, JPG or GIF</p>
 								</div>
 							</div>
-							{errors?.images && watch('images').length === 0 && <span className="col-span-4 text-sm text-red-600 dark:text-red-500">{errors?.images.message}</span>}
 						</div>
+						{errors?.images?.message && watch('images').length === 0 && <ErrorMessage error={errors?.images.message} />}
 					</Card>
 					<Card title="Pricing">
 						<div className="grid grid-cols-2 gap-4">
@@ -179,7 +176,7 @@ const ProductForm = ({
 					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}
 					onAdd={handleSubmit(onSubmit)}
 					onEdit={handleSubmit(onSubmit)}
-					className='col-span-2'
+					className="col-span-2"
 				/>
 			</form>
 			{imageModalDisplay && (

@@ -39,7 +39,7 @@ createRoot(document.getElementById('root')!).render(
 							element={<AddProduct />}
 						/>
 						<Route
-							path="/product/edit/:productId"
+							path="/product/:productId"
 							element={<EditProduct />}
 						/>
 						<Route
@@ -51,7 +51,7 @@ createRoot(document.getElementById('root')!).render(
 							element={<AddCategory />}
 						/>
 						<Route
-							path="/category/edit/:categoryId"
+							path="/category/:categoryId"
 							element={<EditCategory />}
 						/>
 						<Route

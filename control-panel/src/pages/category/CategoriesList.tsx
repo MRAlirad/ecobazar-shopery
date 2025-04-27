@@ -17,7 +17,7 @@ const CategoriesList = () => {
 	if (isLoading) return <TableListSkeleton />;
 
 	return (
-		<Page type='list'>
+		<Page type="list">
 			<PageHeader
 				title="Categories List"
 				action={{ text: 'Add Category', to: '/category/add' }}
@@ -71,7 +71,7 @@ const RowItem = ({ row, _id, title }: CategorySchema & { row: number }) => {
 							color="green"
 							size="icon"
 							icon={<FaPen size="15" />}
-							to={`/category/edit/${_id}`}
+							to={`/category/${_id}`}
 						/>
 						<Button
 							color="red"

@@ -1,23 +1,27 @@
 import { useController, useFormContext } from 'react-hook-form';
 import classNames from 'classnames';
 import { ChangeEvent } from 'react';
+import ErrorMessage from './ErrorMessage';
 
 interface Props {
 	label: string;
+	name: string;
+	disabled?: boolean;
+	readOnly?: boolean;
 	className?: string;
 	defaultValue?: string;
-	name: string;
 	placeholder?: string;
 	type?: string;
 	onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ label, className = '', defaultValue, name, placeholder, type, onChange = () => {} }: Props) => {
+const Input = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, type, onChange = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
 		name,
 		defaultValue,
+		disabled,
 	});
 
 	return (
@@ -25,12 +29,15 @@ const Input = ({ label, className = '', defaultValue, name, placeholder, type, o
 			className={classNames({
 				'form-input': true,
 				error: fieldState.error,
+				disabled: disabled,
+				readonly: readOnly,
 				[className]: className,
 			})}
 		>
 			<label>{label}</label>
 			<input
 				{...field}
+				disabled={disabled || readOnly}
 				type={type}
 				placeholder={placeholder}
 				onChange={e => {
@@ -38,7 +45,7 @@ const Input = ({ label, className = '', defaultValue, name, placeholder, type, o
 					if (field) return field.onChange(e);
 				}}
 			/>
-			{fieldState.error && <span className="text-sm text-red-600 dark:text-red-500">{fieldState?.error?.message}</span>}
+			{fieldState?.error?.message && <ErrorMessage error={fieldState?.error?.message} />}
 		</div>
 	);
 };

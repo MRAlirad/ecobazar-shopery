@@ -34,23 +34,23 @@ const Modal = ({ title, children, className = '', actions = [], onClose = () => 
 		>
 			<div
 				className={classNames({
-					'relative grid rounded-lg overflow-hidden w-full h-max max-w-[90vw] max-h-[90vh] bg-white shadow dark:bg-gray-800': true,
+					'relative grid rounded-lg overflow-hidden w-full h-max max-w-[90vw] max-h-[90vh] bg-white shadow': true,
 					'grid-rows-[max-content_1fr_max-content]': !!actions.length,
 					'grid-rows-[max-content_1fr]': actions.length === 0,
 					[className]: className,
 				})}
 			>
-				<div className="flex items-center justify-between p-4 border-b dark:border-gray-600">
-					<h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
+				<div className="flex items-center justify-between p-4 border-b">
+					<h3 className="text-xl font-semibold text-gray-900">{title}</h3>
 					<Button
-						color="default"
+						color="simple"
 						size="icon"
 						icon={<IoCloseOutline />}
 						onClick={onClose}
 					/>
 				</div>
 				<div className="overflow-y-auto overflow-x-hidden p-4">{children}</div>
-				<div className="flex flex-row-reverse items-center gap-4 p-4 border-t border-gray-200 dark:border-gray-600">
+				<div className="flex flex-row-reverse items-center gap-4 p-4 border-t border-gray-200">
 					{actions.map((btn, index) => (
 						<Button
 							key={index}
@@ -87,9 +87,9 @@ export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModa
 				if (e.target === e.currentTarget) onClose();
 			}}
 		>
-			<div className="relative bg-white dark:bg-gray-800 p-4 w-full h-max max-w-md max-h-full rounded-lg overflow-hidden shadow">
+			<div className="relative bg-white p-4 w-full h-max max-w-md max-h-full rounded-lg overflow-hidden shadow">
 				<Button
-					color="default"
+					color="simple"
 					size="icon"
 					icon={<IoCloseOutline />}
 					onClick={onClose}
@@ -98,12 +98,12 @@ export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModa
 				<div className="flex flex-col items-center gap-4 p-5 text-center">
 					<Icon
 						size="80"
-						className="text-gray-400 dark:text-gray-200"
+						className="text-gray-400"
 					>
 						<PiWarningCircle />
 					</Icon>
-					<h3 className="text-xl font-normal text-gray-700 dark:text-gray-400">{title}</h3>
-					<p className="text-gray-500 dark:text-gray-400">this process can not be undone!</p>
+					<h3 className="text-xl font-normal text-gray-700">{title}</h3>
+					<p className="text-gray-500">this process can not be undone!</p>
 					<div className="flex items-center justify-center gap-4">
 						<Button
 							color="red"
@@ -112,7 +112,7 @@ export const DeleteModal = ({ title, onClose, onDelete, isDeleting }: DeleteModa
 							loading={isDeleting}
 						/>
 						<Button
-							color="default"
+							color="red-outline"
 							text="No, Cancel"
 							onClick={onClose}
 						/>
