@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { TableListSkeleton } from '../../components/Skeletons';
+import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
 import { statuses } from '../../values';
@@ -17,17 +18,12 @@ const ProductsList = () => {
 
 	if (isLoading) return <TableListSkeleton />;
 
-	console.log(products);
-
 	return (
 		<div className="page">
-			<div className="flex items-center justify-between">
-				<h1>Products List</h1>
-				<Button
-					to="/product/add"
-					text="Add Product"
-				/>
-			</div>
+			<PageHeader
+				title="Products List"
+				action={{ text: 'Add Product', to: '/product/add' }}
+			/>
 
 			<div className="table-wrapper">
 				<table>

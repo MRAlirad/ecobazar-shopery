@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useAddCategory } from '../../hooks/api';
+import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
 
 const AddCategory = () => {
@@ -11,7 +12,10 @@ const AddCategory = () => {
 
 	return (
 		<main className="page">
-			<h1>Add Category</h1>
+			<PageHeader
+				title="Add Category"
+				backLink="/category/list"
+			/>
 			<CategoryForm
 				mode="ADD"
 				onAdd={data => addCategory.mutate(data)}

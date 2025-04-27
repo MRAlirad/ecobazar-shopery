@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetCategory, useEditCategory, useDeleteCategory } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
+import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
 import { DeleteModal } from '../../components/Modal';
 
@@ -28,7 +29,10 @@ const EditCategory = () => {
 
 	return (
 		<main className="page">
-			<h1>Edit Category</h1>
+			<PageHeader
+				title="Edit Category"
+				backLink="/category/list"
+			/>
 			<CategoryForm
 				mode="EDIT"
 				data={category}

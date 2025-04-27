@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useGetCategoriesList, useDeleteCategory } from '../../hooks/api';
 import { TableListSkeleton } from '../../components/Skeletons';
+import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
 import { DeleteModal } from '../../components/Modal';
 import Pagination from '../../components/Pagination';
@@ -15,14 +16,11 @@ const CategoriesList = () => {
 	if (isLoading) return <TableListSkeleton />;
 
 	return (
-		<div className="page">
-			<div className="flex items-center justify-between">
-				<h1>Categories List</h1>
-				<Button
-					to="/category/add"
-					text="Add Category"
-				/>
-			</div>
+		<main className="page">
+			<PageHeader
+				title="Categories List"
+				action={{ text: 'Add Category', to: '/category/add' }}
+			/>
 
 			<div className="table-wrapper">
 				<table>
@@ -51,7 +49,7 @@ const CategoriesList = () => {
 					totalPages={categories?.totalPages}
 				/>
 			)}
-		</div>
+		</main>
 	);
 };
 

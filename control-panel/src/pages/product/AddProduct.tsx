@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useAddProduct } from '../../hooks/api';
+import PageHeader from '../../components/PageHeader';
 import ProductForm from '../../components/product/ProductForm';
 
 const AddProduct = () => {
@@ -11,7 +12,10 @@ const AddProduct = () => {
 
 	return (
 		<main className="page">
-			<h1>Add Product</h1>
+			<PageHeader
+				title="Add Product"
+				backLink="/product/list"
+			/>
 			<ProductForm
 				mode="ADD"
 				onAdd={data => addProduct.mutate(data)}

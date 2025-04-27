@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetProduct, useEditProduct, useDeleteProduct } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
+import PageHeader from '../../components/PageHeader';
 import ProductForm from '../../components/product/ProductForm';
 import { DeleteModal } from '../../components/Modal';
 
@@ -28,7 +29,10 @@ const EditProduct = () => {
 
 	return (
 		<main className="page">
-			<h1>Edit Product</h1>
+			<PageHeader
+				title="Edit Product"
+				backLink="/product/list"
+			/>
 			<ProductForm
 				mode="EDIT"
 				data={product}
