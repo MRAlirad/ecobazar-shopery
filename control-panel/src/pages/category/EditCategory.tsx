@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetCategory, useEditCategory, useDeleteCategory } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
 import { DeleteModal } from '../../components/Modal';
@@ -28,7 +29,7 @@ const EditCategory = () => {
 	if (error) return <div>{error.response!.data as string[]}</div>;
 
 	return (
-		<main className="page">
+		<Page type='form'>
 			<PageHeader
 				title="Edit Category"
 				backLink="/category"
@@ -49,7 +50,7 @@ const EditCategory = () => {
 					isDeleting={deleteCategory.isPending}
 				/>
 			)}
-		</main>
+		</Page>
 	);
 };
 export default EditCategory;

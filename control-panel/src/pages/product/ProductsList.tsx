@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { TableListSkeleton } from '../../components/Skeletons';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
@@ -19,7 +20,7 @@ const ProductsList = () => {
 	if (isLoading) return <TableListSkeleton />;
 
 	return (
-		<div className="page">
+		<Page type="list">
 			<PageHeader
 				title="Products List"
 				action={{ text: 'Add Product', to: '/product/add' }}
@@ -55,7 +56,7 @@ const ProductsList = () => {
 					totalPages={products?.totalPages}
 				/>
 			)}
-		</div>
+		</Page>
 	);
 };
 

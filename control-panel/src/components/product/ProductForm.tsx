@@ -173,16 +173,13 @@ const ProductForm = ({
 								options={categories ? categories.map(category => ({ label: category.title, value: category._id || '' })) : []}
 							/>
 						)}
-						{/* <Input
-							name="tag"
-							label="Tags"
-						/> */}
 					</Card>
 				</div>
 				<PageActionsBox
 					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}
 					onAdd={handleSubmit(onSubmit)}
 					onEdit={handleSubmit(onSubmit)}
+					className='col-span-2'
 				/>
 			</form>
 			{imageModalDisplay && (

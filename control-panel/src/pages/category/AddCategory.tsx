@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useAddCategory } from '../../hooks/api';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
 
@@ -11,7 +12,7 @@ const AddCategory = () => {
 	});
 
 	return (
-		<main className="page">
+		<Page type='form'>
 			<PageHeader
 				title="Add Category"
 				backLink="/category"
@@ -21,7 +22,7 @@ const AddCategory = () => {
 				onAdd={data => addCategory.mutate(data)}
 				isAdding={addCategory.isPending}
 			/>
-		</main>
+		</Page>
 	);
 };
 

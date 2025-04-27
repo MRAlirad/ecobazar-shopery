@@ -1,7 +1,9 @@
+import classNames from 'classnames';
 import Button from './Button.tsx';
 
 interface Props {
 	mode: 'ADD' | 'EDIT';
+	className?: string;
 	onAdd: () => void;
 	isAdding: boolean;
 	onEdit: () => void;
@@ -10,9 +12,14 @@ interface Props {
 	isDeleting: boolean;
 }
 
-const PageActionsBox = ({ mode, onAdd = () => {}, isAdding, onEdit = () => {}, isEditing, onDelete = () => {}, isDeleting }: Props) => {
+const PageActionsBox = ({ mode, className = '', onAdd = () => {}, isAdding, onEdit = () => {}, isEditing, onDelete = () => {}, isDeleting }: Props) => {
 	return (
-		<div className="col-span-2 flex items-center flex-row-reverse gap-3 p-6">
+		<div
+			className={classNames({
+				'flex items-center gap-2 flex-row-reverse': true,
+				[className]: className,
+			})}
+		>
 			{mode === 'ADD' && (
 				<Button
 					color="black"

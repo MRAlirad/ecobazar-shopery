@@ -40,7 +40,7 @@ const CategoryForm = ({
 	return (
 		<FormProvider {...formMethods}>
 			<form
-				// className="grid grid-cols-[2fr_1fr] gap-6"
+				className="grid gap-6"
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<Card>

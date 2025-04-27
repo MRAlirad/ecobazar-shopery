@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useAddProduct } from '../../hooks/api';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import ProductForm from '../../components/product/ProductForm';
 
@@ -11,7 +12,7 @@ const AddProduct = () => {
 	});
 
 	return (
-		<main className="page">
+		<Page type='form'>
 			<PageHeader
 				title="Add Product"
 				backLink="/product"
@@ -21,7 +22,7 @@ const AddProduct = () => {
 				onAdd={data => addProduct.mutate(data)}
 				isAdding={addProduct.isPending}
 			/>
-		</main>
+		</Page>
 	);
 };
 

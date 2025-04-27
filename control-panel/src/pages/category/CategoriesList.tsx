@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useGetCategoriesList, useDeleteCategory } from '../../hooks/api';
 import { TableListSkeleton } from '../../components/Skeletons';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
 import { DeleteModal } from '../../components/Modal';
@@ -16,7 +17,7 @@ const CategoriesList = () => {
 	if (isLoading) return <TableListSkeleton />;
 
 	return (
-		<main className="page">
+		<Page type='list'>
 			<PageHeader
 				title="Categories List"
 				action={{ text: 'Add Category', to: '/category/add' }}
@@ -49,7 +50,7 @@ const CategoriesList = () => {
 					totalPages={categories?.totalPages}
 				/>
 			)}
-		</main>
+		</Page>
 	);
 };
 

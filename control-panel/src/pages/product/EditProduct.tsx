@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useGetProduct, useEditProduct, useDeleteProduct } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
+import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import ProductForm from '../../components/product/ProductForm';
 import { DeleteModal } from '../../components/Modal';
@@ -28,7 +29,7 @@ const EditProduct = () => {
 	if (error) return <div>{error.response!.data as string[]}</div>;
 
 	return (
-		<main className="page">
+		<Page type='form'>
 			<PageHeader
 				title="Edit Product"
 				backLink="/product"
@@ -49,7 +50,7 @@ const EditProduct = () => {
 					isDeleting={deleteProduct.isPending}
 				/>
 			)}
-		</main>
+		</Page>
 	);
 };
 export default EditProduct;
