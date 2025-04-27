@@ -16,11 +16,11 @@ const EditCategory = () => {
 	const editCategory = useEditCategory({
 		id: categoryId!,
 		successToast: 'Category updated successfully',
-		onEdit: () => navigate('/category/list'),
+		onEdit: () => navigate('/category'),
 	});
 	const deleteCategory = useDeleteCategory({
 		successToast: 'Category deleted successfully',
-		onDelete: () => navigate('/category/list'),
+		onDelete: () => navigate('/category'),
 	});
 
 	if (isLoading) return <FormSkeleton />;
@@ -31,7 +31,7 @@ const EditCategory = () => {
 		<main className="page">
 			<PageHeader
 				title="Edit Category"
-				backLink="/category/list"
+				backLink="/category"
 			/>
 			<CategoryForm
 				mode="EDIT"

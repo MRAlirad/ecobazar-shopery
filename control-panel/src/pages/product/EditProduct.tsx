@@ -16,11 +16,11 @@ const EditProduct = () => {
 	const editProduct = useEditProduct({
 		id: productId!,
 		successToast: 'Product updated successfully',
-		onEdit: () => navigate('/product/list'),
+		onEdit: () => navigate('/product'),
 	});
 	const deleteProduct = useDeleteProduct({
 		successToast: 'Product deleted successfully',
-		onDelete: () => navigate('/product/list'),
+		onDelete: () => navigate('/product'),
 	});
 
 	if (isLoading) return <FormSkeleton />;
@@ -31,7 +31,7 @@ const EditProduct = () => {
 		<main className="page">
 			<PageHeader
 				title="Edit Product"
-				backLink="/product/list"
+				backLink="/product"
 			/>
 			<ProductForm
 				mode="EDIT"

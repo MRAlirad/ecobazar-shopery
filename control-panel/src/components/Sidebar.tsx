@@ -1,108 +1,76 @@
-import { useState } from 'react';
 import { ReactNode } from 'react';
-import { Link } from 'react-router';
-import Icon from './Icon';
-import { RiDashboardFill } from 'react-icons/ri';
-import { FaCartShopping } from 'react-icons/fa6';
-import { IoIosArrowDown } from 'react-icons/io';
+import classNames from 'classnames';
+import { NavLink } from 'react-router';
+import Icon from '../components/Icon';
+import { HiHome } from 'react-icons/hi';
+import { FaShoppingCart } from 'react-icons/fa';
 import { BiSolidCategoryAlt } from 'react-icons/bi';
 
-interface SidebarItemProps {
-	icon: ReactNode;
-	label: string;
-	href: string;
-	submenu?: { label: string; href: string }[];
-}
-
 const Sidebar = () => {
-	const sidebarItems: SidebarItemProps[] = [
+	const links = [
 		{
-			href: '/dashboard',
 			label: 'Dashboard',
-			icon: <RiDashboardFill />,
+			icon: <HiHome />,
+			href: '/',
 		},
 		{
+			label: 'Products',
+			icon: <FaShoppingCart />,
 			href: '/product',
-			label: 'Product',
-			icon: <FaCartShopping />,
-			submenu: [
-				{
-					href: '/product/list',
-					label: 'Product List',
-				},
-				{
-					href: '/product/add',
-					label: 'Add Product',
-				},
-			],
 		},
 		{
-			href: '/category',
-			label: 'Category',
+			label: 'Categories',
 			icon: <BiSolidCategoryAlt />,
-			submenu: [
-				{
-					href: '/category/list',
-					label: 'Categry List',
-				},
-				{
-					href: '/category/add',
-					label: 'Add Categry',
-				},
-			],
+			href: '/category',
 		},
 	];
 
 	return (
-		<aside className="sticky top-20 h-[calc(100vh-80px)]">
-			<div className="h-full px-3 py-4 overflow-y-auto border-e-2 border-gray-200 dark:border-white/20">
-				<ul className="space-y-2 font-medium">
-					{sidebarItems.map((item, index) => (
-						<SidearItem
-							key={index}
-							{...item}
-						/>
-					))}
-				</ul>
+		<aside className="sticky top-16 grid gap-4 w-full h-[calc(100vh-64px)] bg-gray-100 shadow-xl overflow-x-hidden overflow-y-auto py-4 border-e border-gray-300">
+			<div className="flex flex-col">
+				{links.map(({ label, icon, href }, index) => (
+					<LinkItem
+						key={index}
+						{...{ label, icon, href }}
+					/>
+				))}
 			</div>
 		</aside>
 	);
 };
 
-const SidearItem = ({ label, href, icon, submenu }: SidebarItemProps) => {
-	const [isOpen, setisOpen] = useState(false);
+interface LinkItemProps {
+	label: string;
+	href: string;
+	icon: ReactNode;
+}
 
-	const Tag = submenu ? 'button' : Link;
+const LinkItem = ({ label, href, icon }: LinkItemProps) => {
 	return (
-		<li>
-			<Tag
+		<div>
+			<NavLink
+				key={label}
 				to={href}
-				className="flex items-center gap-3 w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-				onClick={() => setisOpen(prev => !prev)}
+				className={({ isActive }) =>
+					classNames({
+						'relative grid grid-cols-[max-content_1fr_max-content] items-center gap-2 text-sm py-2 px-4 duration-200': true,
+						'bg-gray-200 border-s-4 border-green-700': isActive,
+					})
+				}
 			>
-				<Icon>{icon}</Icon>
-				<span className="me-auto">{label}</span>
-				{submenu && (
-					<Icon size="16">
-						<IoIosArrowDown />
-					</Icon>
+				{({ isActive }) => (
+					<>
+						<Icon
+							size="18"
+							className={isActive ? 'text-green-700' : 'text-gray-600'}
+						>
+							{icon}
+						</Icon>
+						<span className={isActive ? 'text-green-700' : 'text-gray-700'}>{label}</span>
+					</>
 				)}
-			</Tag>
-			{isOpen && submenu && (
-				<ul className="py-2 space-y-2">
-					{submenu.map((item, index) => (
-						<li key={index}>
-							<Link
-								to={item.href}
-								className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-							>
-								{item.label}
-							</Link>
-						</li>
-					))}
-				</ul>
-			)}
-		</li>
+			</NavLink>
+		</div>
 	);
 };
 

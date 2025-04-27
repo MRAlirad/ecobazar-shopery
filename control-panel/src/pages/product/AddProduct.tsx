@@ -7,14 +7,14 @@ const AddProduct = () => {
 	const navigate = useNavigate();
 	const addProduct = useAddProduct({
 		successToast: 'Product added successfully',
-		onAdd: () => navigate('/product/list'),
+		onAdd: () => navigate('/product'),
 	});
 
 	return (
 		<main className="page">
 			<PageHeader
 				title="Add Product"
-				backLink="/product/list"
+				backLink="/product"
 			/>
 			<ProductForm
 				mode="ADD"

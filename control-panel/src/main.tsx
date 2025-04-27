@@ -31,7 +31,7 @@ createRoot(document.getElementById('root')!).render(
 							element={<div>dashboard</div>}
 						/>
 						<Route
-							path="/product/list"
+							path="/product"
 							element={<ProductsList />}
 						/>
 						<Route
@@ -43,7 +43,7 @@ createRoot(document.getElementById('root')!).render(
 							element={<EditProduct />}
 						/>
 						<Route
-							path="/category/list"
+							path="/category"
 							element={<CategoriesList />}
 						/>
 						<Route

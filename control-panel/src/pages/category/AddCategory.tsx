@@ -7,14 +7,14 @@ const AddCategory = () => {
 	const navigate = useNavigate();
 	const addCategory = useAddCategory({
 		successToast: 'Category added successfully',
-		onAdd: () => navigate('/category/list'),
+		onAdd: () => navigate('/category'),
 	});
 
 	return (
 		<main className="page">
 			<PageHeader
 				title="Add Category"
-				backLink="/category/list"
+				backLink="/category"
 			/>
 			<CategoryForm
 				mode="ADD"
