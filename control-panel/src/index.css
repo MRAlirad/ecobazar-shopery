@@ -164,6 +164,22 @@
 }
 
 @layer base {
+	/*! font family !*/
+	@font-face {
+		font-family: 'Roboto';
+		src: url('../public/assets/Roboto.ttf');
+	}
+	* {
+		font-family: 'Roboto';
+	}
+	html {
+		font-family: 'Roboto';
+	}
+	body {
+		height: auto !important;
+		font-family: 'Roboto';
+	}
+
 	/* width */
 	::-webkit-scrollbar {
 		width: 7px;

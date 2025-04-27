@@ -3,3 +3,4 @@
 /uncaughtExceptions.log
 /unhandledRejections.log
 /coverage
+.vercel
