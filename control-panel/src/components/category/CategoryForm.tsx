@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Card from '../Card';
 import Input from '../Input';
 import Textarea from '../Textarea';
 import PageActionsBox from '../PageActionsBox';
@@ -42,7 +43,7 @@ const CategoryForm = ({
 				// className="grid grid-cols-[2fr_1fr] gap-6"
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<div className="card">
+				<Card>
 					<Input
 						name="title"
 						label="Title"
@@ -52,7 +53,7 @@ const CategoryForm = ({
 						name="description"
 						label="Description"
 					/>
-				</div>
+				</Card>
 				<PageActionsBox
 					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}
 					onAdd={handleSubmit(onSubmit)}

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+	/*! GENERAL !*/
+	body {
+		@apply text-gray-900;
+	}
 	.max-desktop-width {
 		@apply w-full max-w-screen-xl mx-auto px-4 md:px-10;
 	}
@@ -13,7 +17,7 @@
 		@apply text-3xl text-gray-900 dark:text-white;
 	}
 	.card {
-		@apply grid gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-[#101828] dark:border-gray-700 h-max;
+		@apply rounded-lg shadow-[0px_2px_10px_0px_rgba(0,0,0,0.1),0px_0px_2px_0px_rgba(0,0,0,0.2)] bg-white overflow-hidden;
 	}
 
 	/*! Table !*/

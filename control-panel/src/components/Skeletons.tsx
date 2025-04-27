@@ -1,3 +1,4 @@
+import Card from './Card';
 import { numListArray } from '../helpers/Array';
 
 export const TableListSkeleton = () => {
@@ -47,24 +48,24 @@ export const FormSkeleton = () => {
 			<div className="skeleton h-10 w-40"></div>
 			<div className="grid grid-cols-[2fr_1fr] gap-y-6 gap-x-4">
 				<div className="grid gap-y-4 h-max">
-					<div className="card">
+					<Card>
 						<InputSkeleton />
 						<InputSkeleton textarea />
-					</div>
-					<div className="card">
+					</Card>
+					<Card>
 						<InputSkeleton />
 						<InputSkeleton />
-					</div>
+					</Card>
 				</div>
 				<div className="grid gap-y-4 h-max">
-					<div className="card">
+					<Card>
 						<InputSkeleton />
 						<InputSkeleton />
-					</div>
-					<div className="card">
+					</Card>
+					<Card>
 						<InputSkeleton />
 						<InputSkeleton />
-					</div>
+					</Card>
 				</div>
 			</div>
 		</div>

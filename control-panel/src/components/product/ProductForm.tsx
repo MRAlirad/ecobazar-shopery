@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useGetCategoriesDropdownList } from '../../hooks/api';
 import { InputSkeleton } from '../Skeletons';
+import Card from '../Card';
 import Modal from '../Modal';
 import Input from '../Input';
 import Textarea from '../Textarea';
@@ -77,7 +78,7 @@ const ProductForm = ({
 				// onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className="space-y-6">
-					<div className="card">
+					<Card>
 						<Input
 							name="title"
 							label="Title"
@@ -87,78 +88,82 @@ const ProductForm = ({
 							name="description"
 							label="Description"
 						/>
-					</div>
-					<div className="card grid grid-cols-4">
-						{watch('images').map((image, index) => (
+					</Card>
+					<Card title="Image Gallery">
+						<div className="grid grid-cols-4 gap-4">
+							{watch('images').map((image, index) => (
+								<div
+									key={index}
+									className="img-box relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 aspect-square"
+								>
+									<img
+										src={image}
+										alt="image"
+									/>
+									<Button
+										color="red-outline"
+										size="icon"
+										icon={<FaTrash size="16" />}
+										className="absolute top-2 start-2 z-10"
+										onClick={() =>
+											setValue(
+												'images',
+												getValues('images').filter((_, i) => i !== index)
+											)
+										}
+									/>
+								</div>
+							))}
 							<div
-								key={index}
-								className="img-box relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 aspect-square"
+								className={classNames({
+									'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 dark:border-gray-600 dark:hover:border-gray-500':
+										true,
+									'h-64 col-span-4': watch('images').length === 0,
+									'aspect-square': watch('images').length > 0,
+									'!border-red-700': errors?.images && watch('images').length === 0,
+								})}
+								onClick={() => setImageModalDisplay(true)}
 							>
-								<img
-									src={image}
-									alt="image"
-								/>
-								<Button
-									color="red-outline"
-									size="icon"
-									icon={<FaTrash size="16" />}
-									className="absolute top-2 start-2 z-10"
-									onClick={() =>
-										setValue(
-											'images',
-											getValues('images').filter((_, i) => i !== index)
-										)
-									}
-								/>
+								<div className="flex flex-col items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
+									<Icon size="36">
+										<FiUploadCloud />
+									</Icon>
+									<p className="text-sm font-semibold">Click to upload</p>
+									<p className="text-xs text-center">SVG, PNG, JPG or GIF</p>
+								</div>
 							</div>
-						))}
-						<div
-							className={classNames({
-								'flex items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:bg-white/5 dark:hover:bg-white/10 dark:border-gray-600 dark:hover:border-gray-500':
-									true,
-								'h-64 col-span-4': watch('images').length === 0,
-								'aspect-square': watch('images').length > 0,
-								'!border-red-700': errors?.images && watch('images').length === 0,
-							})}
-							onClick={() => setImageModalDisplay(true)}
-						>
-							<div className="flex flex-col items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
-								<Icon size="36">
-									<FiUploadCloud />
-								</Icon>
-								<p className="text-sm font-semibold">Click to upload</p>
-								<p className="text-xs text-center">SVG, PNG, JPG or GIF</p>
-							</div>
+							{errors?.images && watch('images').length === 0 && <span className="col-span-4 text-sm text-red-600 dark:text-red-500">{errors?.images.message}</span>}
 						</div>
-						{errors?.images && watch('images').length === 0 && <span className="col-span-4 text-sm text-red-600 dark:text-red-500">{errors?.images.message}</span>}
-					</div>
-					<div className="card grid-cols-2">
-						<Input
-							name="price"
-							label="Price"
-							type="number"
-						/>
-						<Input
-							name="discount"
-							label="Discount"
-							type="number"
-						/>
-						<Input
-							name="count"
-							label="Count"
-							type="number"
-						/>
-					</div>
+					</Card>
+					<Card title="Pricing">
+						<div className="grid grid-cols-2 gap-4">
+							<Input
+								name="price"
+								label="Price"
+								type="number"
+							/>
+							<Input
+								name="discount"
+								label="Discount"
+								type="number"
+							/>
+							<Input
+								name="count"
+								label="Count"
+								type="number"
+							/>
+						</div>
+					</Card>
 				</div>
 				<div className="space-y-6">
-					<div className="card">
+					<Card>
 						<Select
 							name="status"
 							label="status"
 							options={statuses}
 						/>
-					</div>
-					<div className="card">
+					</Card>
+					<Card>
 						{isLoading ? (
 							<InputSkeleton />
 						) : (
@@ -172,7 +177,7 @@ const ProductForm = ({
 							name="tag"
 							label="Tags"
 						/> */}
-					</div>
+					</Card>
 				</div>
 				<PageActionsBox
 					{...{ mode, isAdding, isEditing, isDeleting, onDelete }}
