@@ -5,11 +5,11 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 
 export interface Props {
-	color?: 'default' | 'indigo'| 'blue' | 'green' | 'red' | 'blue-outline' | 'green-outline' | 'red-outline';
+	color?: 'black'| 'white'| 'simple'| 'red'| 'green'| 'blue'| 'green-outline'| 'red-outline'| 'blue-outline';
+	size?: 'small' | 'medium' | 'large' | 'icon';
 	text?: string;
 	to?: string;
 	icon?: ReactNode;
-	size?: 'small' | 'medium' | 'large' | 'icon';
 	type?: 'submit' | 'button';
 	fluid?: boolean;
 	disabled?: boolean;
@@ -18,7 +18,7 @@ export interface Props {
 	onClick?: () => void;
 }
 
-const Button = ({ color = 'indigo', text = '', to = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'button', className = '', onClick = () => {} }: Props) => {
+const Button = ({ color = 'black', text = '', to = '', icon, size = 'medium', fluid = false, disabled = false, loading = false, type = 'button', className = '', onClick = () => {} }: Props) => {
 	const Tag = to ? Link : 'button';
 	return (
 		<Tag
