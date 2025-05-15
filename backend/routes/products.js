@@ -6,26 +6,19 @@ const { Product, validateProduct } = require('../models/product');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+	if (req.query.display === 'all') res.send(await Product.find().populate('category').sort('-_id'));
+
 	const totalSize = 10;
 	const currentPage = req.query.page ? +req.query.page : 1;
 	const totalPages = Math.ceil((await Product.find().countDocuments()) / totalSize);
 
-	const data = await Product
-		.find()
+	const data = await Product.find()
 		.populate('category')
 		.skip((currentPage - 1) * totalSize)
 		.limit(totalSize)
-		.sort('-_id')
-	;
-
+		.sort('-_id');
 	res.send({ data, totalPages, currentPage });
 });
-
-router.get('/dropdown', async (req, res) => {
-	const products = await Product.find().populate('category').sort('-_id');
-
-	res.send(products)
-})
 
 router.get('/:id', validateObjectId, async (req, res) => {
 	const product = await Product.findById(req.params.id).populate('category');

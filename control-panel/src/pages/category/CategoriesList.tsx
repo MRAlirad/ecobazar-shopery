@@ -5,13 +5,13 @@ import { TableListSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
-import { DeleteModal } from '../../components/Modal';
+import DeleteModal from '../../components/DeleteModal';
 import Pagination from '../../components/Pagination';
 import CategorySchema from '../../schemas/categorySchema';
 import { FaTrash, FaPen } from 'react-icons/fa';
 
 const CategoriesList = () => {
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const { data: categories, isLoading } = useGetCategoriesList({ params: searchParams.toString() });
 
 	if (isLoading) return <TableListSkeleton />;
@@ -48,6 +48,14 @@ const CategoriesList = () => {
 				<Pagination
 					currentPage={categories?.currentPage}
 					totalPages={categories?.totalPages}
+					onChangePage={(page: number) => {
+						const params: Record<string, string> = {};
+
+						for (const [key, value] of searchParams.entries()) {
+							params[key] = value;
+						}
+						setSearchParams({ ...params, page: page.toString() });
+					}}
 				/>
 			)}
 		</Page>

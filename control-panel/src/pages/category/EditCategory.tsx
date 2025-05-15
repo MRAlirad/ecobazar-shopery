@@ -5,7 +5,8 @@ import { FormSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
-import { DeleteModal } from '../../components/Modal';
+import DeleteModal from '../../components/DeleteModal';
+
 
 const EditCategory = () => {
 	const navigate = useNavigate();

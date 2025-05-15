@@ -7,13 +7,13 @@ import PageHeader from '../../components/PageHeader';
 import Button from '../../components/Button';
 import Badge from '../../components/Badge';
 import { statuses } from '../../values';
-import { DeleteModal } from '../../components/Modal';
+import DeleteModal from '../../components/DeleteModal';
 import Pagination from '../../components/Pagination';
 import ProductSchema from '../../schemas/ProductSchema';
 import { FaTrash, FaPen } from 'react-icons/fa';
 
 const ProductsList = () => {
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	const { data: products, isLoading } = useGetProductsList({ params: searchParams.toString() });
 
@@ -54,6 +54,14 @@ const ProductsList = () => {
 				<Pagination
 					currentPage={products?.currentPage}
 					totalPages={products?.totalPages}
+					onChangePage={(page: number) => {
+						const params: Record<string, string> = {};
+
+						for (const [key, value] of searchParams.entries()) {
+							params[key] = value;
+						}
+						setSearchParams({ ...params, page: page.toString() });
+					}}
 				/>
 			)}
 		</Page>

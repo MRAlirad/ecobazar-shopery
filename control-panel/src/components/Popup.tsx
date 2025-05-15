@@ -26,12 +26,12 @@ const Popup = ({ anchorSelect, children, className = '', clickable = true, offse
 				place,
 				position,
 			}}
-			opacity={100}
+			opacity={1}
 			className={classNames({
-				'z-30 bg-white rounded-lg shadow w-max': true,
+				'!bg-white !text-black !text-xs !shadow-lg !rounded-xl !border !border-gray-200 z-20': true,
 				[className]: className,
 			})}
-			disableStyleInjection
+			disableStyleInjection={true}
 		>
 			{children}
 		</Tooltip>

@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useGetCategoriesDropdownList } from '../../hooks/api';
-import { InputSkeleton } from '../Skeletons';
+import { useGetCategoriesList } from '../../hooks/api';
 import Card from '../Card';
 import Modal from '../Modal';
 import Input from '../Input';
@@ -70,7 +69,7 @@ const ProductForm = ({
 		else if (mode === 'EDIT') onEdit(formData);
 	};
 
-	const { data: categories, isLoading } = useGetCategoriesDropdownList();
+	const { data: categories, isLoading } = useGetCategoriesList({ params: { display: 'all' } });
 
 	return (
 		<FormProvider {...formMethods}>
@@ -161,15 +160,13 @@ const ProductForm = ({
 						/>
 					</Card>
 					<Card>
-						{isLoading ? (
-							<InputSkeleton />
-						) : (
-							<Select
-								name="category"
-								label="Cateogry"
-								options={categories ? categories.map(category => ({ label: category.title, value: category._id || '' })) : []}
-							/>
-						)}
+						<Select
+							name="category"
+							label="Cateogry"
+							isLoading={isLoading}
+							isClearable
+							options={categories ? categories.data.map(category => ({ label: category.title, value: category._id || '' })) : []}
+						/>
 					</Card>
 				</div>
 				<PageActionsBox

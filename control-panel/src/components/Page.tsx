@@ -11,7 +11,7 @@ const Page = ({ type, children, className = '' }: Props) => {
 	return (
 		<main
 			className={classNames({
-				'grid gap-6 px-4 md:px-[2%] py-8 h-max animate-fadeInUp': true,
+				'grid gap-4 px-4 md:px-[2%] pt-4 pb-8 h-max animate-fadeInUp': true,
 				'xl:px-[14.5%]': type === 'form',
 				[className]: className,
 			})}

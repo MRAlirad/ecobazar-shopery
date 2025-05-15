@@ -1,47 +1,69 @@
-import { ReactNode } from 'react';
-import { useSearchParams } from 'react-router';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import classNames from 'classnames';
-import { numListArray } from '../helpers/Array';
+import { ReactNode } from 'react';
+import { BsThreeDots } from 'react-icons/bs';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-interface Props {
-	currentPage : number;
-	totalPages : number;
+interface PaginationProps {
+	currentPage: number;
+	totalPages: number;
+	onChangePage: (page: number) => void;
 }
 
-const Pagination = ({ currentPage, totalPages }: Props) => {
-	console.log(totalPages);
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	const changePage = (page: number) => {
-		const params: Record<string, string> = {};
-
-		for (const [key, value] of searchParams.entries()) {
-			params[key] = value;
-		}
-		setSearchParams({ ...params, page: page.toString() });
-	};
+const Pagination = ({ currentPage, totalPages, onChangePage }: PaginationProps) => {
 	return (
-		<div className="flex items-center justify-center -space-x-px h-8 text-sm">
+		<div className="flex items-center justify-center gap-1.5 h-10 text-base">
 			<Button
-				icon={<IoIosArrowBack />}
+				icon={<IoIosArrowBack size={20} />}
 				className="rounded-s-lg"
 				disabled={currentPage === 1}
-				onClick={() => changePage(currentPage - 1)}
+				onClick={() => onChangePage(currentPage - 1)}
 			/>
-			{numListArray(totalPages).map(page => (
+			{currentPage !== 1 && (
 				<Button
-					key={page}
-					text={page}
-					isActive={page === currentPage}
-					onClick={() => changePage(page)}
+					onClick={() => onChangePage(1)}
+					text={1}
 				/>
-			))}
+			)}
+			{currentPage > 3 && (
+				<Button
+					disabled
+					icon={<BsThreeDots />}
+				/>
+			)}
+			{currentPage >= 3 && (
+				<Button
+					onClick={() => onChangePage(currentPage - 1)}
+					text={currentPage - 1}
+				/>
+			)}
 			<Button
-				icon={<IoIosArrowForward />}
+				onClick={() => onChangePage(currentPage)}
+				isActive={true}
+				text={currentPage}
+			/>
+			{currentPage + 2 <= totalPages && (
+				<Button
+					onClick={() => onChangePage(currentPage + 1)}
+					text={currentPage + 1}
+				/>
+			)}
+			{currentPage + 3 <= totalPages && (
+				<Button
+					disabled
+					icon={<BsThreeDots />}
+				/>
+			)}
+			{currentPage !== totalPages && (
+				<Button
+					onClick={() => onChangePage(totalPages)}
+					text={totalPages}
+				/>
+			)}
+			<Button
+				icon={<IoIosArrowForward size={20} />}
 				className="rounded-e-lg"
 				disabled={currentPage === totalPages}
-				onClick={() => changePage(currentPage + 1)}
+				onClick={() => onChangePage(currentPage + 1)}
 			/>
 		</div>
 	);
@@ -60,12 +82,11 @@ const Button = ({ text, icon, isActive = false, disabled = false, className = ''
 	return (
 		<button
 			className={classNames({
-				'flex items-center justify-center px-3 h-8 leading-tight border': true,
-				'z-10 text-blue-600 border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700': isActive,
-				'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700':
-					!isActive,
-				'opacity-70': disabled,
+				'flex items-center justify-center size-8 border rounded': true,
+				'text-white border-gray-300 bg-gray-700 hover:bg-gray-900': isActive && !disabled,
+				'text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700': !isActive && !disabled,
 				[className]: className,
+				'opacity-70 text-gray-500': disabled,
 			})}
 			onClick={onClick}
 			disabled={disabled}
