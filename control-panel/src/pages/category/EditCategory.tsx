@@ -3,10 +3,11 @@ import { useNavigate, useParams } from 'react-router';
 import { useGetCategory, useEditCategory, useDeleteCategory } from '../../hooks/api';
 import { FormSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
+import Breadcrumb from '../../components/Breadcrumb';
 import PageHeader from '../../components/PageHeader';
 import CategoryForm from '../../components/category/CategoryForm';
 import DeleteModal from '../../components/DeleteModal';
-
+import { BiSolidCategoryAlt } from 'react-icons/bi';
 
 const EditCategory = () => {
 	const navigate = useNavigate();
@@ -30,7 +31,11 @@ const EditCategory = () => {
 	if (error) return <div>{error.response!.data as string[]}</div>;
 
 	return (
-		<Page type='form'>
+		<Page type="form">
+			<Breadcrumb
+				type="home"
+				breadcrumb={[{ label: 'Categories List', icon: <BiSolidCategoryAlt />, link: '/category' }, { label: 'Edit Category' }]}
+			/>
 			<PageHeader
 				title="Edit Category"
 				backLink="/category"

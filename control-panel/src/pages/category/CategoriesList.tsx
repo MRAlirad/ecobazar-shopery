@@ -4,6 +4,7 @@ import { useFirstMountState } from 'react-use';
 import { useGetCategoriesList, useDeleteCategory } from '../../hooks/api';
 import { ListSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
+import Breadcrumb from '../../components/Breadcrumb';
 import PageHeader from '../../components/PageHeader';
 import Table from '../../components/Table';
 import DeleteModal from '../../components/DeleteModal';
@@ -25,6 +26,10 @@ const CategoriesList = () => {
 
 	return (
 		<Page type="list">
+			<Breadcrumb
+				type="home"
+				breadcrumb={[{ label: 'Categories List', icon: <BiSolidCategoryAlt /> }]}
+			/>
 			<PageHeader
 				title="Categories List"
 				action={{ text: 'Add Category', to: '/category/add' }}
