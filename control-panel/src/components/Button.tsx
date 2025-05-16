@@ -38,10 +38,10 @@ const Button = ({ color = 'black', text = '', to = '', icon, size = 'medium', fl
 			{loading ? (
 				<Loader size="20" />
 			) : (
-				<>
+				<div className="flex items-center justify-center gap-2">
 					{icon && <Icon>{icon}</Icon>}
 					{text && <span>{text}</span>}
-				</>
+				</div>
 			)}
 		</Tag>
 	);

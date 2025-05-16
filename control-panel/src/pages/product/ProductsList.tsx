@@ -6,11 +6,12 @@ import { ListSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
 import Breadcrumb from '../../components/Breadcrumb';
 import PageHeader from '../../components/PageHeader';
-import Badge from '../../components/Badge';
-import { statuses } from '../../values';
-import DeleteModal from '../../components/DeleteModal';
-import { FaTrash, FaPen, FaShoppingCart } from 'react-icons/fa';
 import Table from '../../components/Table';
+import Badge from '../../components/Badge';
+import DeleteModal from '../../components/DeleteModal';
+import { statuses } from '../../values';
+import { FaTrash, FaPen, FaShoppingCart } from 'react-icons/fa';
+import { numberToCurrency } from '../../helpers/Number';
 
 const ProductsList = () => {
 	const [searchParams] = useSearchParams();
@@ -65,8 +66,8 @@ const ProductsList = () => {
 										</div>
 									),
 								},
-								{ name: 'price', value: price },
-								{ name: 'discount', value: `% ${discount}` },
+								{ name: 'price', value: `$${numberToCurrency(price)}` },
+								{ name: 'discount', value: `%${discount}` },
 								{
 									name: 'status',
 									component: (
@@ -113,7 +114,7 @@ const ProductsList = () => {
 				})()}
 				isLoading={isProductLoading}
 				pagination={{
-					currentPage: +searchParams.get('page') || 1,
+					currentPage: +(searchParams.get('page') ?? '1'),
 					totalPages: products?.totalPages || 1,
 				}}
 			/>
