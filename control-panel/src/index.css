@@ -15,7 +15,7 @@
 	}
 
 	/*! Table !*/
-	.table-wrapper {
+	/* .table-wrapper {
 		@apply relative overflow-x-auto shadow-md rounded-lg;
 	}
 	.table-wrapper table {
@@ -36,7 +36,7 @@
 	}
 	.table-wrapper table tbody tr td {
 		@apply px-6 py-4;
-	}
+	} */
 
 	/*! INPUT, SELECT, TEXTAREA !*/
 	.form-input {
@@ -169,7 +169,7 @@
 
 	/*! Skeleton !*/
 	.skeleton {
-		@apply relative overflow-hidden bg-gray-200 rounded after:absolute after:top-0 after:right-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 after:animate-progress;
+		@apply relative overflow-hidden bg-gray-200 rounded after:absolute after:top-0 after:left-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 after:animate-progress;
 	}
 }
 
@@ -177,7 +177,7 @@
 	/*! font family !*/
 	@font-face {
 		font-family: 'Roboto';
-		src: url('../public/assets/Roboto.ttf');
+		src: url('../assets/Roboto.ttf');
 	}
 	* {
 		font-family: 'Roboto';
