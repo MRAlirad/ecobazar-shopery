@@ -1,20 +1,27 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
+import { useFirstMountState } from 'react-use';
 import { useGetCategoriesList, useDeleteCategory } from '../../hooks/api';
-import { TableListSkeleton } from '../../components/Skeletons';
+import { ListSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
-import Button from '../../components/Button';
+import Table from '../../components/Table';
 import DeleteModal from '../../components/DeleteModal';
-import Pagination from '../../components/Pagination';
-import CategorySchema from '../../schemas/categorySchema';
 import { FaTrash, FaPen } from 'react-icons/fa';
+import { BiSolidCategoryAlt } from 'react-icons/bi';
 
 const CategoriesList = () => {
-	const [searchParams, setSearchParams] = useSearchParams();
-	const { data: categories, isLoading } = useGetCategoriesList({ params: searchParams.toString() });
+	const [searchParams] = useSearchParams();
+	const [deleteModalDisplay, setDeleteModalDisplay] = useState<null | string>(null);
+	const isFirstMount = useFirstMountState();
 
-	if (isLoading) return <TableListSkeleton />;
+	const { data: categories, isLoading: isCategoriesLoding } = useGetCategoriesList({ params: searchParams.toString() });
+
+	const deleteCategory = useDeleteCategory({
+		successToast: 'Category deleted successfully',
+	});
+
+	if (isFirstMount && isCategoriesLoding) return <ListSkeleton />;
 
 	return (
 		<Page type="list">
@@ -23,83 +30,63 @@ const CategoriesList = () => {
 				action={{ text: 'Add Category', to: '/category/add' }}
 			/>
 
-			<div className="table-wrapper">
-				<table>
-					<thead>
-						<tr>
-							<th className="row">Row</th>
-							<th>Product name</th>
-							<th className="action">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{categories?.data?.map((category, index) => (
-							<RowItem
-								key={category._id}
-								row={index + 1}
-								{...category}
-							/>
-						))}
-					</tbody>
-				</table>
-			</div>
+			<Table
+				columns={[
+					{ name: 'title', label: 'Category name' },
+					{ name: 'action', label: '' },
+				]}
+				rows={(() => {
+					const rows = [];
 
-			{categories && categories?.totalPages > 1 && (
-				<Pagination
-					currentPage={categories?.currentPage}
-					totalPages={categories?.totalPages}
-					onChangePage={(page: number) => {
-						const params: Record<string, string> = {};
-
-						for (const [key, value] of searchParams.entries()) {
-							params[key] = value;
+					if (categories)
+						for (const { _id, title } of categories.data) {
+							rows.push([
+								{
+									name: 'title',
+									value: title,
+								},
+								{
+									name: 'action',
+									actions: [
+										{
+											text: 'edit',
+											icon: <FaPen size={16} />,
+											className: 'hover:!bg-gray-100 !text-gray-500',
+											to: `/category/${_id}`,
+										},
+										{
+											text: 'delete',
+											icon: <FaTrash size={16} />,
+											className: 'hover:!bg-red-100 !text-red-500',
+											loading: deleteCategory.isPending,
+											onClick: () => setDeleteModalDisplay(_id),
+										},
+									],
+									component: deleteModalDisplay === _id && (
+										<DeleteModal
+											title={`Are you sure you want to delete the "${title}" category?`}
+											onDelete={() => deleteCategory.mutate(_id)}
+											onClose={() => setDeleteModalDisplay(null)}
+											isDeleting={deleteCategory.isPending}
+										/>
+									),
+								},
+								{
+									name: 'link',
+									link: `/category/${_id}`,
+								},
+							]);
 						}
-						setSearchParams({ ...params, page: page.toString() });
-					}}
-				/>
-			)}
+
+					return rows;
+				})()}
+				isLoading={isCategoriesLoding}
+				pagination={{
+					currentPage: +(searchParams.get('page') ?? '1'),
+					totalPages: categories?.totalPages || 1,
+				}}
+			/>
 		</Page>
-	);
-};
-
-const RowItem = ({ row, _id, title }: CategorySchema & { row: number }) => {
-	const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
-	const deleteCategory = useDeleteCategory({
-		successToast: 'Category deleted successfully',
-	});
-
-	return (
-		<>
-			<tr key={_id}>
-				<td>{row}</td>
-				<td className="font-bold">{title}</td>
-				<td>
-					<div className="flex items-center gap-2">
-						<Button
-							color="green"
-							size="icon"
-							icon={<FaPen size="15" />}
-							to={`/category/${_id}`}
-						/>
-						<Button
-							color="red"
-							size="icon"
-							icon={<FaTrash size="15" />}
-							// loading={deleteCategory.isPending}
-							onClick={() => setDeleteModalDisplay(true)}
-						/>
-					</div>
-				</td>
-			</tr>
-			{deleteModalDisplay && (
-				<DeleteModal
-					title={`Are you sure you want to delete the "${title}" category?`}
-					onClose={() => setDeleteModalDisplay(false)}
-					onDelete={() => _id && deleteCategory.mutate(_id)}
-					isDeleting={deleteCategory.isPending}
-				/>
-			)}
-		</>
 	);
 };
 
