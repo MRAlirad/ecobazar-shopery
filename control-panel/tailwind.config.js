@@ -17,10 +17,10 @@ export default {
 				},
 				progress: {
 					'0%': {
-						transform: 'translate3d(100%, 0, 0)',
+						transform: 'translate3d(-100%, 0, 0)',
 					},
 					'100%': {
-						transform: 'translate3d(-100%, 0, 0)',
+						transform: 'translate3d(100%, 0, 0)',
 					},
 				},
 				gradientShape1: {
