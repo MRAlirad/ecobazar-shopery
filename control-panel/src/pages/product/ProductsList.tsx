@@ -4,6 +4,7 @@ import { useFirstMountState } from 'react-use';
 import { useGetProductsList, useDeleteProduct } from '../../hooks/api';
 import { ListSkeleton } from '../../components/Skeletons';
 import Page from '../../components/Page';
+import Breadcrumb from '../../components/Breadcrumb';
 import PageHeader from '../../components/PageHeader';
 import Badge from '../../components/Badge';
 import { statuses } from '../../values';
@@ -26,6 +27,10 @@ const ProductsList = () => {
 
 	return (
 		<Page type="list">
+			<Breadcrumb
+				type="home"
+				breadcrumb={[{ label: 'Products List', icon: <FaShoppingCart /> }]}
+			/>
 			<PageHeader
 				title="Products List"
 				action={{ text: 'Add Product', to: '/product/add' }}

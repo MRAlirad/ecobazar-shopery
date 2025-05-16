@@ -6,7 +6,8 @@ import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import ProductForm from '../../components/product/ProductForm';
 import DeleteModal from '../../components/DeleteModal';
-
+import Breadcrumb from '../../components/Breadcrumb';
+import { FaShoppingCart } from 'react-icons/fa';
 
 const EditProduct = () => {
 	const navigate = useNavigate();
@@ -30,7 +31,11 @@ const EditProduct = () => {
 	if (error) return <div>{error.response!.data as string[]}</div>;
 
 	return (
-		<Page type='form'>
+		<Page type="form">
+			<Breadcrumb
+				type="home"
+				breadcrumb={[{ label: 'Products List', icon: <FaShoppingCart />, link: '/product' }, { label: 'Edit Product' }]}
+			/>
 			<PageHeader
 				title="Edit Product"
 				backLink="/product"
