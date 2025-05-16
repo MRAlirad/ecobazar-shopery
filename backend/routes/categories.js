@@ -8,10 +8,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
 	if (req.query.display === 'all') {
 		const data = await Category.find().sort('-_id');
-		res.send({ data, totalPages: 1, currentPage: 1 });
+		res.send({ data });
 	}
 
-	const totalSize = 1;
+	const totalSize = 10;
 	const currentPage = req.query.page ? +req.query.page : 1;
 	const totalPages = Math.ceil((await Category.find().countDocuments()) / totalSize);
 

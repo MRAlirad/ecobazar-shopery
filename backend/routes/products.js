@@ -6,7 +6,10 @@ const { Product, validateProduct } = require('../models/product');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-	if (req.query.display === 'all') res.send(await Product.find().populate('category').sort('-_id'));
+		if (req.query.display === 'all') {
+		const data = await Product.find().sort('-_id');
+		res.send({ data });
+	}
 
 	const totalSize = 10;
 	const currentPage = req.query.page ? +req.query.page : 1;
