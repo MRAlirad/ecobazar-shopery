@@ -7,6 +7,10 @@ const apiConfig = {
 		queryKey: 'category',
 		path: '/categories',
 	},
+	customer: {
+		queryKey: 'customer',
+		path: '/customers'
+	},
 	user: {
 		signup: {
 			queryKey: 'user-signup',

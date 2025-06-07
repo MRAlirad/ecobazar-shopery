@@ -5,6 +5,7 @@ import Icon from '../components/Icon';
 import { HiHome } from 'react-icons/hi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { BiSolidCategoryAlt } from 'react-icons/bi';
+import { FaUser } from "react-icons/fa6";
 
 const Sidebar = () => {
 	const links = [
@@ -22,6 +23,11 @@ const Sidebar = () => {
 			label: 'Categories',
 			icon: <BiSolidCategoryAlt />,
 			href: '/category',
+		},
+		{
+			label: 'Customers',
+			icon: <FaUser />,
+			href: '/customer',
 		},
 	];
 

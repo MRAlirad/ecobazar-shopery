@@ -13,6 +13,8 @@ export { default as useAddCategory } from './category/useAddCategory';
 export { default as useEditCategory } from './category/useEditCategory';
 export { default as useDeleteCategory } from './category/useDeleteCategory';
 
+//! Customer
+export { default as useGetCustomersList } from './customer/useGetCustomersList';
 //! User
 export { default as useUserSignup } from './auth/useUserSignup';
 export { default as useGetUserInfo } from './user/useGetUserInfo';
