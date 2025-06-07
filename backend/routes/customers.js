@@ -64,14 +64,10 @@ router.get('/', async (req, res) => {
 // 	res.send(customer);
 // });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', [auth, validateObjectId], async (req, res) => {
 	const customer = await Customer.findByIdAndDelete(req.params.id);
 
-	if (!customer)
-		return res.status(404).send({
-			status: false,
-			message: 'customer with the given id was not found',
-		});
+	if (!customer) return res.status(404).send(['customer with the given id was not found']);
 
 	res.send(customer);
 });
