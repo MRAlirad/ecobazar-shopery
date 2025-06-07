@@ -32,7 +32,7 @@ const validateCustomer = customer => {
 	const schema = z.object({
 		firstName: z.string().trim().nonempty('FirstName is a required field'),
 		lastName: z.string().trim().nonempty('LastName is a required field'),
-		email: z.string().trim().nonempty('Email is a required field'),
+		email: z.string().email('Email is invalid').trim().nonempty('Email is a required field'),
 		phone: z.string().trim().nonempty('Phone is a required field'),
 		address: z.string().trim().nonempty('Address is a required field'),
 	});

@@ -33,20 +33,18 @@ router.get('/', async (req, res) => {
 // 	res.send(customer);
 // });
 
-// router.post('/', async (req, res) => {
-// 	// validate request
-// 	const { error } = validateCustomer(req.body);
-// 	if (error) return res.status(400).send(error.details);
+router.post('/', auth, async (req, res) => {
+	// validate request
 
-// 	let customer = new Customer({
-// 		name: req.body.name,
-// 		phone: req.body.phone,
-// 		isGold: req.body.isGold,
-// 	});
+	const error = validateCustomer(req.body);
+	if (error) return res.status(400).send(error);
 
-// 	customer = await customer.save();
-// 	res.send(customer);
-// });
+	let customer = new Customer(req.body);
+
+	customer = await customer.save();
+
+	res.send(customer);
+});
 
 // router.patch('/:id', async (req, res) => {
 // 	// validate request
