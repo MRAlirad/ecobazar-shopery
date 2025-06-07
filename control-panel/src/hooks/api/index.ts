@@ -7,7 +7,6 @@ export { default as useDeleteProduct } from './product/useDeleteProduct';
 
 //! Category
 export { default as useGetCategoriesList } from './category/useGetCategoriesList';
-export { default as useGetCategoriesDropdownList } from './category/useGetCategoriesDropdownList';
 export { default as useGetCategory } from './category/useGetCategory';
 export { default as useAddCategory } from './category/useAddCategory';
 export { default as useEditCategory } from './category/useEditCategory';
@@ -15,6 +14,8 @@ export { default as useDeleteCategory } from './category/useDeleteCategory';
 
 //! Customer
 export { default as useGetCustomersList } from './customer/useGetCustomersList';
+export { default as useDeleteCustomer } from './customer/useDeleteCustomer';
+
 //! User
 export { default as useUserSignup } from './auth/useUserSignup';
 export { default as useGetUserInfo } from './user/useGetUserInfo';
