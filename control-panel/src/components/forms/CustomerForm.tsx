@@ -28,7 +28,6 @@ const CustomerForm = ({
 	});
 
 	const onSubmit = (formData: CustomerFormInputs) => {
-		console.log(formData);
 		if (mode === 'ADD') onAdd(formData);
 		else if (mode === 'EDIT') onEdit(formData);
 	};
@@ -40,7 +39,7 @@ const CustomerForm = ({
 					<Input name="firstName" label="First Name" />
 					<Input name="lastName" label="Last Name" />
 					<Input name="email" label="Email" />
-					<Input name="phone" label="Phone" type='number' />
+					<Input name="phone" label="Phone" type="number" />
 					<Input name="address" label="Address" className="col-span-2" />
 				</Card>
 				<PageActionsBox {...{ mode, isAdding, isEditing, isDeleting, onDelete }} onAdd={formMethods.handleSubmit(onSubmit)} onEdit={formMethods.handleSubmit(onSubmit)} />

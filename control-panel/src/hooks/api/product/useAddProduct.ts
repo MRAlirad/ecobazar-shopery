@@ -1,7 +1,7 @@
 import useAdd from '../useAdd';
 import apiConfig from '../apiConfig';
 import { AddProps } from '../../../schemas/apiHookSchema';
-import ProductSchema, {ProductFormInputs} from '../../../schemas/ProductSchema';
+import ProductSchema, { ProductFormInputs } from '../../../schemas/ProductSchema';
 
 const useAddProduct = ({ successToast, onAdd = () => {} }: AddProps<ProductSchema>) => {
 	const { path, queryKey } = apiConfig.product;
