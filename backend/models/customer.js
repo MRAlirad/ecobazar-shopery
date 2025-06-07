@@ -1,35 +1,45 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
+const { z } = require('zod');
 
 const customerSchema = new mongoose.Schema({
-	name: {
+	firstName: {
 		type: String,
 		required: true,
-		minlength: 5,
-		maxlength: 50,
 	},
-	isGold: {
-		type: Boolean,
-		default: false,
+	lastName: {
+		type: String,
+		required: true,
+	},
+	email: {
+		type: String,
+		required: true,
+		unique: true,
 	},
 	phone: {
 		type: String,
 		required: true,
-		minlength: 5,
-		maxlength: 50,
+		unique: true,
+	},
+	address: {
+		type: String,
+		required: true,
 	},
 });
 
 const Customer = mongoose.model('Customer', customerSchema);
 
 const validateCustomer = customer => {
-	const schema = Joi.object({
-		name: Joi.string().required().min(5).max(50),
-		isGold: Joi.bool(),
-		phone: Joi.string().required().min(5).max(50),
+	const schema = z.object({
+		firstName: z.string().trim().nonempty('FirstName is a required field'),
+		lastName: z.string().trim().nonempty('LastName is a required field'),
+		email: z.string().trim().nonempty('Email is a required field'),
+		phone: z.string().trim().nonempty('Phone is a required field'),
+		address: z.string().trim().nonempty('Address is a required field'),
 	});
 
-	return schema.validate(customer);
+	const validatonResult = schema.safeParse(customer);
+
+	if (!validatonResult.success) return validatonResult.error.issues.map(issue => issue.message);
 };
 
 module.exports = {
