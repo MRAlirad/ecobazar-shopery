@@ -16,15 +16,14 @@ const CustomersList = () => {
 	const [deleteModalDisplay, setDeleteModalDisplay] = useState<null | string>(null);
 	const isFirstMount = useFirstMountState();
 
-	const { data: customers, isLoading: isCustomersListloading } = useGetCustomersList({ params: searchParams.toString() });
+	const { data: customers, isLoading: isCustomersloading } = useGetCustomersList({ params: searchParams.toString() });
 
 	const deleteCustomer = useDeleteCustomer({
 		successToast: 'Product deleted successfully',
 	});
 
-	if (isFirstMount && isCustomersListloading) return <ListSkeleton />;
+	if (isFirstMount && isCustomersloading) return <ListSkeleton />;
 
-	console.log(customers);
 	return (
 		<Page type="list">
 			<Breadcrumb type="home" breadcrumb={[{ label: 'Customer List', icon: <FaUser /> }]} />
@@ -83,11 +82,11 @@ const CustomersList = () => {
 
 					return rows;
 				})()}
-				// isLoading={isProductLoading}
-				// pagination={{
-				// 	currentPage: +(searchParams.get('page') ?? '1'),
-				// 	totalPages: products?.totalPages || 1,
-				// }}
+				isLoading={isCustomersloading}
+				pagination={{
+					currentPage: +(searchParams.get('page') ?? '1'),
+					totalPages: customers?.totalPages || 1,
+				}}
 			/>
 		</Page>
 	);

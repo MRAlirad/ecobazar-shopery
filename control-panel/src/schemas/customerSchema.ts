@@ -10,6 +10,6 @@ export type CustomerFormInputs = {
 	firstName: string;
 	lastName: string;
 	email: string;
-	phone: number;
+	phone: string;
 	address: string;
 }
