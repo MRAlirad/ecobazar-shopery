@@ -17,6 +17,7 @@ import Login from './pages/auth/Login.tsx';
 import NotFound from './pages/NotFound.tsx';
 import UsersList from './pages/customer/CustomersList.tsx';
 import AddCustomer from './pages/customer/AddCustomer.tsx';
+import EditCustomer from './pages/customer/EditCustomer.tsx';
 
 const queryClient = new QueryClient();
 
@@ -65,6 +66,10 @@ const router = createBrowserRouter(
 			<Route
 				path="/customer/add"
 				element={<AddCustomer />}
+			/>
+			<Route
+				path="/customer/:customerId"
+				element={<EditCustomer />}
 			/>
 			<Route
 				path="/auth"

@@ -21,17 +21,11 @@ router.get('/', async (req, res) => {
 	res.send({ data, totalPages, currentPage });
 });
 
-// router.get('/:id', async (req, res) => {
-// 	const customer = await Customer.findById(req.params.id);
-
-// 	if (!customer)
-// 		return res.status(404).send({
-// 			status: false,
-// 			message: 'customer with the given id was not found',
-// 		});
-
-// 	res.send(customer);
-// });
+router.get('/:id', validateObjectId, async (req, res) => {
+	const customer = await Customer.findById(req.params.id);
+	if (!customer) return res.status(404).send(['customer with the given id was not found']);
+	res.send(customer);
+});
 
 router.post('/', auth, async (req, res) => {
 	// validate request
@@ -61,6 +55,19 @@ router.post('/', auth, async (req, res) => {
 
 // 	res.send(customer);
 // });
+
+router.patch('/:id', [auth, validateObjectId], async (req, res) => {
+	// validate request
+	const error = validateCustomer(req.body);
+	if (error) return res.status(400).send(error);
+
+	const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+	if (!customer) return res.status(404).send(['customer with the given id was not found']);
+
+	res.send(customer);
+});
+
 
 router.delete('/:id', [auth, validateObjectId], async (req, res) => {
 	const customer = await Customer.findByIdAndDelete(req.params.id);

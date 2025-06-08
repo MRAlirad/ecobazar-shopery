@@ -14,7 +14,9 @@ export { default as useDeleteCategory } from './category/useDeleteCategory';
 
 //! Customer
 export { default as useGetCustomersList } from './customer/useGetCustomersList';
+export { default as useGetCustomer } from './customer/useGetCustomer';
 export { default as useAddCustomer } from './customer/useAddCustomer';
+export { default as useEditCustomer } from './customer/useEditCustomer';
 export { default as useDeleteCustomer } from './customer/useDeleteCustomer';
 
 //! User

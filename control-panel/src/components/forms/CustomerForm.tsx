@@ -18,12 +18,21 @@ const CustomerForm = ({
 	isDeleting = false,
 }: FormSchema<CustomerSchema, CustomerFormInputs>) => {
 	const formMethods = useForm<CustomerFormInputs>({
+		resolver: yupResolver(
+			yup.object().shape({
+				firstName: yup.string().required('First Name is a required field'),
+				lastName: yup.string().required('Last Name is a required field'),
+				email: yup.string().email('Email is not valid').required('Email is a required field'),
+				phone: yup.string().required('Phone is a required field'),
+				address: yup.string().required('Address is a required field'),
+			})
+		),
 		defaultValues: {
-			firstName: '',
-			lastName: '',
-			email: '',
-			phone: '',
-			address: '',
+			firstName: data?.firstName ?? '',
+			lastName: data?.lastName ?? '',
+			email: data?.email ?? '',
+			phone: data?.phone ?? '',
+			address: data?.address ?? '',
 		},
 	});
 

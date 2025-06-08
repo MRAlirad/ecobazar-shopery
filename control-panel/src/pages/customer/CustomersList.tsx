@@ -54,7 +54,7 @@ const CustomersList = () => {
 											text: 'edit',
 											icon: <FaPen size={16} />,
 											className: 'hover:!bg-gray-100 !text-gray-500',
-											to: `/product/${_id}`,
+											to: `/customer/${_id}`,
 										},
 										{
 											text: 'delete',
@@ -75,7 +75,7 @@ const CustomersList = () => {
 								},
 								{
 									name: 'link',
-									link: `/product/${_id}`,
+									link: `/customer/${_id}`,
 								},
 							]);
 						}

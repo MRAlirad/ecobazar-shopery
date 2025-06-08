@@ -15,7 +15,7 @@ const AddCustomer = () => {
 
 	return (
 		<Page type="form">
-			<Breadcrumb type="home" breadcrumb={[{ label: 'Customer List', icon: <FaUser /> }]} />
+			<Breadcrumb type="home" breadcrumb={[{ label: 'Customer List', icon: <FaUser /> }, { label: 'Add Customer' }]} />
 			<PageHeader title="Add Customer" backLink="/customer" />
 			<CustomerForm mode="ADD" onAdd={addCustomer.mutate} isAdding={addCustomer.isPending} />
 		</Page>

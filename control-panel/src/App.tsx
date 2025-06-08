@@ -20,10 +20,7 @@ function App() {
 				</>
 			)}
 			<Outlet />
-			<ToastContainer
-				position="bottom-center"
-				theme="colored"
-			/>
+			<ToastContainer position="bottom-center" closeOnClick theme="colored" />
 		</div>
 	);
 }
