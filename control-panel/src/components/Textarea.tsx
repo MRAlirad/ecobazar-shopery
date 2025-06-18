@@ -13,7 +13,7 @@ interface Props {
 	onChange?: (value: string) => void;
 }
 
-const Textarea = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, onChange = () => {} }: Props) => {
+const Textarea = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder= '', onChange = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
