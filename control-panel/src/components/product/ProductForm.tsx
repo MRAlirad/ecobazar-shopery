@@ -10,6 +10,7 @@ import ProductImageGallery from './ProductImageGallery';
 import ProductPricing from './ProductPricing';
 import ProductStatus from './ProductStatus';
 import ProductCategory from './ProductCategory';
+import ProductAttributes from './ProductAttributes';
 
 const ProductForm = ({
 	mode,
@@ -38,6 +39,7 @@ const ProductForm = ({
 			title: data?.title ?? '',
 			description: data?.description ?? '',
 			images: data?.images ?? [],
+			attributes: data?.attributes ?? [],
 			price: data?.price ?? 0,
 			discount: data?.discount ?? 0,
 			count: data?.count ?? 0,
@@ -46,6 +48,8 @@ const ProductForm = ({
 		},
 	});
 	const { handleSubmit } = formMethods;
+
+	console.log(data);
 
 	const onSubmit = (formData: ProductFormInputs) => {
 		if (mode === 'ADD') onAdd(formData);
@@ -58,6 +62,7 @@ const ProductForm = ({
 				<div className="space-y-6">
 					<TitleDescription />
 					<ProductImageGallery />
+					<ProductAttributes />
 					<ProductPricing />
 				</div>
 				<div className="space-y-6">

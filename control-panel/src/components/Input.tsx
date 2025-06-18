@@ -13,9 +13,10 @@ interface Props {
 	placeholder?: string;
 	type?: string;
 	onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void;
+	onEnter?: () => void;
 }
 
-const Input = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, type, onChange = () => {} }: Props) => {
+const Input = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, type, onChange = () => {}, onEnter = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
@@ -43,6 +44,9 @@ const Input = ({ label, name, className = '', defaultValue, disabled = false, re
 				onChange={e => {
 					onChange(e.target.value, e);
 					if (field) return field.onChange(e);
+				}}
+				onKeyDownCapture={e => {
+					if (e.key === 'Enter') onEnter();
 				}}
 			/>
 			{fieldState?.error?.message && <ErrorMessage error={fieldState?.error?.message} />}
