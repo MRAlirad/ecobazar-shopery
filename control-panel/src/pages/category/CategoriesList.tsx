@@ -26,14 +26,8 @@ const CategoriesList = () => {
 
 	return (
 		<Page type="list">
-			<Breadcrumb
-				type="home"
-				breadcrumb={[{ label: 'Categories List', icon: <BiSolidCategoryAlt /> }]}
-			/>
-			<PageHeader
-				title="Categories List"
-				action={{ text: 'Add Category', to: '/category/add' }}
-			/>
+			<Breadcrumb type="home" breadcrumb={[{ label: 'Categories List', icon: <BiSolidCategoryAlt /> }]} />
+			<PageHeader title="Categories List" action={{ text: 'Add Category', to: '/category/add' }} />
 
 			<Table
 				columns={[
@@ -56,7 +50,7 @@ const CategoriesList = () => {
 										{
 											text: 'edit',
 											icon: <FaPen size={16} />,
-											className: 'hover:!bg-gray-100 !text-gray-500',
+											className: 'hover:!bg-neutral-100 !text-neutral-500',
 											to: `/category/${_id}`,
 										},
 										{

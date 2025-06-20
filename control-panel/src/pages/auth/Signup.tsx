@@ -43,39 +43,15 @@ const Signup = () => {
 	return (
 		<FormProvider {...formMethods}>
 			<Card className="w-full max-w-sm z-10">
-				<form
-					className="grid gap-4"
-					onSubmit={formMethods.handleSubmit(data => signup.mutate(data))}
-				>
+				<form className="grid gap-4" onSubmit={formMethods.handleSubmit(data => signup.mutate(data))}>
 					<h5 className="text-xl font-medium">Sign up to our platform</h5>
-					<Input
-						name="name"
-						label="Your Name"
-						placeholder="John Doe"
-					/>
-					<Input
-						name="email"
-						label="Your Email"
-						placeholder="example@gmail.com"
-					/>
-					<Input
-						name="password"
-						label="Your Password"
-						type="password"
-						placeholder="**********"
-					/>
-					<Button
-						text="sign up to your account"
-						type="submit"
-						fluid
-						loading={signup.isPending}
-					/>
-					<div className="text-sm font-medium text-gray-500">
+					<Input name="name" label="Your Name" placeholder="John Doe" />
+					<Input name="email" label="Your Email" placeholder="example@gmail.com" />
+					<Input name="password" label="Your Password" type="password" placeholder="**********" />
+					<Button text="sign up to your account" type="submit" fluid loading={signup.isPending} />
+					<div className="text-sm font-medium text-neutral-500">
 						Already registered?{' '}
-						<Link
-							to="/auth/login"
-							className="text-blue-700 hover:underline"
-						>
+						<Link to="/auth/login" className="text-blue-700 hover:underline">
 							Login to your account
 						</Link>
 					</div>

@@ -27,7 +27,7 @@ const ProductImageGallery = () => {
 			<Card title="Image Gallery">
 				<div className="grid grid-cols-4 gap-4">
 					{watch('images').map((image: string, index: number) => (
-						<div key={index} className="img-box relative bg-white border border-gray-200 rounded-lg shadow aspect-square">
+						<div key={index} className="img-box relative bg-white border border-neutral-200 rounded-lg shadow aspect-square">
 							<img src={image} alt="image" />
 							<Button
 								color="red-outline"
@@ -45,7 +45,7 @@ const ProductImageGallery = () => {
 					))}
 					<div
 						className={classNames({
-							'flex items-center justify-center text-gray-500 w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100': true,
+							'flex items-center justify-center text-neutral-500 w-full border-2 border-neutral-300 border-dashed rounded-lg cursor-pointer bg-neutral-50 hover:bg-neutral-100': true,
 							'h-64 col-span-4': watch('images').length === 0,
 							'aspect-square': watch('images').length > 0,
 							'!border-red-700 !bg-red-50 text-red-500': errors?.images && watch('images').length === 0,

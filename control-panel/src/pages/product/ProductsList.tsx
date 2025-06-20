@@ -28,14 +28,8 @@ const ProductsList = () => {
 
 	return (
 		<Page type="list">
-			<Breadcrumb
-				type="home"
-				breadcrumb={[{ label: 'Products List', icon: <FaShoppingCart /> }]}
-			/>
-			<PageHeader
-				title="Products List"
-				action={{ text: 'Add Product', to: '/product/add' }}
-			/>
+			<Breadcrumb type="home" breadcrumb={[{ label: 'Products List', icon: <FaShoppingCart /> }]} />
+			<PageHeader title="Products List" action={{ text: 'Add Product', to: '/product/add' }} />
 
 			<Table
 				columns={[
@@ -56,11 +50,7 @@ const ProductsList = () => {
 									component: (
 										<div className="flex items-center gap-2">
 											<div className="img-box size-14 aspect-square rounded">
-												<img
-													src={images[0]}
-													alt={title}
-													className="object-cover"
-												/>
+												<img src={images[0]} alt={title} className="object-cover" />
 											</div>
 											<span className="font-bold">{title}</span>
 										</div>
@@ -70,12 +60,7 @@ const ProductsList = () => {
 								{ name: 'discount', value: `%${discount}` },
 								{
 									name: 'status',
-									component: (
-										<Badge
-											color={statuses.find(s => s.value === status)?.badge ?? 'red'}
-											text={statuses.find(s => s.value === status)?.label ?? 'not defined'}
-										/>
-									),
+									component: <Badge color={statuses.find(s => s.value === status)?.badge ?? 'red'} text={statuses.find(s => s.value === status)?.label ?? 'not defined'} />,
 								},
 								{
 									name: 'action',
@@ -83,7 +68,7 @@ const ProductsList = () => {
 										{
 											text: 'edit',
 											icon: <FaPen size={16} />,
-											className: 'hover:!bg-gray-100 !text-gray-500',
+											className: 'hover:!bg-neutral-100 !text-neutral-500',
 											to: `/product/${_id}`,
 										},
 										{

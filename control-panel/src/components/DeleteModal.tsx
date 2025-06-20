@@ -30,34 +30,16 @@ const DeleteModal = ({ title, onClose, onDelete, isDeleting }: Props) => {
 			}}
 		>
 			<div className="relative bg-white p-4 w-full h-max max-w-md max-h-full rounded-lg overflow-hidden shadow">
-				<Button
-					color="simple"
-					size="icon"
-					icon={<IoClose />}
-					onClick={onClose}
-					className="absolute top-4 end-4"
-				/>
+				<Button color="simple" size="icon" icon={<IoClose />} onClick={onClose} className="absolute top-4 end-4" />
 				<div className="flex flex-col items-center gap-4 p-5 text-center">
-					<Icon
-						size="80"
-						className="text-gray-400"
-					>
+					<Icon size="80" className="text-neutral-400">
 						<PiWarningCircle />
 					</Icon>
-					<h3 className="text-xl font-normal text-gray-700">{title}</h3>
-					<p className="text-gray-500">this process can not be undone!</p>
+					<h3 className="text-xl font-normal text-neutral-700">{title}</h3>
+					<p className="text-neutral-500">this process can not be undone!</p>
 					<div className="flex items-center justify-center gap-4">
-						<Button
-							color="red-outline"
-							text="No, Cancel"
-							onClick={onClose}
-						/>
-						<Button
-							color="red"
-							text="Yes, I'm sure"
-							onClick={onDelete}
-							loading={isDeleting}
-						/>
+						<Button color="red-outline" text="No, Cancel" onClick={onClose} />
+						<Button color="red" text="Yes, I'm sure" onClick={onDelete} loading={isDeleting} />
 					</div>
 				</div>
 			</div>

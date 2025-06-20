@@ -5,7 +5,8 @@ import Icon from '../components/Icon';
 import { HiHome } from 'react-icons/hi';
 import { FaShoppingCart } from 'react-icons/fa';
 import { BiSolidCategoryAlt } from 'react-icons/bi';
-import { FaUser } from "react-icons/fa6";
+import { FaUser } from 'react-icons/fa6';
+import { HiMiniFolderOpen } from 'react-icons/hi2';
 
 const Sidebar = () => {
 	const links = [
@@ -20,6 +21,11 @@ const Sidebar = () => {
 			href: '/product',
 		},
 		{
+			label: 'Orders',
+			icon: <HiMiniFolderOpen />,
+			href: '/orders',
+		},
+		{
 			label: 'Categories',
 			icon: <BiSolidCategoryAlt />,
 			href: '/category',
@@ -32,13 +38,10 @@ const Sidebar = () => {
 	];
 
 	return (
-		<aside className="sticky top-16 grid gap-4 w-full h-[calc(100vh-64px)] bg-gray-100 shadow-xl overflow-x-hidden overflow-y-auto py-4 border-e border-gray-300">
+		<aside className="sticky top-16 grid gap-4 w-full h-[calc(100vh-64px)] bg-neutral-100 shadow-xl overflow-x-hidden overflow-y-auto py-4 border-e border-neutral-300">
 			<div className="flex flex-col">
 				{links.map(({ label, icon, href }, index) => (
-					<LinkItem
-						key={index}
-						{...{ label, icon, href }}
-					/>
+					<LinkItem key={index} {...{ label, icon, href }} />
 				))}
 			</div>
 		</aside>
@@ -60,19 +63,16 @@ const LinkItem = ({ label, href, icon }: LinkItemProps) => {
 				className={({ isActive }) =>
 					classNames({
 						'relative grid grid-cols-[max-content_1fr_max-content] items-center gap-2 text-sm py-2 px-4 duration-200': true,
-						'bg-gray-200 border-s-4 border-green-700': isActive,
+						'bg-neutral-200 border-s-4 border-green-700': isActive,
 					})
 				}
 			>
 				{({ isActive }) => (
 					<>
-						<Icon
-							size="18"
-							className={isActive ? 'text-green-700' : 'text-gray-600'}
-						>
+						<Icon size="18" className={isActive ? 'text-green-700' : 'text-neutral-600'}>
 							{icon}
 						</Icon>
-						<span className={isActive ? 'text-green-700' : 'text-gray-700'}>{label}</span>
+						<span className={isActive ? 'text-green-700' : 'text-neutral-700'}>{label}</span>
 					</>
 				)}
 			</NavLink>

@@ -5,7 +5,7 @@
 @layer components {
 	/*! GENERAL !*/
 	body {
-		@apply text-gray-900 bg-gray-100;
+		@apply text-neutral-900 bg-neutral-100;
 	}
 	.max-desktop-width {
 		@apply w-full max-w-screen-xl mx-auto px-4 md:px-10;
@@ -19,10 +19,10 @@
 		@apply relative overflow-x-auto shadow-md rounded-lg;
 	}
 	.table-wrapper table {
-		@apply w-full text-sm text-left text-gray-500;
+		@apply w-full text-sm text-left text-neutral-500;
 	}
 	.table-wrapper table thead {
-		@apply text-xs text-gray-700 uppercase bg-gray-50;
+		@apply text-xs text-neutral-700 uppercase bg-neutral-50;
 	}
 	.table-wrapper table thead th {
 		@apply px-6 py-3;
@@ -43,12 +43,12 @@
 		@apply grid gap-2 h-max;
 	}
 	.form-input label {
-		@apply text-sm text-gray-900;
+		@apply text-sm text-neutral-900;
 	}
 	.form-input input,
 	.form-input textarea,
 	.form-input select {
-		@apply text-gray-900 w-full py-1.5 px-2.5 text-sm bg-white border border-gray-500 rounded-md focus:ring-blue-500 focus:border-blue-500;
+		@apply text-neutral-900 w-full py-1.5 px-2.5 text-sm bg-white border border-neutral-500 rounded-md focus:ring-blue-500 focus:border-blue-500;
 	}
 
 	/** error **/
@@ -89,13 +89,13 @@
 	}
 
 	.btn.black {
-		@apply text-white bg-gray-800 hover:bg-gray-900;
+		@apply text-white bg-neutral-800 hover:bg-neutral-900;
 	}
 	.btn.white {
-		@apply text-gray-800 bg-white border border-gray-800 hover:border-gray-900 hover:text-gray-900;
+		@apply text-neutral-800 bg-white border border-neutral-800 hover:border-neutral-900 hover:text-neutral-900;
 	}
 	.btn.simple {
-		@apply text-gray-800 hover:text-gray-900;
+		@apply text-neutral-800 hover:text-neutral-900;
 	}
 	.btn.green {
 		@apply text-white bg-green-700 hover:bg-green-800;
@@ -140,7 +140,7 @@
 		@apply bg-blue-100 text-blue-800;
 	}
 	.badge.gray {
-		@apply bg-gray-100 text-gray-800;
+		@apply bg-neutral-100 text-neutral-800;
 	}
 	.badge.red {
 		@apply bg-red-100 text-red-800;
@@ -169,7 +169,7 @@
 
 	/*! Skeleton !*/
 	.skeleton {
-		@apply relative overflow-hidden bg-gray-200 rounded after:absolute after:top-0 after:left-0 after:h-full after:w-full after:bg-gradient-to-r after:from-gray-200 after:via-white after:to-gray-200 after:animate-progress;
+		@apply relative overflow-hidden bg-neutral-200 rounded after:absolute after:top-0 after:left-0 after:h-full after:w-full after:bg-gradient-to-r after:from-neutral-200 after:via-white after:to-neutral-200 after:animate-progress;
 	}
 }
 

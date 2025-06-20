@@ -18,13 +18,13 @@ const Table = ({ type = 'modal', columns = [], rows = [], pagination, isLoading 
 				<div className="table-wrapper overflow-x-auto">
 					<table className="w-full">
 						<thead>
-							<tr className="text-gray-600 text-xs border-b">
-								{hasRowColumn && <th className="w-[1%] bg-gray-100 p-3 text-start sticky start-0">Row</th>}
+							<tr className="text-neutral-600 text-xs border-b">
+								{hasRowColumn && <th className="w-[1%] bg-neutral-100 p-3 text-start sticky start-0">Row</th>}
 								{columns.map(({ name, label, className = '' }) => (
 									<th
 										key={name}
 										className={classNames({
-											'bg-gray-100 text-start px-6 py-3': true,
+											'bg-neutral-100 text-start px-6 py-3': true,
 											'w-[1%] p-3 sticky end-0': name === 'action',
 											[className]: className,
 										})}
@@ -41,10 +41,7 @@ const Table = ({ type = 'modal', columns = [], rows = [], pagination, isLoading 
 						) : (
 							<tbody>
 								{rows.map((row, index) => (
-									<TableRow
-										key={index}
-										{...{ index, row, hasRowColumn }}
-									/>
+									<TableRow key={index} {...{ index, row, hasRowColumn }} />
 								))}
 							</tbody>
 						)}
@@ -76,16 +73,16 @@ const TableRow = ({ row = [], index, hasRowColumn = true }: TableRowProps) => {
 	const uId = generateRandomString();
 
 	return (
-		<tr className="group relative text-xs font-bold hover:bg-gray-50 border-b last:border-0 border-gray-100 text-start">
-			{hasRowColumn && <td className="p-3 bg-white sticky start-0 group-hover:bg-gray-50">{index + 1}</td>}
+		<tr className="group relative text-xs font-bold hover:bg-neutral-50 border-b last:border-0 border-neutral-100 text-start">
+			{hasRowColumn && <td className="p-3 bg-white sticky start-0 group-hover:bg-neutral-50">{index + 1}</td>}
 			{row.map(({ name, value, component, link, className = '', actions, minWidthMax = true }) => (
 				<td
 					key={name}
 					className={classNames({
 						'px-6 py-3': true,
-						'!p-2 bg-white sticky end-0 group-hover:bg-gray-50 z-10': name === 'action',
+						'!p-2 bg-white sticky end-0 group-hover:bg-neutral-50 z-10': name === 'action',
 						'absolute inset-0 !p-0': name === 'link',
-						'absolute inset-0 bg-gray-100/60': name === 'overlay',
+						'absolute inset-0 bg-neutral-100/60': name === 'overlay',
 						[className]: className,
 					})}
 				>
@@ -95,30 +92,11 @@ const TableRow = ({ row = [], index, hasRowColumn = true }: TableRowProps) => {
 							'h-full': name === 'link',
 						})}
 					>
-						{link && (
-							<Link
-								className="block w-full h-full"
-								to={link}
-							></Link>
-						)}
+						{link && <Link className="block w-full h-full" to={link}></Link>}
 						{actions && (
 							<div className="flex items-center justify-center">
-								<Button
-									color="simple"
-									size="small"
-									className={`action-${uId} size-7 hover:bg-gray-200`}
-									icon={
-										<BsThreeDots
-											size={18}
-											className="text-gray-500"
-										/>
-									}
-								/>
-								<Popup
-									anchorSelect={`.action-${uId}`}
-									place="left"
-									className="grid p-2 min-w-40 w-max"
-								>
+								<Button color="simple" size="small" className={`action-${uId} size-7 hover:bg-neutral-200`} icon={<BsThreeDots size={18} className="text-neutral-500" />} />
+								<Popup anchorSelect={`.action-${uId}`} place="left" className="grid p-2 min-w-40 w-max">
 									{actions.map(({ text, icon, className, loading = false, to, onClick }, index) => (
 										<Button
 											key={index}

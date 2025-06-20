@@ -58,7 +58,7 @@ const Select = ({
 					{...field}
 					className={classNames({
 						'cursor-pointer': true,
-						'!text-gray-400': watch(name) === '' || isLoading,
+						'!text-neutral-400': watch(name) === '' || isLoading,
 					})}
 					defaultValue={defaultValue}
 					disabled={disabled || readOnly}
@@ -68,39 +68,25 @@ const Select = ({
 					}}
 				>
 					{isLoading ? (
-						<option
-							disabled
-							value={field.value}
-						>
+						<option disabled value={field.value}>
 							-- Loading Data --
 						</option>
 					) : options.length > 0 ? (
 						<>
 							{watch(name) === '' && (
-								<option
-									value=""
-									disabled
-								>
+								<option value="" disabled>
 									{placeholder}
 								</option>
 							)}
 							{options.length > 0 &&
 								options.map((option, index) => (
-									<option
-										key={index}
-										value={option.value}
-										className={`${option.disabled ? 'text-gray-400' : 'text-gray-900'}`}
-										disabled={option.disabled}
-									>
+									<option key={index} value={option.value} className={`${option.disabled ? 'text-neutral-400' : 'text-neutral-900'}`} disabled={option.disabled}>
 										{option.label}
 									</option>
 								))}
 						</>
 					) : (
-						<option
-							disabled
-							value=""
-						>
+						<option disabled value="">
 							-- {noOptionsMsg} --
 						</option>
 					)}
@@ -117,12 +103,7 @@ const Select = ({
 						}}
 					/>
 				)}
-				{isLoading && (
-					<Loader
-						className="absolute end-6 top-0 w-max text-borderDefault"
-						size="16"
-					/>
-				)}
+				{isLoading && <Loader className="absolute end-6 top-0 w-max text-borderDefault" size="16" />}
 			</div>
 			{fieldState?.error?.message && <ErrorMessage error={fieldState?.error?.message} />}
 		</div>

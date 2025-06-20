@@ -53,7 +53,7 @@ const CustomersList = () => {
 										{
 											text: 'edit',
 											icon: <FaPen size={16} />,
-											className: 'hover:!bg-gray-100 !text-gray-500',
+											className: 'hover:!bg-neutral-100 !text-neutral-500',
 											to: `/customer/${_id}`,
 										},
 										{

@@ -28,7 +28,7 @@ const Popup = ({ anchorSelect, children, className = '', clickable = true, offse
 			}}
 			opacity={1}
 			className={classNames({
-				'!bg-white !text-black !text-xs !shadow-lg !rounded-xl !border !border-gray-200 z-20': true,
+				'!bg-white !text-black !text-xs !shadow-lg !rounded-xl !border !border-neutral-200 z-20': true,
 				[className]: className,
 			})}
 			disableStyleInjection={true}

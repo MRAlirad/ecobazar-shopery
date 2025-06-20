@@ -66,12 +66,9 @@ export const TableSkeleton = ({ count = 7 }) => {
 				<div className="table-wrapper overflow-x-auto">
 					<table className="w-full">
 						<thead>
-							<tr className="border-b bg-gray-100">
+							<tr className="border-b bg-neutral-100">
 								{numListArray(count).map(c => (
-									<th
-										key={c}
-										className="p-3"
-									>
+									<th key={c} className="p-3">
 										<div className="skeleton h-3"></div>
 									</th>
 								))}
@@ -90,15 +87,9 @@ export const TableBodySkeleton = ({ count = 7 }) => {
 	return (
 		<tbody>
 			{numListArray(count).map(r => (
-				<tr
-					key={r}
-					className="border-b last:border-0 border-gray-100"
-				>
+				<tr key={r} className="border-b last:border-0 border-neutral-100">
 					{numListArray(count).map(r => (
-						<td
-							key={r}
-							className="p-3"
-						>
+						<td key={r} className="p-3">
 							<div className="skeleton h-3"></div>
 						</td>
 					))}
@@ -124,10 +115,7 @@ export const PaginationSkeleton = () => {
 	return (
 		<div className="flex items-ceter gap-1 justify-self-center">
 			{numListArray(6).map(n => (
-				<div
-					key={n}
-					className="skeleton size-6"
-				></div>
+				<div key={n} className="skeleton size-6"></div>
 			))}
 		</div>
 	);
