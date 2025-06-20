@@ -23,7 +23,7 @@ const Sidebar = () => {
 		{
 			label: 'Orders',
 			icon: <HiMiniFolderOpen />,
-			href: '/orders',
+			href: '/order',
 		},
 		{
 			label: 'Categories',

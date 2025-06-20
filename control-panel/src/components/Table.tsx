@@ -123,7 +123,7 @@ const TableRow = ({ row = [], index, hasRowColumn = true }: TableRowProps) => {
 };
 
 const EmptySearchBox = () => {
-	const [, setSearchParams] = useSearchParams();
+	// const [, setSearchParams] = useSearchParams();
 
 	return (
 		<tbody>
@@ -131,12 +131,12 @@ const EmptySearchBox = () => {
 				<td colSpan={15}>
 					<EmptyBox
 						text="Change filters"
-						action={{
-							text: 'Reset Filters',
-							onClick: () => {
-								setSearchParams({});
-							},
-						}}
+						// action={{
+						// 	text: 'Reset Filters',
+						// 	onClick: () => {
+						// 		setSearchParams({});
+						// 	},
+						// }}
 					/>
 				</td>
 			</tr>
