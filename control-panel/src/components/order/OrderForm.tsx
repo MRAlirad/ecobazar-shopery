@@ -1,25 +1,20 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import Card from '../Card';
-import Input from '../Input';
-import Table from '../Table';
+import OrderProducts from './OrderProducts';
+import OrderPayment from './OrderPayment';
 
 const OrderForm = () => {
-
-	const formMethods = useForm();
+	const formMethods = useForm({
+		defaultValues: {
+			products: [],
+		},
+	});
 
 	return (
 		<FormProvider {...formMethods}>
 			<form className="grid grid-cols-[2fr_1fr]">
 				<div className="grid gap-4">
-					<Card>
-						<Table
-							columns={[
-								{ name: 'product', label: 'ProductName' },
-								{ name: 'count', label: 'Count' },
-								{ name: 'action', label: '' },
-							]}
-						/>
-					</Card>
+					<OrderProducts />
+					<OrderPayment />
 				</div>
 			</form>
 		</FormProvider>

@@ -4,7 +4,7 @@ import { ChangeEvent } from 'react';
 import ErrorMessage from './ErrorMessage';
 
 interface Props {
-	label: string;
+	label?: string;
 	name: string;
 	disabled?: boolean;
 	readOnly?: boolean;
@@ -12,11 +12,12 @@ interface Props {
 	defaultValue?: string;
 	placeholder?: string;
 	type?: string;
+	min?: number;
 	onChange?: (value: string, e: ChangeEvent<HTMLInputElement>) => void;
 	onEnter?: () => void;
 }
 
-const Input = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, type, onChange = () => {}, onEnter = () => {} }: Props) => {
+const Input = ({ label, name, className = '', defaultValue, disabled = false, readOnly = false, placeholder, type, min = 0, onChange = () => {}, onEnter = () => {} }: Props) => {
 	const { control } = useFormContext();
 	const { field, fieldState } = useController({
 		control,
@@ -35,12 +36,13 @@ const Input = ({ label, name, className = '', defaultValue, disabled = false, re
 				[className]: className,
 			})}
 		>
-			<label>{label}</label>
+			{label && <label>{label}</label>}
 			<input
 				{...field}
 				disabled={disabled || readOnly}
 				type={type}
 				placeholder={placeholder}
+				min={min}
 				onChange={e => {
 					onChange(e.target.value, e);
 					if (field) return field.onChange(e);
