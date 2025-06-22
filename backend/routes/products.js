@@ -6,7 +6,7 @@ const { Product, validateProduct } = require('../models/product');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-		if (req.query.display === 'all') {
+	if (req.query.display === 'all') {
 		const data = await Product.find().sort('-_id');
 		res.send({ data });
 	}

@@ -15,3 +15,26 @@ export const statuses: { value: number; label: string; badge: 'green' | 'red' | 
 		badge: 'gray',
 	},
 ];
+
+export const orderStatuses: { value: string; label: string; badge: string }[] = [
+	{
+		value: 'pending',
+		label: 'Pending',
+		badge: 'blue',
+	},
+	{
+		value: 'sending',
+		label: 'Sending',
+		badge: 'yellow',
+	},
+	{
+		value: 'finish',
+		label: 'Finished',
+		badge: 'green',
+	},
+	{
+		value: 'cancel',
+		label: 'Canceled',
+		badge: 'red',
+	},
+];

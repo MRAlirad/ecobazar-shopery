@@ -79,7 +79,7 @@ const CategoriesList = () => {
 
 					return rows;
 				})()}
-				isLoading={isCategoriesLoding}
+				loading={isCategoriesLoding}
 				pagination={{
 					currentPage: +(searchParams.get('page') ?? '1'),
 					totalPages: categories?.totalPages || 1,

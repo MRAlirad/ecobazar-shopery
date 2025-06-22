@@ -36,7 +36,7 @@ const Textarea = ({ label, name, className = '', defaultValue, disabled = false,
 			<textarea
 				{...field}
 				disabled={disabled || readOnly}
-				className="min-h-64"
+				className="min-h-32"
 				placeholder={placeholder}
 				onChange={e => {
 					onChange(e.target.value);

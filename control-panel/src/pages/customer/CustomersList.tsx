@@ -82,7 +82,7 @@ const CustomersList = () => {
 
 					return rows;
 				})()}
-				isLoading={isCustomersloading}
+				loading={isCustomersloading}
 				pagination={{
 					currentPage: +(searchParams.get('page') ?? '1'),
 					totalPages: customers?.totalPages || 1,

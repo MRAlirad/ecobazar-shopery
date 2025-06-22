@@ -10,8 +10,8 @@ const ProductCategory = () => {
 			<Select
 				name="category"
 				label="Cateogry"
-				isLoading={isLoading}
-				isClearable
+				loading={isLoading}
+				clearable
 				options={categories ? categories.data.map(category => ({ label: category.title, value: category._id || '' })) : []}
 			/>
 		</Card>

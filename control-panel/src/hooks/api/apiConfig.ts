@@ -9,7 +9,11 @@ const apiConfig = {
 	},
 	customer: {
 		queryKey: 'customer',
-		path: '/customers'
+		path: '/customers',
+	},
+	order: {
+		queryKey: 'order',
+		path: '/orders',
 	},
 	user: {
 		signup: {
@@ -22,8 +26,8 @@ const apiConfig = {
 		},
 		info: {
 			queryKey: 'user-info',
-			path : '/users/me',
-		}
+			path: '/users/me',
+		},
 	},
 };
 

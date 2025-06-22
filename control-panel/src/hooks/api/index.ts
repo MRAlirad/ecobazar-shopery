@@ -19,6 +19,9 @@ export { default as useAddCustomer } from './customer/useAddCustomer';
 export { default as useEditCustomer } from './customer/useEditCustomer';
 export { default as useDeleteCustomer } from './customer/useDeleteCustomer';
 
+//! Order
+export { default as useGetOrdersList } from './order/useGetOrdersList';
+
 //! User
 export { default as useUserSignup } from './auth/useUserSignup';
 export { default as useGetUserInfo } from './user/useGetUserInfo';

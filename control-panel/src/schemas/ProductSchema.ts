@@ -1,4 +1,5 @@
 import CategorySchema from './categorySchema';
+
 export default interface ProductSchema {
 	_id: string;
 	title: string;

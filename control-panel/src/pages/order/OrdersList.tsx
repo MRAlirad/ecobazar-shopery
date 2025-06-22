@@ -4,15 +4,16 @@ import PageHeader from '../../components/PageHeader';
 import { HiMiniFolderOpen } from 'react-icons/hi2';
 import Table from '../../components/Table';
 import { FaTrash, FaPen } from 'react-icons/fa';
-import { numberToCurrency } from '../../helpers/Number';
+// import { numberToCurrency } from '../../helpers/Number';
 import Badge from '../../components/Badge';
+import { useGetOrdersList } from '../../hooks/api';
+import { ListSkeleton } from '../../components/Skeletons';
 
 const OrdersList = () => {
-	const orders = [
-		{ _id: 1, date: `2/13/2`, customer: 'Mohammadreza Alirad', status: 'Pending', totalPrice: '872453874' },
-		{ _id: 2, date: `2/13/2`, customer: 'Mohammadreza Alirad', status: 'Pending', totalPrice: '872453874' },
-		{ _id: 3, date: `2/13/2`, customer: 'Mohammadreza Alirad', status: 'Pending', totalPrice: '872453874' },
-	];
+	const { data: orders, isLoading: isOrdersLoading } = useGetOrdersList();
+
+	if (isOrdersLoading) return <ListSkeleton />;
+
 	return (
 		<Page type="list">
 			<Breadcrumb type="home" breadcrumb={[{ label: 'Orders List', icon: <HiMiniFolderOpen /> }]} />
@@ -31,16 +32,16 @@ const OrdersList = () => {
 				rows={(() => {
 					const rows = [];
 					if (orders)
-						for (const { _id, date, customer, status, totalPrice } of orders) {
+						for (const { _id, customer, status } of orders.data) {
 							rows.push([
 								{
 									name: 'order',
 									value: `# O ${_id}`,
 								},
-								{
-									name: 'date',
-									value: date,
-								},
+								// {
+								// 	name: 'date',
+								// 	value: date,
+								// },
 								{
 									name: 'customer',
 									value: customer,
@@ -49,10 +50,10 @@ const OrdersList = () => {
 									name: 'status',
 									component: <Badge text={status} color="blue" />,
 								},
-								{
-									name: 'total',
-									value: `$${numberToCurrency(+totalPrice)}`,
-								},
+								// {
+								// 	name: 'total',
+								// 	value: `$${numberToCurrency(+totalPrice)}`,
+								// },
 								{
 									name: 'action',
 									actions: [

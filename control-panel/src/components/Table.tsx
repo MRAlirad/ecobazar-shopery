@@ -9,7 +9,7 @@ import { TableBodySkeleton } from './Skeletons';
 import { BsThreeDots } from 'react-icons/bs';
 import Popup from './Popup';
 
-const Table = ({ type = 'modal', columns = [], rows = [], pagination, isLoading = false, hasRowColumn = true }: TableProps) => {
+const Table = ({ type = 'modal', columns = [], rows = [], pagination, loading = false, hasRowColumn = true }: TableProps) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	return (
@@ -34,7 +34,7 @@ const Table = ({ type = 'modal', columns = [], rows = [], pagination, isLoading 
 								))}
 							</tr>
 						</thead>
-						{isLoading ? (
+						{loading ? (
 							<TableBodySkeleton count={columns.length + 1} />
 						) : rows.length === 0 ? (
 							<EmptySearchBox />
@@ -157,7 +157,7 @@ interface TableProps {
 		totalPages: number;
 		onChangePage?: (page: number) => void;
 	};
-	isLoading?: boolean;
+	loading?: boolean;
 	hasRowColumn?: boolean;
 }
 

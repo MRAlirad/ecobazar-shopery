@@ -12,7 +12,7 @@ import classNames from 'classnames';
 const ProductsListModal = ({ selectedProductIds = [], onAdd, onClose }: ProductsListModalProps) => {
 	const [selectedProducts, setSelectedProducts] = useState<ProductSchema[]>([]);
 
-	const { data: productsList, isLoading: isProductsListLoading, error: productsError } = useGetProductsList({ params: '' });
+	const { data: productsList, isLoading: isProductsListLoading, error: productsError } = useGetProductsList({});
 
 	return (
 		<Modal
@@ -88,6 +88,7 @@ const ProductItem = ({
 			key={_id}
 			className={classNames({
 				'grid grid-cols-[1fr_max-content] items-center gap-2 px-4 py-1 border-b select-none': true,
+				'cursor-pointer': !isInSelectedProductIds(),
 				'opacity-50': isInSelectedProductIds(),
 			})}
 			onClick={() => {

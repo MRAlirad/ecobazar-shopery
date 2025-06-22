@@ -219,7 +219,7 @@ export default OrderPayment;
 // 						label={discountCodeDropdown}
 // 						options={discountsList?.map(({ code, title, id }) => ({ label: code ?? title, value: id }))}
 // 						isLoading={isDiscountsListLoading}
-// 						isClearable
+// 						clearable
 // 						disabled={watch('eligibleDisconts')}
 // 						error={discountError?.message || discountsList?.errors}
 // 					/>
@@ -334,7 +334,6 @@ export default OrderPayment;
 // 		</Modal>
 // 	);
 // };
-
 
 const calculateProductsCount = (products: [{ quantity: number }]) => {
 	return products.reduce((acc, product) => +product.quantity + acc, 0);

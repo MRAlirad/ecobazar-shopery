@@ -97,7 +97,7 @@ const ProductsList = () => {
 
 					return rows;
 				})()}
-				isLoading={isProductLoading}
+				loading={isProductLoading}
 				pagination={{
 					currentPage: +(searchParams.get('page') ?? '1'),
 					totalPages: products?.totalPages || 1,

@@ -4,7 +4,7 @@ import CustomerSchema from '../../../schemas/customerSchema';
 
 const useGetCustomer = (id: string) => {
 	const { path, queryKey } = apiConfig.customer;
-	return useGetDetails<CustomerSchema>({ path, queryKey, id });
+	return useGetDetails<CustomerSchema>({ path, queryKey, id, enabled: !!id });
 };
 
 export default useGetCustomer;

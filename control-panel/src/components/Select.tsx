@@ -6,10 +6,10 @@ import { IoIosClose } from 'react-icons/io';
 import ErrorMessage from './ErrorMessage';
 
 interface Props {
-	label: string;
+	label?: string;
 	name: string;
-	isClearable?: boolean;
-	isLoading?: boolean;
+	clearable?: boolean;
+	loading?: boolean;
 	disabled?: boolean;
 	readOnly?: boolean;
 	className?: string;
@@ -25,8 +25,8 @@ const Select = ({
 	name,
 	className = '',
 	defaultValue,
-	isClearable = false,
-	isLoading = false,
+	clearable = false,
+	loading = false,
 	disabled = false,
 	readOnly = false,
 	placeholder = 'select one item',
@@ -52,13 +52,13 @@ const Select = ({
 				[className]: className,
 			})}
 		>
-			<label>{label}</label>
+			{label && <label>{label}</label>}
 			<div className="relative">
 				<select
 					{...field}
 					className={classNames({
 						'cursor-pointer': true,
-						'!text-neutral-400': watch(name) === '' || isLoading,
+						'!text-neutral-400': watch(name) === '' || loading,
 					})}
 					defaultValue={defaultValue}
 					disabled={disabled || readOnly}
@@ -67,7 +67,7 @@ const Select = ({
 						if (field) return field.onChange(e);
 					}}
 				>
-					{isLoading ? (
+					{loading ? (
 						<option disabled value={field.value}>
 							-- Loading Data --
 						</option>
@@ -91,7 +91,7 @@ const Select = ({
 						</option>
 					)}
 				</select>
-				{watch(name) !== '' && isClearable && (
+				{watch(name) !== '' && clearable && (
 					<Button
 						color="simple"
 						icon={<IoIosClose />}
@@ -103,7 +103,7 @@ const Select = ({
 						}}
 					/>
 				)}
-				{isLoading && <Loader className="absolute end-6 top-0 w-max text-borderDefault" size="16" />}
+				{loading && <Loader className="absolute end-6 top-0 w-max text-borderDefault" size="16" />}
 			</div>
 			{fieldState?.error?.message && <ErrorMessage error={fieldState?.error?.message} />}
 		</div>

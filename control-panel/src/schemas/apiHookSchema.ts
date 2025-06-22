@@ -59,6 +59,7 @@ export interface DeleteProps<T> {
 export interface GetDetailsHookProps {
 	id: string;
 	path: string;
+	enabled?: boolean;
 	queryKey: string;
 }
 export interface GetHookProps {

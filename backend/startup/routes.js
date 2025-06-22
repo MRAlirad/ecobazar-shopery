@@ -4,6 +4,7 @@ const categories = require('../routes/categories');
 const customers = require('../routes/customers');
 const users = require('../routes/users');
 const auth = require('../routes/auth');
+const orders = require('../routes/orders');
 const cors = require('cors');
 const error = require('../middleware/error');
 
@@ -15,6 +16,7 @@ module.exports = function (app) {
 	app.use('/api/users', users);
 	app.use('/api/auth', auth);
 	app.use('/api/customers', customers);
+	app.use('/api/orders', orders);
 
 	app.use(error);
 };
